@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fido2" Version="3.0.1" />
+    <PackageReference Include="Fido2.AspNet" Version="3.0.1" />
+    <PackageReference Include="Umbraco.Cms.Core" Version="10.3.2" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.3.2" />
+    <PackageReference Include="Umbraco.Cms.Web.Common" Version="10.3.2" />
+  </ItemGroup>
+
+</Project>
