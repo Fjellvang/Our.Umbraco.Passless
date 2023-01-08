@@ -5,6 +5,7 @@ using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Hosting;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
 using Umbraco.Extensions;
+using UmbracoFidoLoginCore.Endpoints.Assertions;
 using UmbracoFidoLoginCore.Endpoints.Credentials;
 
 namespace UmbracoFidoLoginCore.Endpoints
@@ -35,6 +36,18 @@ namespace UmbracoFidoLoginCore.Endpoints
                         app.UseEndpoints(endpoints =>
                         {
                             endpoints.MapUmbracoRoute<CredentialsOptionsController>(
+                                $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                                UmbracoFidoConstants.AreaName,
+                                UmbracoFidoConstants.AreaName);
+                            endpoints.MapUmbracoRoute<MakeCredentialsController>(
+                                $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                                UmbracoFidoConstants.AreaName,
+                                UmbracoFidoConstants.AreaName);
+                            endpoints.MapUmbracoRoute<AssertionOptionsController>(
+                                $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                                UmbracoFidoConstants.AreaName,
+                                UmbracoFidoConstants.AreaName);
+                            endpoints.MapUmbracoRoute<MakeAssertionController>(
                                 $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
                                 UmbracoFidoConstants.AreaName,
                                 UmbracoFidoConstants.AreaName);

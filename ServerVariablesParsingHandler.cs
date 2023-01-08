@@ -2,6 +2,7 @@
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Extensions;
+using UmbracoFidoLoginCore.Endpoints.Assertions;
 using UmbracoFidoLoginCore.Endpoints.Credentials;
 
 namespace UmbracoFidoLoginCore
@@ -19,12 +20,31 @@ namespace UmbracoFidoLoginCore
             var credentialsOptionsUrl = linkGenerator.GetUmbracoControllerUrl(
                 nameof(CredentialsOptionsController.Index),
                 typeof(CredentialsOptionsController),
-                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName, ["id"] = "credentialsOptions" });
+                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName});
+
+            var makeCredentialsUrl = linkGenerator.GetUmbracoControllerUrl(
+                nameof(MakeCredentialsController.Index),
+                typeof(MakeCredentialsController),
+                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName});
+
+            var assertionOptionsUrl = linkGenerator.GetUmbracoControllerUrl(
+                nameof(AssertionOptionsController.Index),
+                typeof(AssertionOptionsController),
+                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName});
+
+            var makeAssertionUrl = linkGenerator.GetUmbracoControllerUrl(
+                nameof(MakeAssertionController.Index),
+                typeof(MakeAssertionController),
+                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName});
+
             var fidoLogin = new Dictionary<string, object>()
             {
                 ["urls"] = new Dictionary<string, object>()
                 {
-                    ["credentialsOptions"] = credentialsOptionsUrl ?? throw new InvalidOperationException("Credentials options url not found!")
+                    ["credentialsOptions"] = credentialsOptionsUrl ?? throw new InvalidOperationException("Credentials options url not found!"),
+                    ["makeCredentials"] = makeCredentialsUrl ?? throw new InvalidOperationException("Make credentials url not found!"),
+                    ["assertionOptions"] = assertionOptionsUrl ?? throw new InvalidOperationException("Assertion options url not found!"),
+                    ["makeAssertion"] = makeAssertionUrl ?? throw new InvalidOperationException("Make assertion url not found!")
                 }
             };
 

@@ -1,9 +1,7 @@
 ﻿using Fido2NetLib;
-using Fido2NetLib.Development;
 using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
-using Umbraco.Cms.Core.Models.Membership;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
