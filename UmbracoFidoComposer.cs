@@ -6,6 +6,7 @@ using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.Services;
 using UmbracoFidoLoginCore.Endpoints;
+using UmbracoFidoLoginCore.Persistance;
 
 namespace UmbracoFidoLoginCore;
 
@@ -38,6 +39,10 @@ public class UmbracoFidoComposer : IComposer
 
             options.Cookie.SameSite = SameSiteMode.Unspecified;
         });
+
+
+        //TODO: Refactor so we don't force users to use the umbraco DB
+        builder.AddComponent<MigrationsComponent>();
 
         builder.AddFidoBackofficeAuthentication();
     }
