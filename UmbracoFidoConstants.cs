@@ -30,7 +30,7 @@ public static class IdExtensions
                         );
 
                 }, options => {
-                    options.CustomBackOfficeView = "~/App_Plugins/UmbracoFido/BackOffice/htmlpage.html";
+                    options.CustomBackOfficeView = "~/App_Plugins/UmbracoFido/BackOffice/custom-login.html";
                     options.AutoLinkOptions.OnExternalLogin = (user, loginInfo) => {
                         return true;
                     };
