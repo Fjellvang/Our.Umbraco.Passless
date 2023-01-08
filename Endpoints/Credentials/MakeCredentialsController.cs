@@ -37,7 +37,9 @@ public class MakeCredentialsController : UmbracoAuthorizedController
             // 3. make the credentials
             var success = await fido2.MakeNewCredentialAsync(attestationResponse, options, isUniqueCallback, cancellationToken: cancellationToken);
 
-            // 4. TODO: Add the credentials to the user.
+            // 4. TODO: Add the credentials to the user. in the database.
+        
+
             return new JsonResult(success);
         }
         catch (Exception)

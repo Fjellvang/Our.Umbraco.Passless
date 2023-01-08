@@ -1,5 +1,6 @@
 ﻿using Fido2NetLib;
 using Fido2NetLib.Objects;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using Umbraco.Cms.Web.BackOffice.Filters;
@@ -54,6 +55,9 @@ public class CredentialsOptionsController : UmbracoAuthorizedController
         };
 
         var options = fido2.RequestNewCredential(user, existingKeys, authenticatorSelection, AttestationConveyancePreference.None, exts);
+
+        // 4. Temporarily store options, session/in-memory cache/redis/db
+        HttpContext.Session.SetString("fido2.attestationOptions", options.ToJson());
 
         return new JsonResult(options);
     }

@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
+using Umbraco.Cms.Core.Services;
 using UmbracoFidoLoginCore.Endpoints;
 
 namespace UmbracoFidoLoginCore;
@@ -25,6 +27,16 @@ public class UmbracoFidoComposer : IComposer
             options.Origins = builder.Config.GetSection("fido2:origins").Get<HashSet<string>>();
             options.TimestampDriftTolerance = builder.Config.GetValue<int>("fido2:timestampDriftTolerance");
             options.MDSCacheDirPath = builder.Config["fido2:MDSCacheDirPath"];
+        });
+
+        //TODO: Refactor this - we don't want people forced into using the session
+        builder.Services.AddSession(options =>
+        {
+            // Set a short timeout for easy testing.
+            options.IdleTimeout = TimeSpan.FromMinutes(2);
+            options.Cookie.HttpOnly = true;
+
+            options.Cookie.SameSite = SameSiteMode.Unspecified;
         });
 
         builder.AddFidoBackofficeAuthentication();
