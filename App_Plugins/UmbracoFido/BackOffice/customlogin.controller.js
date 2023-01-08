@@ -21,30 +21,30 @@
             });
         }
 
-        function submitRegisterFidoForm(e) {
+        async function submitRegisterFidoForm(e) {
             e.preventDefault();
-            fetch(vm.fidoRegisterEndpoint)
-                .then(x => x.json())
-                .then(makeCredentialOptions => {
-                    // Turn the challenge back into the accepted format of padded base64
-                    makeCredentialOptions.challenge = coerceToArrayBuffer(makeCredentialOptions.challenge);
-                    // Turn ID into a UInt8Array Buffer for some reason
-                    makeCredentialOptions.user.id = coerceToArrayBuffer(makeCredentialOptions.user.id);
+            const response = await fetch(vm.fidoRegisterEndpoint);
+            let makeCredentialOptions = await response.json();
 
-                    makeCredentialOptions.excludeCredentials = makeCredentialOptions.excludeCredentials.map((c) => {
-                        c.id = coerceToArrayBuffer(c.id);
-                        return c;
-                    });
+            // Turn the challenge back into the accepted format of padded base64
+            makeCredentialOptions.challenge = coerceToArrayBuffer(makeCredentialOptions.challenge);
+            // Turn ID into a UInt8Array Buffer for some reason
+            makeCredentialOptions.user.id = coerceToArrayBuffer(makeCredentialOptions.user.id);
 
-                    if (makeCredentialOptions.authenticatorSelection.authenticatorAttachment === null) makeCredentialOptions.authenticatorSelection.authenticatorAttachment = undefined;
+            makeCredentialOptions.excludeCredentials = makeCredentialOptions.excludeCredentials.map((c) => {
+                c.id = coerceToArrayBuffer(c.id);
+                return c;
+            });
 
-                    navigator.credentials.create({
-                        publicKey: makeCredentialOptions
-                    }).then((success) => {
-                        console.log("sucess");
-                        console.log(success);
-                    });
-                });
+            if (makeCredentialOptions.authenticatorSelection.authenticatorAttachment === null) makeCredentialOptions.authenticatorSelection.authenticatorAttachment = undefined;
+
+            const newCredential = await navigator.credentials.create({
+                publicKey: makeCredentialOptions
+            });
+
+            console.log("success");
+
+            console.log(newCredential);
         }
 
         init();
