@@ -7,6 +7,7 @@ using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.Services;
 using UmbracoFidoLogin.Endpoints;
 using UmbracoFidoLogin.Persistence;
+using UmbracoFidoLoginCore.Persistance;
 
 namespace UmbracoFidoLogin;
 
@@ -43,6 +44,8 @@ public class UmbracoFidoComposer : IComposer
 
         //TODO: Refactor so we don't force users to use the umbraco DB
         builder.AddComponent<MigrationsComponent>();
+
+        builder.Services.AddTransient<IFidoCredentialRepository, FidoCredentialRepository>();
 
         builder.AddFidoBackofficeAuthentication();
     }
