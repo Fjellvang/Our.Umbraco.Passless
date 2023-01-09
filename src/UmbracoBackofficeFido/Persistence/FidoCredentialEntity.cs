@@ -20,7 +20,7 @@ namespace UmbracoFidoLogin.Persistence
         [Column("userHandle")]
         public byte[] UserHandle { get; set; }
         [Column("signatureCounter")]
-        public uint SignatureCounter { get; set; }
+        public long SignatureCounter { get; set; }
         [Column("credType")]
         public string CredType { get; set; }
         [Column("regDate")]

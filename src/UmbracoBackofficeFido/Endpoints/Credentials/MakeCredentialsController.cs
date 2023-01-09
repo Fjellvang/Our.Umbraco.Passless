@@ -2,6 +2,7 @@
 using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Core.Scoping;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
@@ -16,11 +17,13 @@ public class MakeCredentialsController : UmbracoAuthorizedController
 {
     private readonly IFido2 fido2;
     private readonly IFidoCredentialRepository fidoCredentialRepository;
+    private readonly ICoreScopeProvider scopeProvider;
 
-    public MakeCredentialsController(IFido2 fido2, IFidoCredentialRepository fidoCredentialRepository)
+    public MakeCredentialsController(IFido2 fido2, IFidoCredentialRepository fidoCredentialRepository, ICoreScopeProvider scopeProvider)
     {
         this.fido2 = fido2;
         this.fidoCredentialRepository = fidoCredentialRepository;
+        this.scopeProvider = scopeProvider;
     }
 
     [HttpPost]
@@ -43,8 +46,10 @@ public class MakeCredentialsController : UmbracoAuthorizedController
 
             // 4. TODO: Add the credentials to the user. in the database.
             // TODO: DO not use repository directly. Add service and mapping
+            using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
             await fidoCredentialRepository.UpsertAsync(new Persistence.FidoCredentialEntity()
             {
+                UserId = options.User.Id,
                 Descriptor = success.Result.CredentialId,
                 PublicKey = success.Result.PublicKey,
                 UserHandle = success.Result.User.Id,
