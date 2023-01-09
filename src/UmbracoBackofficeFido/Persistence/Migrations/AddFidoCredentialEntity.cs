@@ -19,6 +19,11 @@ namespace UmbracoFidoLogin.Persistence.Migrations
 
             Create.Table<FidoCredentialEntity>().Do();
 
+            if (DatabaseType is NPoco.DatabaseTypes.SQLiteDatabaseType)
+            {
+                return; // SQLite doesnt support the clustered index. So lets return. 
+            }
+
             //Since we're having a Guid as PK lets setup the clustered index https://stackoverflow.com/questions/11938044/what-are-the-best-practices-for-using-a-guid-as-a-primary-key-specifically-rega
             var sql = Sql(
                 @"ALTER TABLE fidoCredential
