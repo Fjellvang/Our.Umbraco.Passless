@@ -1,0 +1,6 @@
+﻿{
+    "javascript": [
+        "~/App_Plugins/UmbracoFido/BackOffice/customlogin.controller.js",
+        "~/App_Plugins/UmbracoFido/BackOffice/helpers.js"
+    ]
+}
