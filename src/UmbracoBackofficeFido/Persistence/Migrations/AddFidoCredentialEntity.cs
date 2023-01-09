@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Infrastructure.Migrations;
 
-namespace UmbracoFidoLogin.Persistance.Migrations
+namespace UmbracoFidoLogin.Persistence.Migrations
 {
     public class AddFidoCredentialEntity : MigrationBase
     {
@@ -18,6 +18,16 @@ namespace UmbracoFidoLogin.Persistance.Migrations
             }
 
             Create.Table<FidoCredentialEntity>().Do();
+
+            //Since we're having a Guid as PK lets setup the clustered index https://stackoverflow.com/questions/11938044/what-are-the-best-practices-for-using-a-guid-as-a-primary-key-specifically-rega
+            var sql = Sql(
+                @"ALTER TABLE fidoCredential
+ADD
+    rowkey int identity(1,1);
+CREATE UNIQUE CLUSTERED INDEX CIX_RowKey on fidoCredential(rowkey);
+");
+
+            Database.Execute(sql);
         }
     }
 }

@@ -5,9 +5,9 @@ using Umbraco.Cms.Core.Scoping;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Infrastructure.Migrations;
 using Umbraco.Cms.Infrastructure.Migrations.Upgrade;
-using UmbracoFidoLogin.Persistance.Migrations;
+using UmbracoFidoLogin.Persistence.Migrations;
 
-namespace UmbracoFidoLogin.Persistance
+namespace UmbracoFidoLogin.Persistence
 {
     public class MigrationsComponent : IComponent
     {

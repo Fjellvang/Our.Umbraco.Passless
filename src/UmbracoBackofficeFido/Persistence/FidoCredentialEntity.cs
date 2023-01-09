@@ -2,7 +2,7 @@
 using NPoco;
 using Umbraco.Cms.Infrastructure.Persistence.DatabaseAnnotations;
 
-namespace UmbracoFidoLogin.Persistance
+namespace UmbracoFidoLogin.Persistence
 {
     [TableName("fidoCredential")]
     [PrimaryKey(nameof(Id), AutoIncrement = false)]
@@ -11,11 +11,6 @@ namespace UmbracoFidoLogin.Persistance
         [Column("id")]
         [PrimaryKeyColumn(AutoIncrement = false, Clustered = false)]
         public Guid Id { get; set; }
-
-        [Column("rowKey")]
-        [Index(IndexTypes.Clustered, Name = "IX_fidoCredential_rowKey", ForColumns = "rowKey")]
-        public int RowKey { get; set; } // The clustered index since we're using non-clustered PK
-
         [Column("userId")]
         public byte[] UserId { get; set; }
         [Column("descriptor")]
