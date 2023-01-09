@@ -3,3 +3,4 @@ obj/
 .vs/
 src/UmbracoBackofficeFido.TestSite/App_Plugins/
 src/UmbracoBackofficeFido.TestSite/umbraco/Data/
+src/UmbracoBackofficeFido.TestSite/umbraco/Logs/
