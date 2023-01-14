@@ -6,7 +6,7 @@ using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 
-namespace UmbracoFidoLogin.Endpoints.Assertions
+namespace UmbracoFidoLogin.Assertions.Endpoints
 {
     [UmbracoRequireHttps]
     [DisableBrowserCache]

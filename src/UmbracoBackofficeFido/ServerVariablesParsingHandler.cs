@@ -2,8 +2,8 @@
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Extensions;
-using UmbracoFidoLogin.Endpoints.Assertions;
-using UmbracoFidoLogin.Endpoints.Credentials;
+using UmbracoFidoLogin.Assertions.Endpoints;
+using UmbracoFidoLogin.Credentials.Endpoints;
 
 namespace UmbracoFidoLogin
 {

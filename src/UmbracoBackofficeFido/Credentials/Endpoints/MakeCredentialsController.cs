@@ -2,13 +2,12 @@
 using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Core.Scoping;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
-using UmbracoFidoLoginCore.Persistance;
+using UmbracoFidoLogin.Credentials.Services;
 
-namespace UmbracoFidoLogin.Endpoints.Credentials;
+namespace UmbracoFidoLogin.Credentials.Endpoints;
 
 [UmbracoRequireHttps]
 [DisableBrowserCache]
@@ -16,14 +15,12 @@ namespace UmbracoFidoLogin.Endpoints.Credentials;
 public class MakeCredentialsController : UmbracoAuthorizedController
 {
     private readonly IFido2 fido2;
-    private readonly IFidoCredentialRepository fidoCredentialRepository;
-    private readonly ICoreScopeProvider scopeProvider;
+    private readonly ICredentialsService credentialsService;
 
-    public MakeCredentialsController(IFido2 fido2, IFidoCredentialRepository fidoCredentialRepository, ICoreScopeProvider scopeProvider)
+    public MakeCredentialsController(IFido2 fido2, ICredentialsService credentialsService)
     {
         this.fido2 = fido2;
-        this.fidoCredentialRepository = fidoCredentialRepository;
-        this.scopeProvider = scopeProvider;
+        this.credentialsService = credentialsService;
     }
 
     [HttpPost]
@@ -36,21 +33,25 @@ public class MakeCredentialsController : UmbracoAuthorizedController
             var options = CredentialCreateOptions.FromJson(jsonOptions);
 
             // 2. Make is unique callback
-            IsCredentialIdUniqueToUserAsyncDelegate isUniqueCallback = static async (args, cancellationToken) =>
+            IsCredentialIdUniqueToUserAsyncDelegate isUniqueCallback = async (args, cancellationToken) =>
             {
-                return true; // TODO: Integrate with Database when we have migrations etc setup
+                var users = await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(args.CredentialId), cancellationToken); //TODO: Take a look again, do we want to new up a descriptor ???
+                return !(users.Count > 0);
             };
 
             // 3. make the credentials
             var success = await fido2.MakeNewCredentialAsync(attestationResponse, options, isUniqueCallback, cancellationToken: cancellationToken);
 
-            // 4. TODO: Add the credentials to the user. in the database.
-            // TODO: DO not use repository directly. Add service and mapping
-            using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
-            await fidoCredentialRepository.UpsertAsync(new Persistence.FidoCredentialEntity()
+            if (success.Result is null)
+            {
+                throw new InvalidOperationException("Unexpected, credentials result is null");
+            }
+
+            // 4. Add the credentials to the user. in the database.
+            await credentialsService.AddCredential(new Fido2NetLib.Development.StoredCredential()
             {
                 UserId = options.User.Id,
-                Descriptor = success.Result.CredentialId,
+                Descriptor = new PublicKeyCredentialDescriptor(success.Result.CredentialId),
                 PublicKey = success.Result.PublicKey,
                 UserHandle = success.Result.User.Id,
                 SignatureCounter = success.Result.Counter,
@@ -58,7 +59,7 @@ public class MakeCredentialsController : UmbracoAuthorizedController
                 RegDate = DateTime.Now,
                 AaGuid = success.Result.Aaguid
             });
-        
+
 
             return new JsonResult(success);
         }

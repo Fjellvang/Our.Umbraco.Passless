@@ -1,12 +1,14 @@
 ﻿using Fido2NetLib;
+using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
+using UmbracoFidoLogin.Credentials.Services;
 using static Umbraco.Cms.Core.Constants;
 
-namespace UmbracoFidoLogin.Endpoints.Assertions
+namespace UmbracoFidoLogin.Assertions.Endpoints
 {
     [UmbracoRequireHttps]
     [DisableBrowserCache]
@@ -14,10 +16,12 @@ namespace UmbracoFidoLogin.Endpoints.Assertions
     public class MakeAssertionController : UmbracoController
     {
         private readonly IFido2 fido2;
+        private readonly ICredentialsService credentialsService;
 
-        public MakeAssertionController(IFido2 fido2)
+        public MakeAssertionController(IFido2 fido2, ICredentialsService credentialsService)
         {
             this.fido2 = fido2;
+            this.credentialsService = credentialsService;
         }
 
         [HttpPost]
@@ -36,10 +40,10 @@ namespace UmbracoFidoLogin.Endpoints.Assertions
                 uint storedCounter = 0;
 
                 // TODO: 4. Create callback to check if userhandle owns the credentialId
-                IsUserHandleOwnerOfCredentialIdAsync callback = static async (args, cancellationToken) =>
+                IsUserHandleOwnerOfCredentialIdAsync callback = async (args, cancellationToken) =>
                 {
-                    var storedCreds = new List<List<byte>>(); // Should return a list of credentials which each has a list of bytes representing the users credential IDs
-                    return storedCreds.Exists(c => c.SequenceEqual(args.CredentialId));
+                    var storedCreds = await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(args.CredentialId));
+                    return storedCreds.Select(x => x.Descriptor.Id.AsSpan()).Any(c => c.SequenceEqual(args.CredentialId));
                 };
 
                 // 5. Make the assertion

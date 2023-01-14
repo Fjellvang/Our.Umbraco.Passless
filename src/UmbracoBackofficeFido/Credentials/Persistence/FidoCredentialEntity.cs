@@ -2,7 +2,7 @@
 using NPoco;
 using Umbraco.Cms.Infrastructure.Persistence.DatabaseAnnotations;
 
-namespace UmbracoFidoLogin.Persistence
+namespace UmbracoFidoLogin.Credentials.Persistence
 {
     [TableName("fidoCredential")]
     [PrimaryKey(nameof(Id), AutoIncrement = false)]

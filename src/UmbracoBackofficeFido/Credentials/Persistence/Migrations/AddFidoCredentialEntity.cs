@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Infrastructure.Migrations;
 
-namespace UmbracoFidoLogin.Persistence.Migrations
+namespace UmbracoFidoLogin.Credentials.Persistence.Migrations
 {
     public class AddFidoCredentialEntity : MigrationBase
     {

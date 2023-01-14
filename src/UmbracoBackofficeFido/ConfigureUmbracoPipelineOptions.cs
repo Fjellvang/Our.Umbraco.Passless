@@ -5,10 +5,10 @@ using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Hosting;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
 using Umbraco.Extensions;
-using UmbracoFidoLogin.Endpoints.Assertions;
-using UmbracoFidoLogin.Endpoints.Credentials;
+using UmbracoFidoLogin.Assertions.Endpoints;
+using UmbracoFidoLogin.Credentials.Endpoints;
 
-namespace UmbracoFidoLogin.Endpoints
+namespace UmbracoFidoLogin
 {
     /// <summary>
     /// Creates custom routes for our custom controllers
@@ -30,7 +30,7 @@ namespace UmbracoFidoLogin.Endpoints
             => options.AddFilter(
                 new UmbracoPipelineFilter(
                     nameof(ConfigureUmbracoPipelineOptions))
-                { 
+                {
                     Endpoints = app =>
                     {
                         app.UseEndpoints(endpoints =>
@@ -54,5 +54,5 @@ namespace UmbracoFidoLogin.Endpoints
                         });
                     }
                 });
-}
+    }
 }

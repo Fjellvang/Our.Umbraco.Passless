@@ -9,7 +9,12 @@ Copy App_plugins:
   </Target>
 ```
 
+Last Worked on:
+    - Credentials service, update the stored counter. some SQL maybe ???
+
 
 TODO:
     1. Consider refactoring fido FE code into modules ? instead of one big.
     2. For registering new credentials, enable option to users can use external auth methods.
+    3. Switch to DatetimeOffset in DB storage.
+    4. Reauth when registering new fido device.

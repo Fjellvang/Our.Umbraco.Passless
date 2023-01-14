@@ -8,7 +8,7 @@ using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
 
-namespace UmbracoFidoLogin.Endpoints.Credentials;
+namespace UmbracoFidoLogin.Credentials.Endpoints;
 
 [UmbracoRequireHttps]
 [DisableBrowserCache]
