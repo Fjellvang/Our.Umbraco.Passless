@@ -2,7 +2,11 @@
 using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using Umbraco.Cms.Core.Security;
+using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Web.BackOffice.Filters;
+using Umbraco.Cms.Web.BackOffice.Security;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using UmbracoFidoLogin.Credentials.Services;
@@ -17,11 +21,15 @@ namespace UmbracoFidoLogin.Assertions.Endpoints
     {
         private readonly IFido2 fido2;
         private readonly ICredentialsService credentialsService;
+        private readonly IBackOfficeSignInManager signInManager;
+        private readonly IBackOfficeUserManager userService;
 
-        public MakeAssertionController(IFido2 fido2, ICredentialsService credentialsService)
+        public MakeAssertionController(IFido2 fido2, ICredentialsService credentialsService, IBackOfficeSignInManager signInManager, IBackOfficeUserManager userService)
         {
             this.fido2 = fido2;
             this.credentialsService = credentialsService;
+            this.signInManager = signInManager;
+            this.userService = userService;
         }
 
         [HttpPost]
@@ -33,27 +41,33 @@ namespace UmbracoFidoLogin.Assertions.Endpoints
                 var jsonOptions = HttpContext.Session.GetString("fido2.assertionOptions");
                 var options = AssertionOptions.FromJson(jsonOptions);
 
-                // TODO: 2. Get stored Public key and stored counter so we can verity. This was in my other implementation handled by azure b2c.
-                var publicKey = Array.Empty<byte>();
+                var creds = (await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(clientResponse.Id))).Single();
+                var publicKey = creds.PublicKey;
+                uint storedCounter = creds.SignatureCounter;
 
-                // TODO: 3. stored counter
-                uint storedCounter = 0;
-
-                // TODO: 4. Create callback to check if userhandle owns the credentialId
                 IsUserHandleOwnerOfCredentialIdAsync callback = async (args, cancellationToken) =>
                 {
-                    var storedCreds = await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(args.CredentialId));
-                    return storedCreds.Select(x => x.Descriptor.Id.AsSpan()).Any(c => c.SequenceEqual(args.CredentialId));
+                    var storedCreds = await credentialsService.GetCredentialsByUserIdAsync(args.UserHandle);
+                    return storedCreds.Select(x => x.Descriptor.Id).Any(c => c.SequenceEqual(args.CredentialId));
                 };
 
                 // 5. Make the assertion
                 var res = await fido2.MakeAssertionAsync(clientResponse, options, publicKey, storedCounter, callback, cancellationToken: cancellationToken);
 
-                //TODO: 6. update stored counter
+                // 6. update stored counter
+                await credentialsService.UpdateCounterAsync(res.CredentialId, res.Counter);
 
-                // Update(res.credentialId, res.Counter);
+                //Sign the user in.
+                var userEmail = Encoding.UTF8.GetString(creds.UserHandle);
+                var user = await userService.FindByEmailAsync(userEmail);
+                await signInManager.SignInAsync(user, true);
 
-                return new JsonResult(res);
+                return Ok(
+                    new
+                    {
+                        RedirectUrl = "/umbraco",//TODO: make configurable.
+                        Status = res.Status
+                    });
             }
             catch (Exception)
             {

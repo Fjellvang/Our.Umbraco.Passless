@@ -10,7 +10,7 @@ namespace UmbracoFidoLogin.Credentials.Persistence
     {
         [Column("id")]
         [PrimaryKeyColumn(AutoIncrement = false, Clustered = false)]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } 
         [Column("userId")]
         public byte[] UserId { get; set; }
         [Column("descriptor")]

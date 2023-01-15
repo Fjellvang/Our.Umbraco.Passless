@@ -11,6 +11,6 @@ namespace UmbracoFidoLogin.Credentials.Services
         Task<List<StoredCredential>> GetByDescriptorAsync(PublicKeyCredentialDescriptor descriptor, CancellationToken cancellationToken = default);
         Task AddCredential(StoredCredential credential);
 
-        Task UpdateCounter(byte[] bytes, long counter);
+        Task UpdateCounterAsync(byte[] credentialsId, long counter);
     }
 }

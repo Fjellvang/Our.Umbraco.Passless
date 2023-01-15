@@ -19,8 +19,19 @@ namespace UmbracoFidoLogin.Credentials.Services
         public async Task AddCredential(StoredCredential credential)
         {
             using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
+
+            var exsistingCredentials = await fidoCredentialRepository.GetUsersByCredentialIdAsync(credential.Descriptor.Id);
+
+            //TODO: Not a fan of this. We shouldn't be over fetching. Refactor.
+            // Furthermore, might we allow it for the same user? Atleast until we can delete credentials.
+            if (exsistingCredentials.Any())
+            {
+                throw new InvalidOperationException("Credentials already registered to a user");
+            }
+
             await fidoCredentialRepository.UpsertAsync(new Persistence.FidoCredentialEntity()
             {
+                Id = Guid.NewGuid(),
                 UserId = credential.UserId,
                 Descriptor = credential.Descriptor.Id,
                 PublicKey = credential.PublicKey,
@@ -65,9 +76,16 @@ namespace UmbracoFidoLogin.Credentials.Services
             }).ToList();
         }
 
-        public Task UpdateCounter(byte[] bytes, long counter)
+        public async Task UpdateCounterAsync(byte[] credentialsId, long counter)
         {
-            throw new NotImplementedException();
+            //TODO: clean this up - decide on proper ID and preferable do the update in one call to DB
+            using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
+            var credentials = await fidoCredentialRepository.GetUsersByCredentialIdAsync(credentialsId);
+            var credential = credentials.Single();
+
+            credential.SignatureCounter = counter;
+
+            await fidoCredentialRepository.UpsertAsync(credential);
         }
     }
 }

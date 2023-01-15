@@ -2,5 +2,6 @@
 <language alias="en_us" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
 	<area alias="fido">
 		<key alias="register">Register device with Fido</key>
+		<key alias="signIn">Sign in with Fido</key>
 	</area>
 </language>

@@ -7,7 +7,6 @@ using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.Services;
 using UmbracoFidoLogin.Credentials.Persistence;
 using UmbracoFidoLogin.Credentials.Services;
-using UmbracoFidoLogin.Endpoints;
 
 namespace UmbracoFidoLogin;
 

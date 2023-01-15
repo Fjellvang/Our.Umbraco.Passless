@@ -18,3 +18,7 @@ TODO:
     2. For registering new credentials, enable option to users can use external auth methods.
     3. Switch to DatetimeOffset in DB storage.
     4. Reauth when registering new fido device.
+    5. Does it make sense that every registration with windows hello returns the same ID? Look into it.
+
+Nice to haves:
+    1. Strongly typed ids, instead of all these byte[] ?

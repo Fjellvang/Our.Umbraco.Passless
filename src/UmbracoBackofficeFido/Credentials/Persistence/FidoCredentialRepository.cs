@@ -2,27 +2,27 @@
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.Scoping;
 using Umbraco.Cms.Infrastructure.Persistence;
-using Umbraco.Cms.Infrastructure.Persistence.Querying;
 using Umbraco.Cms.Infrastructure.Scoping;
+using Umbraco.Extensions;
 
 namespace UmbracoFidoLogin.Credentials.Persistence;
 
 public class FidoCredentialRepository : IFidoCredentialRepository
 {
+    private const string tableName = "fidoCredential";
+
     private readonly IScopeAccessor scopeAccessor;
     private readonly AppCaches appCaches;
-    private readonly ISqlTranslator sqlTranslator;
 
     protected Umbraco.Cms.Infrastructure.Scoping.IScope Scope => scopeAccessor?.AmbientScope ?? throw new InvalidOperationException("Ambient scope is null");
     protected Sql<ISqlContext> Sql() => Scope.SqlContext.Sql();
     protected IUmbracoDatabase Database => Scope.Database;
     protected ISqlContext SqlContext => Scope.SqlContext;
 
-    public FidoCredentialRepository(IScopeAccessor scopeAccessor, AppCaches appCaches, ISqlTranslator sqlTranslator)
+    public FidoCredentialRepository(IScopeAccessor scopeAccessor, AppCaches appCaches)
     {
         this.scopeAccessor = scopeAccessor;
         this.appCaches = appCaches;
-        this.sqlTranslator = sqlTranslator;
     }
 
 
@@ -62,21 +62,27 @@ public class FidoCredentialRepository : IFidoCredentialRepository
         await Database.InsertAsync(entity);
     }
 
-    public Task<List<FidoCredentialEntity>> GetCredentialsByUserIdAsync(byte[] userId)
+    public async Task<List<FidoCredentialEntity>> GetCredentialsByUserIdAsync(byte[] userId)
     {
-        var query = SqlContext.Query<FidoCredentialEntity>()
-            .Where(x => x.UserId == userId)
+        var sql = Sql()
+            .Select($"{tableName}.*")
+            .From<FidoCredentialEntity>()
+            .Where($"{tableName}.userId = @Id", new { Id = userId })
             ;
 
-        return Database.FetchAsync<FidoCredentialEntity>(sqlTranslator.Translate(Sql(), query));
+        var results = await Database.FetchAsync<FidoCredentialEntity>(sql);
+        return results;
     }
 
-    public Task<List<FidoCredentialEntity>> GetUsersByCredentialIdAsync(byte[] credentialId)
+    public async Task<List<FidoCredentialEntity>> GetUsersByCredentialIdAsync(byte[] credentialId)
     {
-        var query = SqlContext.Query<FidoCredentialEntity>()
-            .Where(x => x.Descriptor == credentialId)
+        var sql = Sql()
+            .Select($"{tableName}.*")
+            .From<FidoCredentialEntity>()
+            .Where($"{tableName}.descriptor = @Id", new { Id = credentialId })
             ;
 
-        return Database.FetchAsync<FidoCredentialEntity>(sqlTranslator.Translate(Sql(), query));
+        var results = await Database.FetchAsync<FidoCredentialEntity>(sql);
+        return results;
     }
 }
