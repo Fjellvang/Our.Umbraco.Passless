@@ -22,3 +22,6 @@ TODO:
 
 Nice to haves:
     1. Strongly typed ids, instead of all these byte[] ?
+    
+Validate package:
+https://marketplace.umbraco.com/validate
