@@ -1,6 +1,7 @@
 ﻿
 using Fido2NetLib.Development;
 using Fido2NetLib.Objects;
+using System.Text;
 using Umbraco.Cms.Core.Scoping;
 using UmbracoFidoLogin.Credentials.Persistence;
 
@@ -52,6 +53,10 @@ namespace UmbracoFidoLogin.Credentials.Services
             return Map(result);
         }
 
+        public Task<List<StoredCredential>> GetCredentialsByUserIdAsync(string userEmail, CancellationToken cancellationToken = default)
+        {
+            return GetCredentialsByUserIdAsync(Encoding.UTF8.GetBytes(userEmail), cancellationToken);
+        }
         public async Task<List<StoredCredential>> GetCredentialsByUserIdAsync(byte[] userId, CancellationToken cancellationToken = default)
         {
             //TODO: Figure if we can use cancellation token with npoco

@@ -2,6 +2,7 @@
 using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Text;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
@@ -64,10 +65,9 @@ public class MakeCredentialsController : UmbracoAuthorizedController
 
             return new JsonResult(success);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //TODO: cleanup error message
-            throw;
+            return Problem(ex.StackTrace, statusCode: (int)HttpStatusCode.InternalServerError, title: ex.Message);
         }
     }
 }

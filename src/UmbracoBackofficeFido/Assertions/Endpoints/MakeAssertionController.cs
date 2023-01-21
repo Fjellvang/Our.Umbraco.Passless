@@ -2,6 +2,7 @@
 using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Text;
 using Umbraco.Cms.Core.Security;
 using Umbraco.Cms.Core.Services;
@@ -69,10 +70,9 @@ namespace UmbracoFidoLogin.Assertions.Endpoints
                         Status = res.Status
                     });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return Problem(ex.StackTrace, statusCode: (int)HttpStatusCode.InternalServerError, title: ex.Message);
             }
         }
     }
