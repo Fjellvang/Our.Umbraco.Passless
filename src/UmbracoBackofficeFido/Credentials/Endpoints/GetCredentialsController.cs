@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
@@ -31,13 +32,13 @@ public class GetCredentialsController : UmbracoAuthorizedController
 
         var credentials = await credentialsService.GetCredentialsByUserIdAsync(userEmail, cancellationToken);
 
-        return Ok(new UserCredentialResponse()
+        return Ok(new UserCredentialsResponse()
         {
             UserEmail = userEmail,
-            UserCredentials = credentials.Select(x => new UserCredentialsResponse()
+            UserCredentials = credentials.Select(x => new UserCredentialResponse()
             {
                 CredentialAlias = "TODO",
-                CredentialsId = x.Descriptor.Id
+                CredentialsId = Encoding.UTF8.GetString(x.Descriptor.Id)
             }).ToArray()
         });
     }
