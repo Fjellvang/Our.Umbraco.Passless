@@ -43,6 +43,10 @@ namespace UmbracoFidoLogin
                                 $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
                                 UmbracoFidoConstants.AreaName,
                                 UmbracoFidoConstants.AreaName);
+                            endpoints.MapUmbracoRoute<GetCredentialsController>(
+                                $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                                UmbracoFidoConstants.AreaName,
+                                UmbracoFidoConstants.AreaName);
                             endpoints.MapUmbracoRoute<AssertionOptionsController>(
                                 $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
                                 UmbracoFidoConstants.AreaName,

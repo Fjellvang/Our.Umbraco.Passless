@@ -8,17 +8,34 @@
         </umb-editor-header>
         <umb-editor-container>
             <umb-box>
-                <umb-box-content>
+                <umb-load-indicator ng-if="vm.loading"></umb-load-indicator>
+                <umb-box-content ng-if="!vm.loading">
+                    <div class="umb-table-head">
+                        <div class="umb-table-row">
+                            <div class="umb-table-cell"></div>
+                            <div class="umb-table-cell">Key</div>
+                        </div>
+                    </div>
+                    <div class="umb-table-body">
+                        <div class="umb-table-row" ng-repeat="reg in vm.registrations.userCredentials">
+                            <div class="umb-table-cell">
+
+                            </div>
+                            <div class="umb-table-cell">
+                                {{ reg.credentialAlias }}
+                            </div>
+                        </div>
+                    </div>
+
                     <umb-button ng-if="vm.state === 'ready'"
                                 type="button"
                                 button-style="action"
                                 label-key="fido_addDevice"
                                 shortcut="esc"
-                                action="vm.addNewRegistration()"
-                                >
+                                action="vm.addNewRegistration()">
                     </umb-button>
                     <div ng-if="vm.state === 'adding'">
-                        <input type="text" id="registration-alias" ng-model="vm.registrationAlias"/>
+                        <input type="text" id="registration-alias" ng-model="vm.registrationAlias" />
                         <button id="submit-button" ng-click="vm.submitTest()">Submit</button>
                     </div>
 

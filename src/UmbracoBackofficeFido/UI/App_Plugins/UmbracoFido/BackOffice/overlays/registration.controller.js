@@ -9,14 +9,25 @@
         vm.close = close;
         vm.state = 'ready'
 
+        vm.getCredentials = getCredentials;
         vm.submitRegisterFidoForm = submitRegisterFidoForm;
         vm.submitTest = submitTest;
         vm.addNewRegistration = addNewRegistration;
         vm.registrationAlias = '';
 
         function init() {
+            vm.loading = true;
             vm.credentialsOptionsEndpoint = Umbraco.Sys.ServerVariables.fidoLogin.urls.credentialsOptions;
             vm.makeCredentialsEndpoint    = Umbraco.Sys.ServerVariables.fidoLogin.urls.makeCredentials;
+            vm.getCredentialsEndpoint    = Umbraco.Sys.ServerVariables.fidoLogin.urls.getCredentials;
+            getCredentials();
+        }
+
+        async function getCredentials() {
+            var response = await fetch(vm.getCredentialsEndpoint);
+            vm.registrations = await response.json();
+            vm.loading = false;
+            console.log("FEDTED")
         }
 
         function addNewRegistration() {
