@@ -7,14 +7,26 @@
 
         vm.submit = submit;
         vm.close = close;
+        vm.state = 'ready'
 
         vm.submitRegisterFidoForm = submitRegisterFidoForm;
+        vm.submitTest = submitTest;
+        vm.addNewRegistration = addNewRegistration;
+        vm.registrationAlias = '';
 
         function init() {
             vm.credentialsOptionsEndpoint = Umbraco.Sys.ServerVariables.fidoLogin.urls.credentialsOptions;
             vm.makeCredentialsEndpoint    = Umbraco.Sys.ServerVariables.fidoLogin.urls.makeCredentials;
         }
 
+        function addNewRegistration() {
+            vm.state = 'adding';
+        }
+
+        function submitTest() {
+            alert(vm.registrationAlias);
+            vm.state = 'ready';
+        }
 
         async function submitRegisterFidoForm(e) {
             e.preventDefault();

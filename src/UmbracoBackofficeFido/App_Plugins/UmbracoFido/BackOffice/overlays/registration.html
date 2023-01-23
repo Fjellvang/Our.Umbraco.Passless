@@ -9,6 +9,19 @@
         <umb-editor-container>
             <umb-box>
                 <umb-box-content>
+                    <umb-button ng-if="vm.state === 'ready'"
+                                type="button"
+                                button-style="action"
+                                label-key="fido_addDevice"
+                                shortcut="esc"
+                                action="vm.addNewRegistration()"
+                                >
+                    </umb-button>
+                    <div ng-if="vm.state === 'adding'">
+                        <input type="text" id="registration-alias" ng-model="vm.registrationAlias"/>
+                        <button id="submit-button" ng-click="vm.submitTest()">Submit</button>
+                    </div>
+
                     <form ng-submit="vm.submitRegisterFidoForm($event)"
                           method="POST"
                           name="fidoRegisterForm" id="fidoRegisterForm">
