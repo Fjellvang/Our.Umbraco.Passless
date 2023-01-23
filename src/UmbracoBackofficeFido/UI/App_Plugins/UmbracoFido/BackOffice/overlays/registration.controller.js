@@ -24,7 +24,8 @@
         }
 
         function submitTest() {
-            alert(vm.registrationAlias);
+            alert('testtwo ' + vm.registrationAlias);
+
             vm.state = 'ready';
         }
 

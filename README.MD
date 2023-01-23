@@ -1,13 +1,14 @@
 ﻿
-Copy App_plugins:
 
-```
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <!-- Copy the App_Plugins from the Fido source -->
-    <Message Text="XCopying app plugins" Importance="high" />
-    <Exec Command="xcopy &quot;$(ProjectDir)..\UmbracoFidoLoginCore\App_Plugins&quot; &quot;$(ProjectDir)..\UmbracoProject\App_Plugins\&quot; /i /s /e /y" />
-  </Target>
-```
+## Frontend
+
+To build the from end run navigate to ``src/UmbracoFidoLogin/UI`` and run ``npm run build``
+
+While working on the frontend use ``npm run dev``
+
+The current webpack setup is just a dumb Webpack-copy step
+
+##Worklist
 
 Last Worked on:
     - Credentials service, update the stored counter. some SQL maybe ???
