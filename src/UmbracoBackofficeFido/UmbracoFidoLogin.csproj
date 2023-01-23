@@ -7,11 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="App_Plugins\UmbracoFido\BackOffice\custom-login.html" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
-		<None Include="App_Plugins\UmbracoFido\BackOffice\customlogin.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
-		<None Include="App_Plugins\UmbracoFido\BackOffice\helpers.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
-		<None Include="App_Plugins\UmbracoFido\lang\en-US.xml" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\lang\" />
-		<None Include="App_Plugins\UmbracoFido\package.manifest" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\" />
+		<None Include="UI\src\App_Plugins\UmbracoFido\BackOffice\overlays\registration.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\overlays\" />
+		<None Include="UI\src\App_Plugins\UmbracoFido\BackOffice\overlays\registration.html" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\overlays\" />
+		<None Include="UI\src\App_Plugins\UmbracoFido\BackOffice\custom-login.html" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
+		<None Include="UI\src\App_Plugins\UmbracoFido\BackOffice\customlogin.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
+		<None Include="UI\src\App_Plugins\UmbracoFido\BackOffice\helpers.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
+		<None Include="UI\src\App_Plugins\UmbracoFido\lang\en-US.xml" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\lang\" />
+		<None Include="UI\src\App_Plugins\UmbracoFido\package.manifest" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\" />
 	</ItemGroup>
 
 	<ItemGroup>
