@@ -37,8 +37,8 @@ public class MakeCredentialsController : UmbracoAuthorizedController
             // 2. Make is unique callback
             IsCredentialIdUniqueToUserAsyncDelegate isUniqueCallback = async (args, cancellationToken) =>
             {
-                var users = await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(args.CredentialId), cancellationToken); //TODO: Take a look again, do we want to new up a descriptor ???
-                return !(users.Count > 0);
+                var credentials = await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(args.CredentialId), cancellationToken); //TODO: Take a look again, do we want to new up a descriptor ???
+                return credentials is null;
             };
 
             // 3. make the credentials

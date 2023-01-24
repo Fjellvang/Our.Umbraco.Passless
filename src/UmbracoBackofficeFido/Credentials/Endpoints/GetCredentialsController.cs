@@ -38,7 +38,7 @@ public class GetCredentialsController : UmbracoAuthorizedController
             UserCredentials = credentials.Select(x => new UserCredentialResponse()
             {
                 CredentialAlias = "TODO",
-                CredentialsId = Encoding.UTF8.GetString(x.Descriptor.Id)
+                CredentialsId = Convert.ToHexString(x.Descriptor.Id)
             }).ToArray()
         });
     }

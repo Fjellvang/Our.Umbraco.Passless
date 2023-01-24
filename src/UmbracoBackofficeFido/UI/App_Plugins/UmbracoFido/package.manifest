@@ -2,6 +2,6 @@
   "javascript": [
     "~/App_Plugins/UmbracoFido/BackOffice/customlogin.controller.js",
     "~/App_Plugins/UmbracoFido/BackOffice/helpers.js",
-    "~/App_Plugins/UmbracoFido/BackOffice/overlays/registration.controller.js"
+    "~/App_Plugins/UmbracoFido/BackOffice/overlays/credentials.controller.js"
   ]
 }

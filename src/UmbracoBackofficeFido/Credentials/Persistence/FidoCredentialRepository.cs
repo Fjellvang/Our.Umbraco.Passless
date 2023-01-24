@@ -74,7 +74,7 @@ public class FidoCredentialRepository : IFidoCredentialRepository
         return results;
     }
 
-    public async Task<List<FidoCredentialEntity>> GetUsersByCredentialIdAsync(byte[] credentialId)
+    public async Task<FidoCredentialEntity?> GetCredentialsByIdAsync(byte[] credentialId)
     {
         var sql = Sql()
             .Select($"{tableName}.*")
@@ -82,7 +82,12 @@ public class FidoCredentialRepository : IFidoCredentialRepository
             .Where($"{tableName}.descriptor = @Id", new { Id = credentialId })
             ;
 
-        var results = await Database.FetchAsync<FidoCredentialEntity>(sql);
-        return results;
+        return await Database.SingleOrDefaultAsync<FidoCredentialEntity>(sql);
+    }
+
+    public async Task DeleteCredentialsAsync(FidoCredentialEntity credentials)
+    {
+        await Database.DeleteAsync(credentials);
+        IsolatedCache.ClearByKey(credentials.Id.ToString());
     }
 }

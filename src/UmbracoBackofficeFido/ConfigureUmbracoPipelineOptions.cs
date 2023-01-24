@@ -55,6 +55,10 @@ namespace UmbracoFidoLogin
                                 $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
                                 UmbracoFidoConstants.AreaName,
                                 UmbracoFidoConstants.AreaName);
+                            endpoints.MapUmbracoRoute<DeleteCredentialsController>(
+                                $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                                UmbracoFidoConstants.AreaName,
+                                UmbracoFidoConstants.AreaName);
                         });
                     }
                 });

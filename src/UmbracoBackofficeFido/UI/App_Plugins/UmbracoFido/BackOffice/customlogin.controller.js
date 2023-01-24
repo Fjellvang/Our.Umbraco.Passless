@@ -102,7 +102,9 @@
         {
             editorService.open({
                 title: 'Fido Eegistration',
-                view: '/App_Plugins/UmbracoFido/BackOffice/overlays/registration.html',
+                view: '/App_Plugins/UmbracoFido/BackOffice/overlays/credentials.html',
+                position: 'right',
+                size: 'medium',
                 submit: x => {
                     editorService.close();
                 },

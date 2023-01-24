@@ -21,11 +21,10 @@ namespace UmbracoFidoLogin.Credentials.Services
         {
             using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
 
-            var exsistingCredentials = await fidoCredentialRepository.GetUsersByCredentialIdAsync(credential.Descriptor.Id);
+            var exsistingCredentials = await fidoCredentialRepository.GetCredentialsByIdAsync(credential.Descriptor.Id);
 
             //TODO: Not a fan of this. We shouldn't be over fetching. Refactor.
-            // Furthermore, might we allow it for the same user? Atleast until we can delete credentials.
-            if (exsistingCredentials.Any())
+            if (exsistingCredentials is not null)
             {
                 throw new InvalidOperationException("Credentials already registered to a user");
             }
@@ -44,13 +43,13 @@ namespace UmbracoFidoLogin.Credentials.Services
             });
         }
 
-        public async Task<List<StoredCredential>> GetByDescriptorAsync(PublicKeyCredentialDescriptor descriptor, CancellationToken cancellationToken = default)
+        public async Task<StoredCredential?> GetByDescriptorAsync(PublicKeyCredentialDescriptor descriptor, CancellationToken cancellationToken = default)
         {
             //TODO: Figure if we can use cancellation token with npoco
             using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
-            var result = await fidoCredentialRepository.GetUsersByCredentialIdAsync(descriptor.Id);
+            var result = await fidoCredentialRepository.GetCredentialsByIdAsync(descriptor.Id);
 
-            return Map(result);
+            return MapCredentials(result);
         }
 
         public Task<List<StoredCredential>> GetCredentialsByUserIdAsync(string userEmail, CancellationToken cancellationToken = default)
@@ -68,29 +67,53 @@ namespace UmbracoFidoLogin.Credentials.Services
 
         private static List<StoredCredential> Map(List<FidoCredentialEntity> result)
         {
-            return result.Select(x => new StoredCredential() // TODO: do we even want to use this model ?
+            return result.Select(MapCredentials).ToList();
+        }
+
+        private static StoredCredential? MapCredentials(FidoCredentialEntity x)
+        {
+            if (x is null)
+            {
+                return null;
+            }
+
+            return new StoredCredential() // TODO: do we even want to use this model ?
             {
                 UserId = x.UserId,
                 Descriptor = new PublicKeyCredentialDescriptor(x.Descriptor),
                 PublicKey = x.PublicKey,
                 UserHandle = x.UserHandle,
-                SignatureCounter = Convert.ToUInt32(x.SignatureCounter), 
+                SignatureCounter = Convert.ToUInt32(x.SignatureCounter),
                 CredType = x.CredType,
                 AaGuid = x.AaGuid,
                 RegDate = x.RegDate
-            }).ToList();
+            };
         }
 
         public async Task UpdateCounterAsync(byte[] credentialsId, long counter)
         {
             //TODO: clean this up - decide on proper ID and preferable do the update in one call to DB
             using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
-            var credentials = await fidoCredentialRepository.GetUsersByCredentialIdAsync(credentialsId);
-            var credential = credentials.Single();
+            var credential = await fidoCredentialRepository.GetCredentialsByIdAsync(credentialsId);
 
             credential.SignatureCounter = counter;
 
             await fidoCredentialRepository.UpsertAsync(credential);
+        }
+
+        public async Task DeleteCredentialsAsync(string userEmail, byte[] credentialsId)
+        {
+            using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
+            var existing = await fidoCredentialRepository.GetCredentialsByIdAsync(credentialsId);
+
+            var credentialEmail = Encoding.UTF8.GetString(existing.UserId);
+            var noEmailMatch = !credentialEmail.Equals(userEmail, StringComparison.Ordinal);
+            if (noEmailMatch)
+            {
+                throw new InvalidOperationException("You can only delete your own credentials");
+            }
+
+            await fidoCredentialRepository.DeleteCredentialsAsync(existing);
         }
     }
 }

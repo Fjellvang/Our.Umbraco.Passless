@@ -42,7 +42,7 @@ namespace UmbracoFidoLogin.Assertions.Endpoints
                 var jsonOptions = HttpContext.Session.GetString("fido2.assertionOptions");
                 var options = AssertionOptions.FromJson(jsonOptions);
 
-                var creds = (await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(clientResponse.Id))).Single();
+                var creds = await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(clientResponse.Id));
                 var publicKey = creds.PublicKey;
                 uint storedCounter = creds.SignatureCounter;
 

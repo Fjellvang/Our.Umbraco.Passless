@@ -31,6 +31,11 @@ namespace UmbracoFidoLogin
                 nameof(GetCredentialsController.Index),
                 typeof(GetCredentialsController),
                 new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName});
+            
+            var deleteCredentialsUrl = linkGenerator.GetUmbracoControllerUrl(
+                nameof(DeleteCredentialsController.Index),
+                typeof(DeleteCredentialsController),
+                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName});
 
             var assertionOptionsUrl = linkGenerator.GetUmbracoControllerUrl(
                 nameof(AssertionOptionsController.Index),
@@ -49,6 +54,7 @@ namespace UmbracoFidoLogin
                     ["credentialsOptions"] = credentialsOptionsUrl ?? throw new InvalidOperationException("Credentials options url not found!"),
                     ["makeCredentials"] = makeCredentialsUrl ?? throw new InvalidOperationException("Make credentials url not found!"),
                     ["getCredentials"] = getCredentialsUrl ?? throw new InvalidOperationException("Get credentials url not found!"),
+                    ["deleteCredentials"] = deleteCredentialsUrl ?? throw new InvalidOperationException("delete credentials url not found!"),
                     ["assertionOptions"] = assertionOptionsUrl ?? throw new InvalidOperationException("Assertion options url not found!"),
                     ["makeAssertion"] = makeAssertionUrl ?? throw new InvalidOperationException("Make assertion url not found!")
                 }

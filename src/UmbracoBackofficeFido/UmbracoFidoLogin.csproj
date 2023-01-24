@@ -8,8 +8,8 @@
 
 
 	<ItemGroup>
-		<None Include="UI\App_Plugins\UmbracoFido\BackOffice\overlays\registration.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\overlays\" />
-		<None Include="UI\App_Plugins\UmbracoFido\BackOffice\overlays\registration.html" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\overlays\" />
+		<None Include="UI\App_Plugins\UmbracoFido\BackOffice\overlays\credentials.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\overlays\" />
+		<None Include="UI\App_Plugins\UmbracoFido\BackOffice\overlays\credentials.html" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\overlays\" />
 		<None Include="UI\App_Plugins\UmbracoFido\BackOffice\custom-login.html" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
 		<None Include="UI\App_Plugins\UmbracoFido\BackOffice\customlogin.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
 		<None Include="UI\App_Plugins\UmbracoFido\BackOffice\helpers.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />

@@ -1,5 +1,4 @@
-﻿using Fido2NetLib.Objects;
-using NPoco;
+﻿using NPoco;
 using Umbraco.Cms.Infrastructure.Persistence.DatabaseAnnotations;
 
 namespace UmbracoFidoLogin.Credentials.Persistence
@@ -14,7 +13,7 @@ namespace UmbracoFidoLogin.Credentials.Persistence
         [Column("userId")]
         public byte[] UserId { get; set; }
         [Column("descriptor")]
-        public byte[] Descriptor { get; set; }
+        public byte[] Descriptor { get; set; } //TODO: Add unique descriptor???
         [Column("publicKey")]
         public byte[] PublicKey { get; set; }
         [Column("userHandle")]
