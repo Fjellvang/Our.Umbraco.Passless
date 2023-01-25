@@ -11,10 +11,11 @@
 
         vm.getCredentials = getCredentials;
         vm.submitRegisterFidoForm = submitRegisterFidoForm;
-        vm.submitTest = submitTest;
         vm.addNewCredentials = addNewCredentials;
         vm.deleteCredentials = deleteCredentials;
+        vm.onCrossplaftormChange = onCrossplaftormChange;
         vm.registrationAlias = '';
+        vm.crossPlatform = false;
         vm.loading = true;
 
         function init() {
@@ -23,6 +24,11 @@
             vm.getCredentialsEndpoint    = Umbraco.Sys.ServerVariables.fidoLogin.urls.getCredentials;
             vm.deleteCredentialsEndpoint    = Umbraco.Sys.ServerVariables.fidoLogin.urls.deleteCredentials;
             getCredentials();
+        }
+
+        function onCrossplaftormChange() {
+            console.log("changed");
+            vm.crossPlatform = !vm.crossPlatform;
         }
 
         function deleteCredentials(reg) {
@@ -66,15 +72,10 @@
             vm.state = 'adding';
         }
 
-        function submitTest() {
-            alert('testtwo ' + vm.registrationAlias);
-
-        }
-
         async function submitRegisterFidoForm() {
             console.log(`Submitting ${vm.registrationAlias}`)
 
-            const response = await fetch(vm.credentialsOptionsEndpoint);
+            const response = await fetch(`${vm.credentialsOptionsEndpoint}?crossPlatform=${vm.crossPlatform}`);
             let makeCredentialOptions = await response.json();
 
             // Turn the challenge back into the accepted format of padded base64

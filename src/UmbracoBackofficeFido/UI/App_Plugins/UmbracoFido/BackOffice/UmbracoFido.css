@@ -1,1 +1,6 @@
-﻿.fido-credential { display: flex; justify-content: space-between; align-items: center; flex-direction: row; margin: 5px; }
+﻿.fido-credential { 
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 5px;
+}

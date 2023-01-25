@@ -101,10 +101,10 @@
         function openFidoOverlay() 
         {
             editorService.open({
-                title: 'Fido Eegistration',
+                title: 'Fido Registrations',
                 view: '/App_Plugins/UmbracoFido/BackOffice/overlays/credentials.html',
                 position: 'right',
-                size: 'medium',
+                size: 'small',
                 submit: x => {
                     editorService.close();
                 },

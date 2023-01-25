@@ -7,6 +7,7 @@ using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
+using UmbracoFidoLogin.Credentials.Services;
 
 namespace UmbracoFidoLogin.Credentials.Endpoints;
 
@@ -16,13 +17,15 @@ namespace UmbracoFidoLogin.Credentials.Endpoints;
 public class CredentialsOptionsController : UmbracoAuthorizedController
 {
     private readonly IFido2 fido2;
+    private readonly ICredentialsService credentialsService;
 
-    public CredentialsOptionsController(IFido2 fido2)
+    public CredentialsOptionsController(IFido2 fido2, ICredentialsService credentialsService)
     {
         this.fido2 = fido2;
+        this.credentialsService = credentialsService;
     }
     [HttpGet]
-    public IActionResult Index()
+    public async Task<IActionResult> Index([FromQuery] bool crossPlatform, CancellationToken cancellationToken = default)
     {
         if (User.Identity is null)
         {
@@ -38,15 +41,16 @@ public class CredentialsOptionsController : UmbracoAuthorizedController
             Id = Encoding.UTF8.GetBytes(useremail)
         };
 
-        var existingKeys = new List<PublicKeyCredentialDescriptor>();//TODO: read from DB
+        var existingKeys = (await credentialsService.GetCredentialsByUserIdAsync(useremail, cancellationToken))
+                            .Select(x => x.Descriptor).ToList();
 
         var authenticatorSelection = new AuthenticatorSelection
         {
             RequireResidentKey = true,
-            UserVerification = UserVerificationRequirement.Preferred
-        }; //TODO: get this from config.
+            UserVerification = UserVerificationRequirement.Required //Since we're doing passwordless login, we require UserVerification
+        }; 
 
-        authenticatorSelection.AuthenticatorAttachment = AuthenticatorAttachment.CrossPlatform; //TODO: Make this toggleable when signing up. For now we only use WindowsID
+        authenticatorSelection.AuthenticatorAttachment = crossPlatform ? AuthenticatorAttachment.CrossPlatform : AuthenticatorAttachment.Platform;
 
         var exts = new AuthenticationExtensionsClientInputs()
         {

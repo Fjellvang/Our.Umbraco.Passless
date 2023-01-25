@@ -29,6 +29,10 @@ public class MakeCredentialsController : UmbracoAuthorizedController
     [HttpPost]
     public async Task<IActionResult> Index([FromQuery] string alias, [FromBody] AuthenticatorAttestationRawResponse attestationResponse, CancellationToken cancellationToken)
     {
+        if (string.IsNullOrEmpty(alias))
+        {
+            return BadRequest("The alias field is required");
+        }
         try
         {
             // 1. get the options we sent the client
