@@ -17,7 +17,8 @@ namespace UmbracoFidoLogin.Credentials.Persistence.Migrations
                 return;
             }
 
-            Create.Table<FidoCredentialEntity>().Do();
+            Create.Table<FidoCredentialEntity>()
+                .Do();
 
             if (DatabaseType is NPoco.DatabaseTypes.SQLiteDatabaseType)
             {

@@ -7,6 +7,7 @@ using System.Text;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
+using UmbracoFidoLogin.Credentials.Models;
 using UmbracoFidoLogin.Credentials.Services;
 
 namespace UmbracoFidoLogin.Credentials.Endpoints;
@@ -26,7 +27,7 @@ public class MakeCredentialsController : UmbracoAuthorizedController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Index([FromBody] AuthenticatorAttestationRawResponse attestationResponse, CancellationToken cancellationToken)
+    public async Task<IActionResult> Index([FromQuery] string alias, [FromBody] AuthenticatorAttestationRawResponse attestationResponse, CancellationToken cancellationToken)
     {
         try
         {
@@ -50,17 +51,17 @@ public class MakeCredentialsController : UmbracoAuthorizedController
             }
 
             // 4. Add the credentials to the user. in the database.
-            await credentialsService.AddCredential(new Fido2NetLib.Development.StoredCredential()
-            {
-                UserId = options.User.Id,
-                Descriptor = new PublicKeyCredentialDescriptor(success.Result.CredentialId),
-                PublicKey = success.Result.PublicKey,
-                UserHandle = success.Result.User.Id,
-                SignatureCounter = success.Result.Counter,
-                CredType = success.Result.CredType,
-                RegDate = DateTime.Now,
-                AaGuid = success.Result.Aaguid
-            });
+            await credentialsService.AddCredential(new FidoCredentialModel(
+                alias,
+                options.User.Id,
+                new PublicKeyCredentialDescriptor(success.Result.CredentialId),
+                success.Result.PublicKey,
+                success.Result.User.Id,
+                success.Result.Counter,
+                success.Result.CredType,
+                DateTime.Now,
+                success.Result.Aaguid
+            ));
 
 
             return new JsonResult(success);

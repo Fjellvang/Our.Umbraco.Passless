@@ -1,16 +1,15 @@
-﻿
-using Fido2NetLib.Development;
-using Fido2NetLib.Objects;
+﻿using Fido2NetLib.Objects;
+using UmbracoFidoLogin.Credentials.Models;
 
 namespace UmbracoFidoLogin.Credentials.Services
 {
     public interface ICredentialsService
     {
-        Task<List<StoredCredential>> GetCredentialsByUserIdAsync(string userEmail, CancellationToken cancellationToken = default);
-        Task<List<StoredCredential>> GetCredentialsByUserIdAsync(byte[] userId, CancellationToken cancellationToken = default);
-        Task<StoredCredential?> GetByDescriptorAsync(PublicKeyCredentialDescriptor descriptor, CancellationToken cancellationToken = default);
-        Task AddCredential(StoredCredential credential);
-        Task UpdateCounterAsync(byte[] credentialsId, long counter);
-        Task DeleteCredentialsAsync(string userEmail, byte[] credentialsId);
+        Task<List<FidoCredentialModel>> GetCredentialsByUserIdAsync(string userEmail, CancellationToken cancellationToken = default);
+        Task<List<FidoCredentialModel>> GetCredentialsByUserIdAsync(byte[] userId, CancellationToken cancellationToken = default);
+        Task<FidoCredentialModel?> GetByDescriptorAsync(PublicKeyCredentialDescriptor descriptor, CancellationToken cancellationToken = default);
+        Task AddCredential(FidoCredentialModel credential);
+        Task UpdateCounterAsync(PublicKeyCredentialDescriptor credentialsId, long counter);
+        Task DeleteCredentialsAsync(string userEmail, PublicKeyCredentialDescriptor credentialsId);
     }
 }

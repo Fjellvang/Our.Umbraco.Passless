@@ -72,11 +72,11 @@
         function submitTest() {
             alert('testtwo ' + vm.registrationAlias);
 
-            vm.state = 'ready';
         }
 
-        async function submitRegisterFidoForm(e) {
-            e.preventDefault();
+        async function submitRegisterFidoForm() {
+            console.log(`Submitting ${vm.registrationAlias}`)
+
             const response = await fetch(vm.credentialsOptionsEndpoint);
             let makeCredentialOptions = await response.json();
 
@@ -143,7 +143,7 @@
 
         //Copied from fido2-net-lib
         async function registerCredentialWithServer(formData) {
-            let response = await fetch(vm.makeCredentialsEndpoint, {
+            let response = await fetch(`${vm.makeCredentialsEndpoint}?alias=${vm.registrationAlias}`, {
                 method: 'POST', 
                 body: JSON.stringify(formData), // data can be `string` or {object}!
                 headers: {
@@ -154,6 +154,7 @@
 
             let data = await response.json();
 
+            vm.state = 'ready';
             return data;
         }
 

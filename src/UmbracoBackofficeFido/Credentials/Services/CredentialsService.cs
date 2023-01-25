@@ -3,6 +3,7 @@ using Fido2NetLib.Development;
 using Fido2NetLib.Objects;
 using System.Text;
 using Umbraco.Cms.Core.Scoping;
+using UmbracoFidoLogin.Credentials.Models;
 using UmbracoFidoLogin.Credentials.Persistence;
 
 namespace UmbracoFidoLogin.Credentials.Services
@@ -17,7 +18,7 @@ namespace UmbracoFidoLogin.Credentials.Services
             this.fidoCredentialRepository = fidoCredentialRepository;
             this.scopeProvider = scopeProvider;
         }
-        public async Task AddCredential(StoredCredential credential)
+        public async Task AddCredential(FidoCredentialModel credential)
         {
             using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
 
@@ -32,6 +33,7 @@ namespace UmbracoFidoLogin.Credentials.Services
             await fidoCredentialRepository.UpsertAsync(new Persistence.FidoCredentialEntity()
             {
                 Id = Guid.NewGuid(),
+                Alias = credential.Alias,
                 UserId = credential.UserId,
                 Descriptor = credential.Descriptor.Id,
                 PublicKey = credential.PublicKey,
@@ -43,7 +45,7 @@ namespace UmbracoFidoLogin.Credentials.Services
             });
         }
 
-        public async Task<StoredCredential?> GetByDescriptorAsync(PublicKeyCredentialDescriptor descriptor, CancellationToken cancellationToken = default)
+        public async Task<FidoCredentialModel?> GetByDescriptorAsync(PublicKeyCredentialDescriptor descriptor, CancellationToken cancellationToken = default)
         {
             //TODO: Figure if we can use cancellation token with npoco
             using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
@@ -52,11 +54,11 @@ namespace UmbracoFidoLogin.Credentials.Services
             return MapCredentials(result);
         }
 
-        public Task<List<StoredCredential>> GetCredentialsByUserIdAsync(string userEmail, CancellationToken cancellationToken = default)
+        public Task<List<FidoCredentialModel>> GetCredentialsByUserIdAsync(string userEmail, CancellationToken cancellationToken = default)
         {
             return GetCredentialsByUserIdAsync(Encoding.UTF8.GetBytes(userEmail), cancellationToken);
         }
-        public async Task<List<StoredCredential>> GetCredentialsByUserIdAsync(byte[] userId, CancellationToken cancellationToken = default)
+        public async Task<List<FidoCredentialModel>> GetCredentialsByUserIdAsync(byte[] userId, CancellationToken cancellationToken = default)
         {
             //TODO: Figure if we can use cancellation token with npoco
             using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
@@ -65,46 +67,51 @@ namespace UmbracoFidoLogin.Credentials.Services
             return Map(result);
         }
 
-        private static List<StoredCredential> Map(List<FidoCredentialEntity> result)
+        private static List<FidoCredentialModel> Map(List<FidoCredentialEntity> result)
         {
-            return result.Select(MapCredentials).ToList();
+            return result.Select(MapCredentials).OfType<FidoCredentialModel>().ToList();
         }
 
-        private static StoredCredential? MapCredentials(FidoCredentialEntity x)
+        private static FidoCredentialModel? MapCredentials(FidoCredentialEntity entity)
         {
-            if (x is null)
+            if (entity is null)
             {
                 return null;
             }
 
-            return new StoredCredential() // TODO: do we even want to use this model ?
-            {
-                UserId = x.UserId,
-                Descriptor = new PublicKeyCredentialDescriptor(x.Descriptor),
-                PublicKey = x.PublicKey,
-                UserHandle = x.UserHandle,
-                SignatureCounter = Convert.ToUInt32(x.SignatureCounter),
-                CredType = x.CredType,
-                AaGuid = x.AaGuid,
-                RegDate = x.RegDate
-            };
+            return new FidoCredentialModel(
+                entity.Alias,
+                entity.UserId,
+                new PublicKeyCredentialDescriptor(entity.Descriptor),
+                entity.PublicKey,
+                entity.UserHandle,
+                Convert.ToUInt32(entity.SignatureCounter),
+                entity.CredType,
+                entity.RegDate,
+                entity.AaGuid
+            );
         }
 
-        public async Task UpdateCounterAsync(byte[] credentialsId, long counter)
+        public async Task UpdateCounterAsync(PublicKeyCredentialDescriptor credentialsId, long counter)
         {
             //TODO: clean this up - decide on proper ID and preferable do the update in one call to DB
             using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
-            var credential = await fidoCredentialRepository.GetCredentialsByIdAsync(credentialsId);
+            var credential = await fidoCredentialRepository.GetCredentialsByIdAsync(credentialsId.Id);
+
+            if (credential is null)
+            {
+                throw new InvalidOperationException("Unexpected, the credentials attempting to be updated doesn't exist");
+            }
 
             credential.SignatureCounter = counter;
 
             await fidoCredentialRepository.UpsertAsync(credential);
         }
 
-        public async Task DeleteCredentialsAsync(string userEmail, byte[] credentialsId)
+        public async Task DeleteCredentialsAsync(string userEmail, PublicKeyCredentialDescriptor credentialsId)
         {
             using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
-            var existing = await fidoCredentialRepository.GetCredentialsByIdAsync(credentialsId);
+            var existing = await fidoCredentialRepository.GetCredentialsByIdAsync(credentialsId.Id);
 
             var credentialEmail = Encoding.UTF8.GetString(existing.UserId);
             var noEmailMatch = !credentialEmail.Equals(userEmail, StringComparison.Ordinal);

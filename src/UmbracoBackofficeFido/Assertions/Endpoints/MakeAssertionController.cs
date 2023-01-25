@@ -56,7 +56,7 @@ namespace UmbracoFidoLogin.Assertions.Endpoints
                 var res = await fido2.MakeAssertionAsync(clientResponse, options, publicKey, storedCounter, callback, cancellationToken: cancellationToken);
 
                 // 6. update stored counter
-                await credentialsService.UpdateCounterAsync(res.CredentialId, res.Counter);
+                await credentialsService.UpdateCounterAsync(new PublicKeyCredentialDescriptor(res.CredentialId), res.Counter);
 
                 //Sign the user in.
                 var userEmail = Encoding.UTF8.GetString(creds.UserHandle);

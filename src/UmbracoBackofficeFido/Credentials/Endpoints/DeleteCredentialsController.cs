@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Fido2NetLib.Objects;
+using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
@@ -29,7 +30,7 @@ public class DeleteCredentialsController : UmbracoAuthorizedController
             throw new InvalidOperationException("Unexpected: User email is null");
         }
 
-        await credentialsService.DeleteCredentialsAsync(userEmail, Convert.FromHexString(id));
+        await credentialsService.DeleteCredentialsAsync(userEmail, new PublicKeyCredentialDescriptor(Convert.FromHexString(id)));
 
         return Ok();
     }
