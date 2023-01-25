@@ -3,5 +3,8 @@
     "~/App_Plugins/UmbracoFido/BackOffice/customlogin.controller.js",
     "~/App_Plugins/UmbracoFido/BackOffice/helpers.js",
     "~/App_Plugins/UmbracoFido/BackOffice/overlays/credentials.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/UmbracoFido/Backoffice/UmbracoFido.css"
   ]
 }

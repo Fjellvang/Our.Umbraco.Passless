@@ -9,6 +9,6 @@ public class UserCredentialsResponse
 
 public class UserCredentialResponse
 {
-    public string CredentialAlias { get; set; } = null!;
+    public string Alias { get; set; } = null!;
     public string CredentialsId { get; set; } = null!;
 }

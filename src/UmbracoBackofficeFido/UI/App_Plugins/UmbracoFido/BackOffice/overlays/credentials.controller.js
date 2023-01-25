@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function CredentialsController($scope, overlayService, notificationsService) {
+    function CredentialsController($scope, $http, overlayService, notificationsService) {
 
         var vm = this;
 
@@ -15,9 +15,9 @@
         vm.addNewCredentials = addNewCredentials;
         vm.deleteCredentials = deleteCredentials;
         vm.registrationAlias = '';
+        vm.loading = true;
 
         function init() {
-            vm.loading = true;
             vm.credentialsOptionsEndpoint = Umbraco.Sys.ServerVariables.fidoLogin.urls.credentialsOptions;
             vm.makeCredentialsEndpoint    = Umbraco.Sys.ServerVariables.fidoLogin.urls.makeCredentials;
             vm.getCredentialsEndpoint    = Umbraco.Sys.ServerVariables.fidoLogin.urls.getCredentials;
@@ -33,21 +33,15 @@
                 submitButtonStyle: 'danger',
                 closeButtonLabel: 'Cancel',
                 submit: () => {
-                    fetch(`${vm.deleteCredentialsEndpoint}?id=${reg.credentialsId}`, {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        }
-                    }).then((response) => {
-                        if (response.ok) {
-                            notificationsService.success('Registration deleted.' + reg.credentialsId);
-                            const index = vm.credentials.userCredentials.indexOf(reg);
-                            vm.credentials.userCredentials.splice(index, 1);
-                        } else {
-                            debugger;
-                            notificationsService.error('Error deleting registration.');
-                        }
+                    $http.post(`${vm.deleteCredentialsEndpoint}?id=${reg.credentialsId}`)
+                        .then((response) => {
+                            if (response.status == 200) {
+                                notificationsService.success('Registration deleted. ' + reg.alias);
+                                const index = vm.credentials.userCredentials.indexOf(reg);
+                                vm.credentials.userCredentials.splice(index, 1);
+                            } else {
+                                notificationsService.error('Error deleting registration.');
+                            }
                         overlayService.close();
                     }, () => {
                         notificationsService.error('Error deleting registration.');
@@ -59,10 +53,13 @@
             });
         }
 
-        async function getCredentials() {
-            var response = await fetch(vm.getCredentialsEndpoint);
-            vm.credentials = await response.json();
-            vm.loading = false;
+        function getCredentials() {
+            vm.loading = true;
+            $http.get(vm.getCredentialsEndpoint)
+                .then(response => {
+                    vm.credentials = response.data;
+                    vm.loading = false;
+                })
         }
 
         function addNewCredentials() {
@@ -137,6 +134,8 @@
 
             // TODO: show success 
             console.log("Success");
+            notificationsService.success(`Successfully added new credentials with the alias ${vm.registrationAlias}`);
+            getCredentials();
             // redirect to dashboard?
             //window.location.href = "/dashboard/" + state.user.displayName;
         }

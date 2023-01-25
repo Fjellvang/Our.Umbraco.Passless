@@ -46,7 +46,7 @@ public class CredentialsOptionsController : UmbracoAuthorizedController
             UserVerification = UserVerificationRequirement.Preferred
         }; //TODO: get this from config.
 
-        authenticatorSelection.AuthenticatorAttachment = AuthenticatorAttachment.Platform; //TODO: Make this toggleable when signing up. For now we only use WindowsID
+        authenticatorSelection.AuthenticatorAttachment = AuthenticatorAttachment.CrossPlatform; //TODO: Make this toggleable when signing up. For now we only use WindowsID
 
         var exts = new AuthenticationExtensionsClientInputs()
         {
