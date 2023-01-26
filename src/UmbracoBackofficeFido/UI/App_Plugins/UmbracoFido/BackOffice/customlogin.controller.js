@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function CustomLoginController($scope, $location, userService, editorService) {
+    function CustomLoginController($scope, $location, $http, userService, editorService) {
 
         var vm = this;
         vm.state = "login";
@@ -10,22 +10,36 @@
         vm.openFidoOverlay = openFidoOverlay;
         vm.assertionOptionsEndpoint = '/umbraco/backoffice/fido/assertionoptions';
         vm.makeAssertionEndpoint = '/umbraco/backoffice/fido/makeassertion';
+        vm.lastCredentials = '';
+        vm.useLastCredentials = true;
+        vm.toggleLastCredentials = toggleLastCredentials;
 
         function init() {
+            vm.lastCredentials = localStorage.getItem("lastCredentials");
+
             userService.isAuthenticated().then(function () {
+
                 vm.state = "backoffice";
             }, function () {
             });
         }
+        function toggleLastCredentials() {
+            vm.useLastCredentials = !vm.useLastCredentials;
+        }
         //Assertion
         async function handleSignInSubmit(e) {
             e.preventDefault();
-            const response = await fetch(vm.assertionOptionsEndpoint, {method: 'POST'});
-            let makeAssertionOptions = await response.json();
+
+            const response = await $http.post(vm.assertionOptionsEndpoint,
+                JSON.stringify({
+                    lastCredentialId: vm.useLastCredentials ? vm.lastCredentials : ''
+                })
+            );
+            let makeAssertionOptions = response.data;
 
             // Turn the challenge back into the accepted format of padded base64
             makeAssertionOptions.challenge = coerceToArrayBuffer(makeAssertionOptions.challenge);
-            makeAssertionOptions.excludeCredentials = makeAssertionOptions.allowCredentials.map((c) => {
+            makeAssertionOptions.allowCredentials = makeAssertionOptions.allowCredentials.map((c) => {
                 c.id = coerceToArrayBuffer(c.id);
                 return c;
             });

@@ -69,13 +69,23 @@
             vm.state = 'adding';
         }
 
-        async function submitRegisterFidoForm() {
+        function submitRegisterFidoForm() {
             console.log(`Submitting ${vm.registrationAlias}`)
 
-            const response = await fetch(`${vm.credentialsOptionsEndpoint}?crossPlatform=${vm.crossPlatform}`);
-            let makeCredentialOptions = await response.json();
+            $http.get(`${vm.credentialsOptionsEndpoint}?crossPlatform=${vm.crossPlatform}`)
+                .then(success => {
+                    const makeCredentialsOptions = success.data;
 
-            // Turn the challenge back into the accepted format of padded base64
+                    handleUserCredentials(makeCredentialsOptions);
+                }, failure => {
+                    console.log(failure);
+                    notificationsService.error(`failed getting credential options from server`);
+                });
+
+        } 
+
+        function handleUserCredentials(makeCredentialOptions) {
+             // Turn the challenge back into the accepted format of padded base64
             makeCredentialOptions.challenge = coerceToArrayBuffer(makeCredentialOptions.challenge);
             // Turn ID into a UInt8Array Buffer for some reason
             makeCredentialOptions.user.id = coerceToArrayBuffer(makeCredentialOptions.user.id);
@@ -87,72 +97,56 @@
 
             if (makeCredentialOptions.authenticatorSelection.authenticatorAttachment === null) makeCredentialOptions.authenticatorSelection.authenticatorAttachment = undefined;
 
-            const newCredential = await navigator.credentials.create({
+            navigator.credentials.create({
                 publicKey: makeCredentialOptions
+            }).then(newCredential => {
+                prepareNewCredentials(newCredential);
+            }, failure => {
+                console.log(failure);
+                notificationsService.error("Failed to register authenticator, possibly due to it already being registered");
             });
-
-            console.log("success");
-
-            await registerNewCredential(newCredential);
         }
 
-        // This should be used to verify the auth data with the server
-        async function registerNewCredential(newCredential) {
+        function prepareNewCredentials(newCredentials) {
             // Move data into Arrays incase it is super long
-            let attestationObject = new Uint8Array(newCredential.response.attestationObject);
-            let clientDataJSON = new Uint8Array(newCredential.response.clientDataJSON);
-            let rawId = new Uint8Array(newCredential.rawId);
+            const attestationObject = new Uint8Array(newCredentials.response.attestationObject);
+            const clientDataJSON = new Uint8Array(newCredentials.response.clientDataJSON);
+            const rawId = new Uint8Array(newCredentials.rawId);
+            const base64UrlRawId = coerceToBase64Url(rawId);
+
+            localStorage.setItem("lastCredentials", btoa(rawId));
 
             const data = {
-                id: newCredential.id,
-                rawId: coerceToBase64Url(rawId),
-                type: newCredential.type,
-                extensions: newCredential.getClientExtensionResults(),
+                id: newCredentials.id,
+                rawId: base64UrlRawId,
+                type: newCredentials.type,
+                extensions: newCredentials.getClientExtensionResults(),
                 response: {
                     attestationObject: coerceToBase64Url(attestationObject),
                     clientDataJSON: coerceToBase64Url(clientDataJSON)
                 }
             };
 
-            let response;
-            try {
-                response = await registerCredentialWithServer(data);
-            } catch (e) {
-                console.log("Server error " + e);
-            }
-
-            console.log("Credential Object", response);
-
-            // TODO: show error
-            if (response.status !== "ok") {
-                console.log("Error creating credential");
-                console.log(response.errorMessage);
-                return;
-            }
-
-            // TODO: show success 
-            console.log("Success");
-            notificationsService.success(`Successfully added new credentials with the alias ${vm.registrationAlias}`);
-            getCredentials();
-            // redirect to dashboard?
-            //window.location.href = "/dashboard/" + state.user.displayName;
+            registerCredentialWithServer(data)
+                .then(success => {
+                    onKeyRegisteredWithServer(success.data.result);
+                }, failure => {
+                    notificationsService.error("Failed to add authenticator to you account");
+                    console.log("Error creating credential");
+                    console.log(failure);
+                });
         }
 
-        //Copied from fido2-net-lib
-        async function registerCredentialWithServer(formData) {
-            let response = await fetch(`${vm.makeCredentialsEndpoint}?alias=${vm.registrationAlias}`, {
-                method: 'POST', 
-                body: JSON.stringify(formData), // data can be `string` or {object}!
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            let data = await response.json();
-
+        function onKeyRegisteredWithServer(credentials) {
+            localStorage.setItem("lastCredentials", credentials.credentialId)
+            notificationsService.success(`Successfully added new credentials with the alias ${vm.registrationAlias}`);
             vm.state = 'ready';
-            return data;
+            getCredentials();
+        }
+
+        function registerCredentialWithServer(formData) {
+            const body = JSON.stringify(formData);
+            return $http.post(`${vm.makeCredentialsEndpoint}?alias=${vm.registrationAlias}`, body);
         }
 
         function close() {

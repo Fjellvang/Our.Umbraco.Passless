@@ -4,10 +4,14 @@
             <i ng-class="vm.login.properties.Icon" class="fa fa-user"></i>
             <localize key="login_signInWith" class="ng-isolate-scope"></localize> FIDO
         </button>
-        <umb-checkbox name="checkboxlist"
-                      model="true"
-                      text="Sign in with last authenticator used in this browser">
-        </umb-checkbox>
+        <umb-toggle ng-if="vm.lastCredentials"
+                    checked="vm.useLastCredentials"
+                    on-click="vm.toggleLastCredentials()"
+                    show-labels="true"
+                    label-position="right"
+                    label-on="Sign in with last authenticator registered in this browser"
+                    label-off="Sign in with last authenticator registered in this browser">
+        </umb-toggle>
     </div>
     <div ng-if="vm.state === 'backoffice'">
         <!--<form ng-submit="vm.submitRegisterFidoForm($event)"-->
