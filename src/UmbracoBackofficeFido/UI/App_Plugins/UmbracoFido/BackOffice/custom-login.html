@@ -1,6 +1,6 @@
 ﻿<div ng-controller="UmbracoFido.CustomLoginController as vm">
     <div ng-if="vm.state !== 'backoffice'">
-        <button class="btn btn-block btn-social" type="submit" ng-click="vm.handleSignInSubmit($event)" title="Sign in with FIDO">
+        <button class="btn btn-block btn-social" type="submit" ng-click="vm.handleSignInSubmit()" title="Sign in with FIDO">
             <i ng-class="vm.login.properties.Icon" class="fa fa-user"></i>
             <localize key="login_signInWith" class="ng-isolate-scope"></localize> FIDO
         </button>
@@ -14,7 +14,6 @@
         </umb-toggle>
     </div>
     <div ng-if="vm.state === 'backoffice'">
-        <!--<form ng-submit="vm.submitRegisterFidoForm($event)"-->
         <form ng-submit="vm.openFidoOverlay()"
               method="POST"
               name="fidoRegisterForm" id="fidoRegisterForm">

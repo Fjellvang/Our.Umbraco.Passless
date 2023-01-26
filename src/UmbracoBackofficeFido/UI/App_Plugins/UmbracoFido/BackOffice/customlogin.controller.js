@@ -18,25 +18,24 @@
             vm.lastCredentials = localStorage.getItem("lastCredentials");
 
             userService.isAuthenticated().then(function () {
-
                 vm.state = "backoffice";
-            }, function () {
-            });
+            }, () => { });
         }
         function toggleLastCredentials() {
             vm.useLastCredentials = !vm.useLastCredentials;
         }
         //Assertion
-        async function handleSignInSubmit(e) {
-            e.preventDefault();
-
-            const response = await $http.post(vm.assertionOptionsEndpoint,
+        function handleSignInSubmit() {
+            $http.post(vm.assertionOptionsEndpoint,
                 JSON.stringify({
                     lastCredentialId: vm.useLastCredentials ? vm.lastCredentials : ''
                 })
-            );
-            let makeAssertionOptions = response.data;
+            ).then(success => {
+                getCredentials(success.data);
+            });
+        }
 
+        function getCredentials(makeAssertionOptions) {
             // Turn the challenge back into the accepted format of padded base64
             makeAssertionOptions.challenge = coerceToArrayBuffer(makeAssertionOptions.challenge);
             makeAssertionOptions.allowCredentials = makeAssertionOptions.allowCredentials.map((c) => {
@@ -45,24 +44,17 @@
             });
 
             // ask browser for credentials (browser will ask connected authenticators)
-            let credential;
-            try {
-                credential = await navigator.credentials.get({ publicKey: makeAssertionOptions })
-            } catch (err) {
-                console.log(err.message ? err.message : err);
-            }
-            try {
-                await verifyAssertionWithServer(credential);
-            } catch (e) {
-                console.log("Could not verify assertion" + e);
-            }
+           navigator.credentials.get({ publicKey: makeAssertionOptions })
+                .then(credential => {
+                    verifyAssertionWithServer(credential);
+                })
         }
 
         /**
          * Sends the credential to the the FIDO2 server for assertion
          * @param {any} assertedCredential
          */
-        async function verifyAssertionWithServer(assertedCredential) {
+        function verifyAssertionWithServer(assertedCredential) {
             // Move data into Arrays incase it is super long
             let authData = new Uint8Array(assertedCredential.response.authenticatorData);
             let clientDataJSON = new Uint8Array(assertedCredential.response.clientDataJSON);
@@ -82,32 +74,14 @@
                 }
             };
 
-            let response;
-            try {
-                let res = await fetch(vm.makeAssertionEndpoint, {
-                    method: 'POST', // or 'PUT'
-                    body: JSON.stringify(data), // data can be `string` or {object}!
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
+            $http.post(vm.makeAssertionEndpoint,JSON.stringify(data))
+                .then(success => {
+                    const response = success.data;
+                    window.location.href = response.redirectUrl
+                }, () => {
+                    console.log("Error doing assertion");
+                    //TODO: Do some proper error messaging
                 });
-
-                response = await res.json();
-            } catch (e) {
-                throw e;
-            }
-
-            console.log("Assertion Object", response);
-
-            //// show error
-            if (response.status !== "ok") {
-                console.log("Error doing assertion");
-                console.log(response.errorMessage);
-                return;
-            }
-
-            window.location.href = response.redirectUrl
         }
 
 
