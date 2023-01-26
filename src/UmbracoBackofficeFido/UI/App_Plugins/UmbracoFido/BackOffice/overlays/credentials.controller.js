@@ -2,10 +2,7 @@
     "use strict";
 
     function CredentialsController($scope, $http, overlayService, notificationsService) {
-
         var vm = this;
-
-        vm.submit = submit;
         vm.close = close;
         vm.state = 'ready'
 
@@ -15,7 +12,7 @@
         vm.deleteCredentials = deleteCredentials;
         vm.onCrossplaftormChange = onCrossplaftormChange;
         vm.registrationAlias = '';
-        vm.crossPlatform = false;
+        vm.crossPlatform = true;
         vm.loading = true;
 
         function init() {
@@ -156,13 +153,6 @@
 
             vm.state = 'ready';
             return data;
-        }
-
-
-        function submit() {
-            if ($scope.model.submit) {
-                $scope.model.submit($scope.model);
-            }
         }
 
         function close() {

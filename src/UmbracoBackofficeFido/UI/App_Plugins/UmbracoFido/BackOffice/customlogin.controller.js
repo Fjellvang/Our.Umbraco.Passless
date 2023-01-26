@@ -104,10 +104,7 @@
                 title: 'Fido Registrations',
                 view: '/App_Plugins/UmbracoFido/BackOffice/overlays/credentials.html',
                 position: 'right',
-                size: 'small',
-                submit: x => {
-                    editorService.close();
-                },
+                size: 'medium',
                 close: x => {
                     editorService.close();
                 }
