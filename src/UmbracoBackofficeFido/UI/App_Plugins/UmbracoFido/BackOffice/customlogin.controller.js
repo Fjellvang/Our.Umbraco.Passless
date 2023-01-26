@@ -107,6 +107,7 @@
                 return;
             }
 
+            localStorage.setItem("lastCredentials", assertedCredential.id);
             window.location.href = response.redirectUrl
         }
 

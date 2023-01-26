@@ -1,10 +1,14 @@
-﻿namespace UmbracoFidoLogin.Credentials.Models
+﻿using Fido2NetLib;
+using Newtonsoft.Json;
+
+namespace UmbracoFidoLogin.Credentials.Models
 {
     public class AssertionOptionsRequest
     {
         /// <summary>
         /// Base 64Encoded credential ID
         /// </summary>
-        public string? LastCredentialId { get; set; }
+        [JsonConverter(typeof(Base64UrlConverter))]
+        public byte[] LastCredentialId { get; set; }
     }
 }

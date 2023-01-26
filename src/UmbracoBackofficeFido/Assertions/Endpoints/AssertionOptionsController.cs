@@ -31,11 +31,9 @@ namespace UmbracoFidoLogin.Assertions.Endpoints
         public IActionResult Index([FromBody] AssertionOptionsRequest assertionOptions)
         {
             var allowedCredentials = new List<PublicKeyCredentialDescriptor>();
-            if (!string.IsNullOrEmpty(assertionOptions.LastCredentialId))
+            if (assertionOptions.LastCredentialId.Any())
             {
-                var credentialId = Convert.FromBase64String(assertionOptions.LastCredentialId);
-
-                PublicKeyCredentialDescriptor item = new PublicKeyCredentialDescriptor(credentialId);
+                PublicKeyCredentialDescriptor item = new PublicKeyCredentialDescriptor(assertionOptions.LastCredentialId);
                 allowedCredentials.Add(item);
             }
 
