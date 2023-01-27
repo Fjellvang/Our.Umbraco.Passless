@@ -10,6 +10,7 @@ using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.BackOffice.Security;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
+using Umbraco.Extensions;
 using UmbracoFidoLogin.Credentials.Services;
 using static Umbraco.Cms.Core.Constants;
 

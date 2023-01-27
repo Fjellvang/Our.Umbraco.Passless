@@ -6,6 +6,5 @@ public class FidoRemoteAuthOptions : RemoteAuthenticationOptions
 {
     public FidoRemoteAuthOptions()
     {
-        CallbackPath = "/";
     }
 }

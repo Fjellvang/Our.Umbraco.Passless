@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    function CustomLoginController($scope, $location, $http, userService, editorService) {
+    function CustomLoginController($scope, $window, $http, userService, editorService) {
 
         var vm = this;
         vm.state = "login";
@@ -77,7 +77,7 @@
             $http.post(vm.makeAssertionEndpoint,JSON.stringify(data))
                 .then(success => {
                     const response = success.data;
-                    window.location.href = response.redirectUrl
+                    $window.location.href = response.redirectUrl
                 }, () => {
                     console.log("Error doing assertion");
                     //TODO: Do some proper error messaging

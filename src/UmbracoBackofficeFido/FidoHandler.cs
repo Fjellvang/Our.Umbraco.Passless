@@ -5,9 +5,9 @@ using System.Text.Encodings.Web;
 
 namespace UmbracoFidoLogin;
 
-public class FidoHandler : RemoteAuthenticationHandler<FidoRemoteAuthOptions>
+public class FidoRemoteAuthenticationHandler : RemoteAuthenticationHandler<FidoRemoteAuthOptions>
 {
-    public FidoHandler(IOptionsMonitor<FidoRemoteAuthOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
+    public FidoRemoteAuthenticationHandler(IOptionsMonitor<FidoRemoteAuthOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
     {
     }
 
