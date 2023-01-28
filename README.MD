@@ -61,3 +61,8 @@ For example:
 While working on the frontend navigate to ``src/UmbracoFidoLogin/UI`` and run ``npm run dev``
 The current webpack setup is just a dumb Webpack-copy step
 
+
+Special thanks to:
+
+- [D-Inventor](https://github.com/Infocaster) for his Angular JS support
+
