@@ -1,5 +1,9 @@
 ﻿# Our.Umbraco.Passless - Passwordless login for Umbraco
 
+| Package | NuGet |
+| ------- | ----- |
+| Our.Umbraco.Passless | [![NuGet](https://img.shields.io/nuget/v/Our.Umbraco.Passless)](https://www.nuget.org/packages/Our.Umbraco.Passless) [![NuGet downloads](https://img.shields.io/nuget/dt/Our.Umbraco.Passless.svg)](https://www.nuget.org/packages/Our.Umbraco.Passless) |
+
 Passwordless login for Umbraco using [FIDO2](https://fidoalliance.org/fido2/).
 Main implementation based on [Fido2-net-lib](https://github.com/passwordless-lib/fido2-net-lib) a great implementation for any potential FIDO server.
 
@@ -15,6 +19,7 @@ Main implementation based on [Fido2-net-lib](https://github.com/passwordless-lib
 - Forgot password registers new authenticator
 - Passwordless login for members.
 - Better configuration for consumers
+- Umbraco 9 & 11 Support
 
 
 ### Known issues
