@@ -17,6 +17,10 @@ Main implementation based on [Fido2-net-lib](https://github.com/passwordless-lib
 - Better configuration for consumers
 
 
+### Known issues
+- The "Remember last authenticator" checkbox works poorly with passkeys, not sure if it can be helped?
+- The CSS styling could need a loving hand
+
 ## Install
 Use nuget to install Our.Umbraco.Passless
 ```powershell
