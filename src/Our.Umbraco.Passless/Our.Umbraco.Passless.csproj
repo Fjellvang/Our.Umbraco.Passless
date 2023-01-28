@@ -16,6 +16,7 @@
 		<Copyright>Copyright @ Aleksander Fjellvang</Copyright>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+		<PackageReleaseNotes>initial release</PackageReleaseNotes>
 	</PropertyGroup>
 
 

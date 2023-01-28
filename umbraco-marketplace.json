@@ -1,0 +1,24 @@
+{
+  "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+  "Title": "Our.Umbraco.Passless",
+  "Category": "Editor Tools",
+  "PackageType": "Package",
+  "Tags": [
+    "passwordless",
+    "fido",
+    "backoffice",
+    "login",
+    "fingerprint",
+    "face-id",
+    "passkeys",
+    "windows hello",
+    "yubikey"
+  ],
+  "LicenseTypes": [ "Free" ],
+  "AuthorDetails": {
+    "Name": "Aleksander Fjellvang",
+    ]
+  },
+  "IssueTrackerUrl": "https://github.com/Fjellvang/Our.Umbraco.Passless/issues",
+  "DiscussionForumUrl": "https://github.com/Fjellvang/Our.Umbraco.Passless/discussions"
+}
