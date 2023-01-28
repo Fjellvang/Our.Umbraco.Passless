@@ -7,6 +7,10 @@
 Passwordless login for Umbraco using [FIDO2](https://fidoalliance.org/fido2/).
 Main implementation based on [Fido2-net-lib](https://github.com/passwordless-lib/fido2-net-lib) a great implementation for any potential FIDO server.
 
+## Getting started
+
+When you've installed and configured the package, log into the backffice, press your user icon in the top right corner and click `Manage Fido Devices` to add new devices.
+
 ## Features
 
 - Passwordless login to the umbraco backoffice.
