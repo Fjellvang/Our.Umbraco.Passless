@@ -1,4 +1,27 @@
 ﻿
+# Configuration
+You need to add these settings to your appsettings.config
+``` json
+ "Passless": {
+   "fido2": {
+     "serverName": "{your server name}",
+     "serverDomain": "{YOUR DOMAIN}",
+     "origins": [ "{YOUR ORIGIN}" ],
+     "timestampDriftTolerance": {drifttollerance in ms}
+   }
+ }
+```
+For example: 
+``` json
+"Passless": {
+   "fido2": {
+     "serverName": "Passless",
+     "serverDomain": "localhost",
+     "origins": [ "https://localhost:44351" ],
+     "timestampDriftTolerance": 300000
+   }
+}
+```
 
 ## Frontend
 

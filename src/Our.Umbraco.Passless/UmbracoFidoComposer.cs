@@ -22,11 +22,11 @@ public class UmbracoFidoComposer : IComposer
         //Fido
         builder.Services.AddFido2(options =>
         {
-            options.ServerDomain = builder.Config["fido2:serverDomain"];
-            options.ServerName = "FIDO2 Test";
-            options.Origins = builder.Config.GetSection("fido2:origins").Get<HashSet<string>>();
-            options.TimestampDriftTolerance = builder.Config.GetValue<int>("fido2:timestampDriftTolerance");
-            options.MDSCacheDirPath = builder.Config["fido2:MDSCacheDirPath"];
+            options.ServerDomain = builder.Config["Passless:fido2:serverDomain"];
+            options.ServerName = builder.Config["Passless:fido2:serverName"];
+            options.Origins = builder.Config.GetSection("Passless:fido2:origins").Get<HashSet<string>>();
+            options.TimestampDriftTolerance = builder.Config.GetValue<int>("Passless:fido2:timestampDriftTolerance");
+            options.MDSCacheDirPath = builder.Config["Passless:fido2:MDSCacheDirPath"];
         });
 
         //TODO: Refactor this - we don't want people forced into using the session
