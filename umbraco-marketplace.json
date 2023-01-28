@@ -16,8 +16,7 @@
   ],
   "LicenseTypes": [ "Free" ],
   "AuthorDetails": {
-    "Name": "Aleksander Fjellvang",
-    ]
+    "Name": "Aleksander Fjellvang"
   },
   "IssueTrackerUrl": "https://github.com/Fjellvang/Our.Umbraco.Passless/issues",
   "DiscussionForumUrl": "https://github.com/Fjellvang/Our.Umbraco.Passless/discussions"
