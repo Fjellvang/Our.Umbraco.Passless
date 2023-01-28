@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbracoFidoLogin", "src\UmbracoBackofficeFido\UmbracoFidoLogin.csproj", "{5409BBB6-FA06-4952-83F9-5B2CFAC96420}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoBackofficeFido.TestSite", "src\UmbracoBackofficeFido.TestSite\UmbracoBackofficeFido.TestSite.csproj", "{0B16A04E-BD8C-4967-A75E-D4113295CFCD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{E79ED7B6-0885-43D5-A449-67493F22512F}"
 	ProjectSection(SolutionItems) = preProject
 		README.MD = README.MD
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Our.Umbraco.Passless", "src\Our.Umbraco.Passless\Our.Umbraco.Passless.csproj", "{9869CCC0-510B-4204-B100-2519E3A0BC32}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Our.Umbraco.Passless.TestSite-v10", "src\Our.Umbraco.Passless.TestSite-v10\Our.Umbraco.Passless.TestSite-v10.csproj", "{30D67CEF-D0FB-4D4E-A714-B7D24302F1E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,14 +18,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5409BBB6-FA06-4952-83F9-5B2CFAC96420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5409BBB6-FA06-4952-83F9-5B2CFAC96420}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5409BBB6-FA06-4952-83F9-5B2CFAC96420}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5409BBB6-FA06-4952-83F9-5B2CFAC96420}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B16A04E-BD8C-4967-A75E-D4113295CFCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B16A04E-BD8C-4967-A75E-D4113295CFCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B16A04E-BD8C-4967-A75E-D4113295CFCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B16A04E-BD8C-4967-A75E-D4113295CFCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9869CCC0-510B-4204-B100-2519E3A0BC32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9869CCC0-510B-4204-B100-2519E3A0BC32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9869CCC0-510B-4204-B100-2519E3A0BC32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9869CCC0-510B-4204-B100-2519E3A0BC32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30D67CEF-D0FB-4D4E-A714-B7D24302F1E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30D67CEF-D0FB-4D4E-A714-B7D24302F1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30D67CEF-D0FB-4D4E-A714-B7D24302F1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30D67CEF-D0FB-4D4E-A714-B7D24302F1E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

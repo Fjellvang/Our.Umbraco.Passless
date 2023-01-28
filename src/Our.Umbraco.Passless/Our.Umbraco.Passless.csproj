@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\overlays\credentials.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\overlays\" />
+		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\overlays\credentials.html" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\overlays\" />
+		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\custom-login.html" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
+		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\customlogin.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
+		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\helpers.js" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
+		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\passless.css" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\BackOffice\" />
+		<None Include="UI\App_Plugins\UmbracoPassless\lang\en-US.xml" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\lang\" />
+		<None Include="UI\App_Plugins\UmbracoPassless\package.manifest" Pack="true" PackagePath="content\App_Plugins\UmbracoFido\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Fido2" Version="3.0.1" />
+		<PackageReference Include="Fido2.AspNet" Version="3.0.1" />
+		<PackageReference Include="Umbraco.Cms.Core" Version="10.3.2" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.3.2" />
+		<PackageReference Include="Umbraco.Cms.Web.Common" Version="10.3.2" />
+	</ItemGroup>
+
+</Project>

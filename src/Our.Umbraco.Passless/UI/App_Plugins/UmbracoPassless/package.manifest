@@ -1,0 +1,10 @@
+﻿{
+  "javascript": [
+    "~/App_Plugins/UmbracoPassless/BackOffice/customlogin.controller.js",
+    "~/App_Plugins/UmbracoPassless/BackOffice/helpers.js",
+    "~/App_Plugins/UmbracoPassless/BackOffice/overlays/credentials.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/UmbracoPassless/Backoffice/passless.css"
+  ]
+}
