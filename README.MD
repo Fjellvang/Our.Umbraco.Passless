@@ -75,5 +75,5 @@ The current webpack setup is just a dumb Webpack-copy step
 
 Special thanks to:
 
-- [D-Inventor](https://github.com/Infocaster) for his Angular JS support
+- [D-Inventor](https://dev.to/d_inventor) for his Angular JS support
 

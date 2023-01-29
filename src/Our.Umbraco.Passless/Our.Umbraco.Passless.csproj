@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/Fjellvang/Our.Umbraco.Passless</PackageProjectUrl>
     <PackageReadmeFile>README.MD</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Fjellvang/Our.Umbraco.Passless</RepositoryUrl>
-    <PackageTags>Umbraco Umbraco10 Passwordless Fido webauthn umbraco-marketplace</PackageTags>
+    <PackageTags>Umbraco Umbraco10 Umbraco11 Passkeys Passwordless Fido webauthn umbraco-marketplace</PackageTags>
     <Company>Aleksander Fjellvang</Company>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright @ Aleksander Fjellvang</Copyright>
