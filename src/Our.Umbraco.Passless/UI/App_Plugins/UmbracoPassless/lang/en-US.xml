@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <language alias="en_us" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
 	<area alias="fido">
-		<key alias="registration">Manage FIDO devices</key>
-		<key alias="addDevice">Add FIDO Device</key>
-		<key alias="signIn">Sign in with Fido</key>
+		<key alias="registration">Manage Passless devices</key>
+		<key alias="addDevice">Add Passless Device</key>
+		<key alias="signIn">Sign in with Passless</key>
 	</area>
 </language>

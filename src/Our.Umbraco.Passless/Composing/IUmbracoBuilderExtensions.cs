@@ -13,7 +13,7 @@ public static class IUmbracoBuilderExtensions
             logins.AddBackOfficeLogin(
                 backOfficeAuthenticationBuilder =>
                 {
-                    backOfficeAuthenticationBuilder.AddRemoteScheme<FidoRemoteAuthOptions, FidoRemoteAuthenticationHandler>(
+                    backOfficeAuthenticationBuilder.AddRemoteScheme<PasslessRemoteAuthenticationOptions, PasslessRemoteAuthenticationHandler>(
                         // The scheme must be set with this method to work for the backoffice
                         backOfficeAuthenticationBuilder.SchemeForBackOffice("FidoLogin")!,
                         "Fido Login",

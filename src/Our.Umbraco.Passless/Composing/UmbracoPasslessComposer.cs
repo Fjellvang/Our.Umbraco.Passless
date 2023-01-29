@@ -9,7 +9,7 @@ using Our.Umbraco.Passless.Credentials.Services;
 
 namespace Our.Umbraco.Passless.Composing;
 
-public class UmbracoFidoComposer : IComposer
+public class UmbracoPasslessComposer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
     {

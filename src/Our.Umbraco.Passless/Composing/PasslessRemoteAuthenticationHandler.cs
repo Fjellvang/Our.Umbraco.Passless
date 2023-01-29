@@ -5,9 +5,9 @@ using System.Text.Encodings.Web;
 
 namespace Our.Umbraco.Passless.Composing;
 
-public class FidoRemoteAuthenticationHandler : RemoteAuthenticationHandler<FidoRemoteAuthOptions>
+public class PasslessRemoteAuthenticationHandler : RemoteAuthenticationHandler<PasslessRemoteAuthenticationOptions>
 {
-    public FidoRemoteAuthenticationHandler(IOptionsMonitor<FidoRemoteAuthOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
+    public PasslessRemoteAuthenticationHandler(IOptionsMonitor<PasslessRemoteAuthenticationOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
     {
     }
 

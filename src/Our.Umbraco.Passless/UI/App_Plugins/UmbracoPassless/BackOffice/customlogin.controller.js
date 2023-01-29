@@ -7,9 +7,9 @@
         vm.state = "login";
         vm.handleSignInSubmit = handleSignInSubmit;
         vm.loadingUmbracoIdSetting = true;
-        vm.openFidoOverlay = openFidoOverlay;
-        vm.assertionOptionsEndpoint = '/umbraco/backoffice/fido/assertionoptions';
-        vm.makeAssertionEndpoint = '/umbraco/backoffice/fido/makeassertion';
+        vm.openPasslessOverlay = openPasslessOverlay;
+        vm.assertionOptionsEndpoint = '/umbraco/backoffice/passless/assertionoptions';
+        vm.makeAssertionEndpoint = '/umbraco/backoffice/passless/makeassertion';
         vm.lastCredentials = '';
         vm.useLastCredentials = true;
         vm.toggleLastCredentials = toggleLastCredentials;
@@ -86,10 +86,10 @@
 
 
         //Registration
-        function openFidoOverlay() 
+        function openPasslessOverlay() 
         {
             editorService.open({
-                title: 'Fido Registrations',
+                title: 'Passless Registrations',
                 view: '/App_Plugins/UmbracoPassless/BackOffice/overlays/credentials.html',
                 position: 'right',
                 size: 'medium',
@@ -102,5 +102,5 @@
         init();
     }
 
-    angular.module("umbraco").controller("UmbracoFido.CustomLoginController", CustomLoginController);
+    angular.module("umbraco").controller("UmbracoPassless.CustomLoginController", CustomLoginController);
 })();

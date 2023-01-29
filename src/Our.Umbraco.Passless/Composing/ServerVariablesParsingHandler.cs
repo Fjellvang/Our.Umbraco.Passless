@@ -47,7 +47,7 @@ namespace Our.Umbraco.Passless.Composing
                 typeof(MakeAssertionController),
                 new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName });
 
-            var fidoLogin = new Dictionary<string, object>()
+            var passlessLogin = new Dictionary<string, object>()
             {
                 ["urls"] = new Dictionary<string, object>()
                 {
@@ -60,7 +60,7 @@ namespace Our.Umbraco.Passless.Composing
                 }
             };
 
-            notification.ServerVariables["fidoLogin"] = fidoLogin;
+            notification.ServerVariables["passlessLogin"] = passlessLogin;
         }
     }
 }
