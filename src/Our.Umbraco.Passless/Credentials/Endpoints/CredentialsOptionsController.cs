@@ -8,61 +8,65 @@ using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
 using Our.Umbraco.Passless.Credentials.Services;
+using System.Threading.Tasks;
+using System.Threading;
 
-namespace Our.Umbraco.Passless.Credentials.Endpoints;
-
-[UmbracoRequireHttps]
-[DisableBrowserCache]
-[Area(UmbracoFidoConstants.AreaName)]
-public class CredentialsOptionsController : UmbracoAuthorizedController
+namespace Our.Umbraco.Passless.Credentials.Endpoints
 {
-    private readonly IFido2 fido2;
-    private readonly ICredentialsService credentialsService;
 
-    public CredentialsOptionsController(IFido2 fido2, ICredentialsService credentialsService)
+    [UmbracoRequireHttps]
+    [DisableBrowserCache]
+    [Area(UmbracoFidoConstants.AreaName)]
+    public class CredentialsOptionsController : UmbracoAuthorizedController
     {
-        this.fido2 = fido2;
-        this.credentialsService = credentialsService;
-    }
-    [HttpGet]
-    public async Task<IActionResult> Index([FromQuery] bool crossPlatform, CancellationToken cancellationToken = default)
-    {
-        if (User.Identity is null)
+        private readonly IFido2 fido2;
+        private readonly ICredentialsService credentialsService;
+
+        public CredentialsOptionsController(IFido2 fido2, ICredentialsService credentialsService)
         {
-            throw new InvalidOperationException("Unexpected, user claims not initialized");
+            this.fido2 = fido2;
+            this.credentialsService = credentialsService;
         }
-
-        var useremail = User.Identity.GetEmail();
-
-        var user = new Fido2User
+        [HttpGet]
+        public async Task<IActionResult> Index([FromQuery] bool crossPlatform, CancellationToken cancellationToken = default)
         {
-            DisplayName = useremail,
-            Name = useremail,
-            Id = Encoding.UTF8.GetBytes(useremail)
-        };
+            if (User.Identity is null)
+            {
+                throw new InvalidOperationException("Unexpected, user claims not initialized");
+            }
 
-        var existingKeys = (await credentialsService.GetCredentialsByUserIdAsync(useremail, cancellationToken))
-                            .Select(x => x.Descriptor).ToList();
+            var useremail = User.Identity.GetEmail();
 
-        var authenticatorSelection = new AuthenticatorSelection
-        {
-            RequireResidentKey = true,
-            UserVerification = UserVerificationRequirement.Required //Since we're doing passwordless login, we require UserVerification
-        };
+            var user = new Fido2User
+            {
+                DisplayName = useremail,
+                Name = useremail,
+                Id = Encoding.UTF8.GetBytes(useremail)
+            };
 
-        authenticatorSelection.AuthenticatorAttachment = crossPlatform ? AuthenticatorAttachment.CrossPlatform : AuthenticatorAttachment.Platform;
+            var existingKeys = (await credentialsService.GetCredentialsByUserIdAsync(useremail, cancellationToken))
+                                .Select(x => x.Descriptor).ToList();
 
-        var exts = new AuthenticationExtensionsClientInputs()
-        {
-            Extensions = true,
-            UserVerificationMethod = true,
-        };
+            var authenticatorSelection = new AuthenticatorSelection
+            {
+                RequireResidentKey = true,
+                UserVerification = UserVerificationRequirement.Required //Since we're doing passwordless login, we require UserVerification
+            };
 
-        var options = fido2.RequestNewCredential(user, existingKeys, authenticatorSelection, AttestationConveyancePreference.None, exts);
+            authenticatorSelection.AuthenticatorAttachment = crossPlatform ? AuthenticatorAttachment.CrossPlatform : AuthenticatorAttachment.Platform;
 
-        // 4. Temporarily store options, session/in-memory cache/redis/db
-        HttpContext.Session.SetString("fido2.attestationOptions", options.ToJson());
+            var exts = new AuthenticationExtensionsClientInputs()
+            {
+                Extensions = true,
+                UserVerificationMethod = true,
+            };
 
-        return new JsonResult(options);
+            var options = fido2.RequestNewCredential(user, existingKeys, authenticatorSelection, AttestationConveyancePreference.None, exts);
+
+            // 4. Temporarily store options, session/in-memory cache/redis/db
+            HttpContext.Session.SetString("fido2.attestationOptions", options.ToJson());
+
+            return new JsonResult(options);
+        }
     }
 }

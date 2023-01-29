@@ -1,6 +1,8 @@
-﻿namespace Our.Umbraco.Passless;
-
-public static class UmbracoFidoConstants
+﻿namespace Our.Umbraco.Passless
 {
-    public const string AreaName = "Fido";
+
+    public static class UmbracoFidoConstants
+    {
+        public const string AreaName = "Fido";
+    }
 }

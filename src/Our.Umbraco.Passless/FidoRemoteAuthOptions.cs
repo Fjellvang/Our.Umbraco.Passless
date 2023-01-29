@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 
-namespace Our.Umbraco.Passless;
-
-public class FidoRemoteAuthOptions : RemoteAuthenticationOptions
+namespace Our.Umbraco.Passless
 {
-    public FidoRemoteAuthOptions()
+
+    public class FidoRemoteAuthOptions : RemoteAuthenticationOptions
     {
+        public FidoRemoteAuthOptions()
+        {
+        }
     }
 }

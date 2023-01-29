@@ -1,54 +1,77 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<Version>0.0.1</Version>
-		<Authors>Aleksander Fjellvang</Authors>
-		<Description>Passworless login from Umbraco 10+ using FIDO and WebauthN</Description>
-		<PackageProjectUrl>https://github.com/Fjellvang/Our.Umbraco.Passless</PackageProjectUrl>
-		<PackageReadmeFile>README.MD</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/Fjellvang/Our.Umbraco.Passless</RepositoryUrl>
-		<PackageTags>Umbraco Umbraco10 Passwordless Fido webauthn umbraco-marketplace</PackageTags>
-		<Company>Aleksander Fjellvang</Company>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Copyright>Copyright @ Aleksander Fjellvang</Copyright>
-		<NeutralLanguage>en-US</NeutralLanguage>
-		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-		<PackageReleaseNotes>initial release</PackageReleaseNotes>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <!--<TargetFrameworks>net5.0;net6.0</TargetFrameworks>-->
+    <Nullable>enable</Nullable>
+    <Version>0.0.1</Version>
+    <Authors>Aleksander Fjellvang</Authors>
+    <Description>Passworless login from Umbraco 10+ using FIDO and WebauthN</Description>
+    <PackageProjectUrl>https://github.com/Fjellvang/Our.Umbraco.Passless</PackageProjectUrl>
+    <PackageReadmeFile>README.MD</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Fjellvang/Our.Umbraco.Passless</RepositoryUrl>
+    <PackageTags>Umbraco Umbraco10 Passwordless Fido webauthn umbraco-marketplace</PackageTags>
+    <Company>Aleksander Fjellvang</Company>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>Copyright @ Aleksander Fjellvang</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageReleaseNotes>initial release</PackageReleaseNotes>
+  </PropertyGroup>
 
 
-	<ItemGroup>
-		<None Include="..\..\LICENSE.md">
-		  <Pack>True</Pack>
-		  <PackagePath>\</PackagePath>
-		</None>
-		<None Include="..\..\README.MD">
-		  <Pack>True</Pack>
-		  <PackagePath>\</PackagePath>
-		</None>
-		<None Include="build\**\*.targets">
-			<Pack>True</Pack>
-			<PackagePath>buildTransitive</PackagePath>
-		</None>
-		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\overlays\credentials.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\overlays\" />
-		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\overlays\credentials.html" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\overlays\" />
-		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\custom-login.html" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
-		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\customlogin.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
-		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\helpers.js" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
-		<None Include="UI\App_Plugins\UmbracoPassless\BackOffice\passless.css" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
-		<None Include="UI\App_Plugins\UmbracoPassless\lang\en-US.xml" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\lang\" />
-		<None Include="UI\App_Plugins\UmbracoPassless\package.manifest" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\" />
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.MD">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="build\**\*.targets">
+      <Pack>True</Pack>
+      <PackagePath>buildTransitive</PackagePath>
+    </None>
+    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\overlays\credentials.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\overlays\" />
+    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\overlays\credentials.html" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\overlays\" />
+    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\custom-login.html" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
+    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\customlogin.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
+    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\helpers.js" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
+    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\passless.css" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
+    <None Include="UI\App_Plugins\UmbracoPassless\lang\en-US.xml" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\lang\" />
+    <None Include="UI\App_Plugins\UmbracoPassless\package.manifest" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Fido2" Version="3.0.1" />
-		<PackageReference Include="Fido2.AspNet" Version="3.0.1" />
-		<PackageReference Include="Umbraco.Cms.Core" Version="10.3.2" />
-		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.3.2" />
-		<PackageReference Include="Umbraco.Cms.Web.Common" Version="10.3.2" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Core" Version="9.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="Umbraco.Cms.Web.Common">
+      <Version>9.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Fido2" Version="2.0.2" />
+    <PackageReference Include="Fido2.AspNet" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Umbraco.Cms.Web.Common">
+      <Version>9.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Fido2" Version="3.0.1" />
+    <PackageReference Include="Fido2.AspNet" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Umbraco.Cms.Web.Common">
+      <Version>9.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Fido2" Version="3.0.1" />
+    <PackageReference Include="Fido2.AspNet" Version="3.0.1" />
+  </ItemGroup>
+
+
 
 </Project>

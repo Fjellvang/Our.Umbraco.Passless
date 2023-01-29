@@ -1,9 +1,14 @@
-﻿namespace Our.Umbraco.Passless.Credentials.Persistence;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
-public interface IFidoCredentialRepository
+namespace Our.Umbraco.Passless.Credentials.Persistence
 {
-    Task<List<FidoCredentialEntity>> GetCredentialsByUserIdAsync(byte[] userId);
-    Task<FidoCredentialEntity?> GetCredentialsByIdAsync(byte[] credentialId);
-    Task DeleteCredentialsAsync(FidoCredentialEntity credentials);
-    Task UpsertAsync(FidoCredentialEntity entity);
+
+    public interface IFidoCredentialRepository
+    {
+        Task<List<FidoCredentialEntity>> GetCredentialsByUserIdAsync(byte[] userId);
+        Task<FidoCredentialEntity?> GetCredentialsByIdAsync(byte[] credentialId);
+        Task DeleteCredentialsAsync(FidoCredentialEntity credentials);
+        Task UpsertAsync(FidoCredentialEntity entity);
+    }
 }

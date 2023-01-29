@@ -7,43 +7,45 @@ using Umbraco.Cms.Infrastructure.Migrations.Upgrade;
 using Our.Umbraco.Passless.Credentials.Persistence.Migrations;
 using Umbraco.Cms.Core;
 
-namespace Our.Umbraco.Passless.Credentials.Persistence;
-
-public class MigrationsComponent : IComponent
+namespace Our.Umbraco.Passless.Credentials.Persistence
 {
-    private readonly ICoreScopeProvider scopeProvider;
-    private readonly IMigrationPlanExecutor migrationPlanExecutor;
-    private readonly IKeyValueService keyValueService;
-    private readonly IRuntimeState runtimeState;
 
-    public MigrationsComponent(
-        ICoreScopeProvider scopeProvider,
-        IMigrationPlanExecutor migrationPlanExecutor,
-        IKeyValueService keyValueService,
-        IRuntimeState runtimeState
-        )
+    public class MigrationsComponent : IComponent
     {
-        this.scopeProvider = scopeProvider;
-        this.migrationPlanExecutor = migrationPlanExecutor;
-        this.keyValueService = keyValueService;
-        this.runtimeState = runtimeState;
-    }
-    public void Initialize()
-    {
-        if (runtimeState.Level < RuntimeLevel.Run)
+        private readonly ICoreScopeProvider scopeProvider;
+        private readonly IMigrationPlanExecutor migrationPlanExecutor;
+        private readonly IKeyValueService keyValueService;
+        private readonly IRuntimeState runtimeState;
+
+        public MigrationsComponent(
+            ICoreScopeProvider scopeProvider,
+            IMigrationPlanExecutor migrationPlanExecutor,
+            IKeyValueService keyValueService,
+            IRuntimeState runtimeState
+            )
         {
-            return;
+            this.scopeProvider = scopeProvider;
+            this.migrationPlanExecutor = migrationPlanExecutor;
+            this.keyValueService = keyValueService;
+            this.runtimeState = runtimeState;
         }
-        var migrationPlan = new MigrationPlan("FidoCredentialsEntity");
-        migrationPlan.From(string.Empty)
-            .To<AddFidoCredentialEntity>("fidocredetials-db");
+        public void Initialize()
+        {
+            if (runtimeState.Level < RuntimeLevel.Run)
+            {
+                return;
+            }
+            var migrationPlan = new MigrationPlan("FidoCredentialsEntity");
+            migrationPlan.From(string.Empty)
+                .To<AddFidoCredentialEntity>("fidocredetials-db");
 
-        var upgrader = new Upgrader(migrationPlan);
+            var upgrader = new Upgrader(migrationPlan);
 
-        upgrader.Execute(migrationPlanExecutor, scopeProvider, keyValueService);
-    }
+            upgrader.Execute(migrationPlanExecutor, scopeProvider, keyValueService);
+        }
 
-    public void Terminate()
-    {
+        public void Terminate()
+        {
+        }
     }
 }

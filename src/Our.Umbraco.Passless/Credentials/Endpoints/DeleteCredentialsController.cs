@@ -5,32 +5,36 @@ using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
 using Our.Umbraco.Passless.Credentials.Services;
+using System.Threading.Tasks;
+using System;
 
-namespace Our.Umbraco.Passless.Credentials.Endpoints;
-
-[UmbracoRequireHttps]
-[DisableBrowserCache]
-[Area(UmbracoFidoConstants.AreaName)]
-public class DeleteCredentialsController : UmbracoAuthorizedController
+namespace Our.Umbraco.Passless.Credentials.Endpoints
 {
-    private readonly ICredentialsService credentialsService;
 
-    public DeleteCredentialsController(ICredentialsService credentialsService)
+    [UmbracoRequireHttps]
+    [DisableBrowserCache]
+    [Area(UmbracoFidoConstants.AreaName)]
+    public class DeleteCredentialsController : UmbracoAuthorizedController
     {
-        this.credentialsService = credentialsService;
-    }
+        private readonly ICredentialsService credentialsService;
 
-    [HttpPost]
-    public async Task<IActionResult> Index(string id)
-    {
-        var userEmail = User.Identity?.GetEmail();
-        if (string.IsNullOrEmpty(userEmail))
+        public DeleteCredentialsController(ICredentialsService credentialsService)
         {
-            throw new InvalidOperationException("Unexpected: User email is null");
+            this.credentialsService = credentialsService;
         }
 
-        await credentialsService.DeleteCredentialsAsync(userEmail, new PublicKeyCredentialDescriptor(Convert.FromHexString(id)));
+        [HttpPost]
+        public async Task<IActionResult> Index(string id)
+        {
+            var userEmail = User.Identity?.GetEmail();
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                throw new InvalidOperationException("Unexpected: User email is null");
+            }
 
-        return Ok();
+            await credentialsService.DeleteCredentialsAsync(userEmail, new PublicKeyCredentialDescriptor(Convert.FromHexString(id)));
+
+            return Ok();
+        }
     }
 }

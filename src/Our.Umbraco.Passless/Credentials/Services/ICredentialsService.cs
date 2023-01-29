@@ -1,5 +1,8 @@
 ﻿using Fido2NetLib.Objects;
+using System.Threading;
 using Our.Umbraco.Passless.Credentials.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Our.Umbraco.Passless.Credentials.Services
 {
