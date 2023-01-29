@@ -23,7 +23,7 @@ When you've installed and configured the package, log into the backffice, press 
 - Forgot password registers new authenticator
 - Passwordless login for members.
 - Better configuration for consumers
-- Umbraco 9 & 11 Support
+- Umbraco 9 Support. This might take longer as the .net 5 version of fido2.net lib is quite outdated.
 
 
 ### Known issues
@@ -40,6 +40,7 @@ Install-Package Our.Umbraco.Passless
 You need to add these settings to your appsettings.config
 ``` json
  "Passless": {
+   "useUmbracoDb" : true, //Optional
    "fido2": {
      "serverName": "{your server name}",
      "serverDomain": "{YOUR DOMAIN}",
@@ -59,6 +60,12 @@ For example:
    }
 }
 ```
+
+### Use Umbraco DB
+
+The `useUmbracoDB` toggles whether we register our implementation of `IFidoCredentialRepository` and runs the migration adding the credentials table to the current umbraco database.
+
+Set this to false, and register your own implementation if you want to use a different database for the users credentials.
 
 ## Frontend
 

@@ -40,11 +40,13 @@ public class UmbracoPasslessComposer : IComposer
         });
 
 
-        //TODO: Refactor so we don't force users to use the umbraco DB
-        builder.AddComponent<MigrationsComponent>();
+        var useUmbDBConfigPresent = bool.TryParse(builder.Config["Passless:useUmbracoDb"], out var useUmbracoDB);
+        if (!useUmbDBConfigPresent || useUmbracoDB)
+        {
+            builder.AddComponent<MigrationsComponent>();
+            builder.Services.AddTransient<IFidoCredentialRepository, FidoCredentialRepository>();
+        }
 
-        //TODO: Make sure we can let users bring their own interfaces
-        builder.Services.AddTransient<IFidoCredentialRepository, FidoCredentialRepository>();
         builder.Services.AddTransient<ICredentialsService, CredentialsService>();
 
         builder.AddFidoBackofficeAuthentication();
