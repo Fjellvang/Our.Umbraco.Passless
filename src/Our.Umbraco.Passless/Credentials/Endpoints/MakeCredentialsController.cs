@@ -36,13 +36,13 @@ public class MakeCredentialsController : UmbracoAuthorizedController
         try
         {
             // 1. get the options we sent the client
-            var jsonOptions = HttpContext.Session.GetString("fido2.attestationOptions");// This could just be posted to the endpoint aswell, but for now i'll do as in the Fido lib.
+            var jsonOptions = HttpContext.Session.GetString("fido2.attestationOptions"); // Get this from interface implementation so consumers can decide how to store the challenge 
             var options = CredentialCreateOptions.FromJson(jsonOptions);
 
             // 2. Make is unique callback
             IsCredentialIdUniqueToUserAsyncDelegate isUniqueCallback = async (args, cancellationToken) =>
             {
-                var credentials = await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(args.CredentialId), cancellationToken); //TODO: Take a look again, do we want to new up a descriptor ???
+                var credentials = await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(args.CredentialId), cancellationToken); 
                 return credentials is null;
             };
 

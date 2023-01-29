@@ -7,7 +7,7 @@
         vm.state = 'ready'
 
         vm.getCredentials = getCredentials;
-        vm.submitRegisterFidoForm = submitRegisterFidoForm;
+        vm.submitRegisterPasslessForm = submitRegisterPasslessForm;
         vm.addNewCredentials = addNewCredentials;
         vm.deleteCredentials = deleteCredentials;
         vm.onCrossplaftormChange = onCrossplaftormChange;
@@ -16,10 +16,10 @@
         vm.loading = true;
 
         function init() {
-            vm.credentialsOptionsEndpoint = Umbraco.Sys.ServerVariables.fidoLogin.urls.credentialsOptions;
-            vm.makeCredentialsEndpoint    = Umbraco.Sys.ServerVariables.fidoLogin.urls.makeCredentials;
-            vm.getCredentialsEndpoint    = Umbraco.Sys.ServerVariables.fidoLogin.urls.getCredentials;
-            vm.deleteCredentialsEndpoint    = Umbraco.Sys.ServerVariables.fidoLogin.urls.deleteCredentials;
+            vm.credentialsOptionsEndpoint = Umbraco.Sys.ServerVariables.passlessLogin.urls.credentialsOptions;
+            vm.makeCredentialsEndpoint    = Umbraco.Sys.ServerVariables.passlessLogin.urls.makeCredentials;
+            vm.getCredentialsEndpoint    = Umbraco.Sys.ServerVariables.passlessLogin.urls.getCredentials;
+            vm.deleteCredentialsEndpoint    = Umbraco.Sys.ServerVariables.passlessLogin.urls.deleteCredentials;
             getCredentials();
         }
 
@@ -69,7 +69,7 @@
             vm.state = 'adding';
         }
 
-        function submitRegisterFidoForm() {
+        function submitRegisterPasslessForm() {
             console.log(`Submitting ${vm.registrationAlias}`)
 
             $http.get(`${vm.credentialsOptionsEndpoint}?crossPlatform=${vm.crossPlatform}`)
@@ -158,5 +158,5 @@
         init();
     }
 
-    angular.module("umbraco").controller("UmbracoFido.CredentialsController", CredentialsController);
+    angular.module("umbraco").controller("UmbracoPassless.CredentialsController", CredentialsController);
 })();

@@ -1,3 +1,5 @@
+using Our.Umbraco.Passless.Credentials.Persistence;
+
 namespace Our.Umbraco.Passless.TestSite;
 
 public class Startup

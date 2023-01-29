@@ -2,5 +2,5 @@
 
 public static class UmbracoFidoConstants
 {
-    public const string AreaName = "Fido";
+    public const string AreaName = "Passless";
 }

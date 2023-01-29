@@ -60,7 +60,7 @@ public class CredentialsService : ICredentialsService
     {
         //TODO: Figure if we can use cancellation token with npoco
         using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
-        var result = await fidoCredentialRepository.GetCredentialsByUserIdAsync(userId);
+        List<FidoCredentialEntity> result = await fidoCredentialRepository.GetCredentialsByUserIdAsync(userId);
 
         return Map(result);
     }
@@ -70,7 +70,7 @@ public class CredentialsService : ICredentialsService
         return result.Select(MapCredentials).OfType<FidoCredentialModel>().ToList();
     }
 
-    private static FidoCredentialModel? MapCredentials(FidoCredentialEntity entity)
+    private static FidoCredentialModel? MapCredentials(FidoCredentialEntity? entity)
     {
         if (entity is null)
         {
@@ -110,6 +110,11 @@ public class CredentialsService : ICredentialsService
     {
         using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
         var existing = await fidoCredentialRepository.GetCredentialsByIdAsync(credentialsId.Id);
+
+        if (existing is null)
+        {
+            throw new InvalidOperationException("Unexepected: Credentials not found");
+        }
 
         var credentialEmail = Encoding.UTF8.GetString(existing.UserId);
         var noEmailMatch = !credentialEmail.Equals(userEmail, StringComparison.Ordinal);
