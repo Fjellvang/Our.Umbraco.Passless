@@ -5,5 +5,9 @@ src/Our.Umbraco.Passless.TestSite-v10/App_Plugins/
 src/Our.Umbraco.Passless.TestSite-v10/umbraco/Data/
 src/Our.Umbraco.Passless.TestSite-v10/umbraco/Logs/
 
+src/Our.Umbraco.Passless.TestSite-v11/App_Plugins/
+src/Our.Umbraco.Passless.TestSite-v11/umbraco/Data/
+src/Our.Umbraco.Passless.TestSite-v11/umbraco/Logs/
+
 src/Our.Umbraco.Passless/UI/node_modules/
 
