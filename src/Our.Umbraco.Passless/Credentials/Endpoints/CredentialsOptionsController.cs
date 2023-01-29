@@ -34,6 +34,11 @@ public class CredentialsOptionsController : UmbracoAuthorizedController
 
         var useremail = User.Identity.GetEmail();
 
+        if (useremail is null)
+        {
+            throw new InvalidOperationException("Unexpected, user email is null");
+        }
+
         var user = new Fido2User
         {
             DisplayName = useremail,
