@@ -14,9 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Our.Umbraco.Passless", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Our.Umbraco.Passless.TestSite-v10", "src\Our.Umbraco.Passless.TestSite-v10\Our.Umbraco.Passless.TestSite-v10.csproj", "{30D67CEF-D0FB-4D4E-A714-B7D24302F1E2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Our.Umbraco.Passless.TestSite-v11", "src\Our.Umbraco.Passless.TestSite-v11\Our.Umbraco.Passless.TestSite-v11.csproj", "{45142703-ED39-4361-8BE1-0263E9780CE7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.Passless.TestSite-v9", "src\Our.Umbraco.Passless.TestSite-v9\Our.Umbraco.Passless.TestSite-v9.csproj", "{541E7A98-9350-47DE-ADCF-DB9F573FAF12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.Passless.TestSite-v11", "src\Our.Umbraco.Passless.TestSite-v11\Our.Umbraco.Passless.TestSite-v11.csproj", "{45142703-ED39-4361-8BE1-0263E9780CE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,10 +34,6 @@ Global
 		{45142703-ED39-4361-8BE1-0263E9780CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45142703-ED39-4361-8BE1-0263E9780CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45142703-ED39-4361-8BE1-0263E9780CE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{541E7A98-9350-47DE-ADCF-DB9F573FAF12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{541E7A98-9350-47DE-ADCF-DB9F573FAF12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{541E7A98-9350-47DE-ADCF-DB9F573FAF12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{541E7A98-9350-47DE-ADCF-DB9F573FAF12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

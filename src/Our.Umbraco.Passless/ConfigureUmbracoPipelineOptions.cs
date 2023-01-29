@@ -8,60 +8,58 @@ using Umbraco.Extensions;
 using Our.Umbraco.Passless.Credentials.Endpoints;
 using Our.Umbraco.Passless.Assertions.Endpoints;
 
-namespace Our.Umbraco.Passless
+namespace Our.Umbraco.Passless;
+
+/// <summary>
+/// Creates custom routes for our custom controllers
+/// </summary>
+public class ConfigureUmbracoPipelineOptions : IConfigureOptions<UmbracoPipelineOptions>
 {
+    private readonly GlobalSettings _globalSettings;
+    private readonly IHostingEnvironment _hostingEnvironment;
 
-    /// <summary>
-    /// Creates custom routes for our custom controllers
-    /// </summary>
-    public class ConfigureUmbracoPipelineOptions : IConfigureOptions<UmbracoPipelineOptions>
+    public ConfigureUmbracoPipelineOptions(
+        IOptions<GlobalSettings> globalSettings,
+        IHostingEnvironment hostingEnvironment)
     {
-        private readonly GlobalSettings _globalSettings;
-        private readonly IHostingEnvironment _hostingEnvironment;
-
-        public ConfigureUmbracoPipelineOptions(
-            IOptions<GlobalSettings> globalSettings,
-            IHostingEnvironment hostingEnvironment)
-        {
-            _globalSettings = globalSettings.Value;
-            _hostingEnvironment = hostingEnvironment;
-        }
-
-        public void Configure(UmbracoPipelineOptions options)
-            => options.AddFilter(
-                new UmbracoPipelineFilter(
-                    nameof(ConfigureUmbracoPipelineOptions))
-                {
-                    Endpoints = app =>
-                    {
-                        app.UseEndpoints(endpoints =>
-                        {
-                            endpoints.MapUmbracoRoute<CredentialsOptionsController>(
-                                $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
-                                UmbracoFidoConstants.AreaName,
-                                UmbracoFidoConstants.AreaName);
-                            endpoints.MapUmbracoRoute<MakeCredentialsController>(
-                                $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
-                                UmbracoFidoConstants.AreaName,
-                                UmbracoFidoConstants.AreaName);
-                            endpoints.MapUmbracoRoute<GetCredentialsController>(
-                                $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
-                                UmbracoFidoConstants.AreaName,
-                                UmbracoFidoConstants.AreaName);
-                            endpoints.MapUmbracoRoute<AssertionOptionsController>(
-                                $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
-                                UmbracoFidoConstants.AreaName,
-                                UmbracoFidoConstants.AreaName);
-                            endpoints.MapUmbracoRoute<MakeAssertionController>(
-                                $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
-                                UmbracoFidoConstants.AreaName,
-                                UmbracoFidoConstants.AreaName);
-                            endpoints.MapUmbracoRoute<DeleteCredentialsController>(
-                                $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
-                                UmbracoFidoConstants.AreaName,
-                                UmbracoFidoConstants.AreaName);
-                        });
-                    }
-                });
+        _globalSettings = globalSettings.Value;
+        _hostingEnvironment = hostingEnvironment;
     }
+
+    public void Configure(UmbracoPipelineOptions options)
+        => options.AddFilter(
+            new UmbracoPipelineFilter(
+                nameof(ConfigureUmbracoPipelineOptions))
+            {
+                Endpoints = app =>
+                {
+                    app.UseEndpoints(endpoints =>
+                    {
+                        endpoints.MapUmbracoRoute<CredentialsOptionsController>(
+                            $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                            UmbracoFidoConstants.AreaName,
+                            UmbracoFidoConstants.AreaName);
+                        endpoints.MapUmbracoRoute<MakeCredentialsController>(
+                            $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                            UmbracoFidoConstants.AreaName,
+                            UmbracoFidoConstants.AreaName);
+                        endpoints.MapUmbracoRoute<GetCredentialsController>(
+                            $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                            UmbracoFidoConstants.AreaName,
+                            UmbracoFidoConstants.AreaName);
+                        endpoints.MapUmbracoRoute<AssertionOptionsController>(
+                            $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                            UmbracoFidoConstants.AreaName,
+                            UmbracoFidoConstants.AreaName);
+                        endpoints.MapUmbracoRoute<MakeAssertionController>(
+                            $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                            UmbracoFidoConstants.AreaName,
+                            UmbracoFidoConstants.AreaName);
+                        endpoints.MapUmbracoRoute<DeleteCredentialsController>(
+                            $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                            UmbracoFidoConstants.AreaName,
+                            UmbracoFidoConstants.AreaName);
+                    });
+                }
+            });
 }

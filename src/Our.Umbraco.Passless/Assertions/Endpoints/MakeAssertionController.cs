@@ -13,8 +13,6 @@ using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
 using static Umbraco.Cms.Core.Constants;
 using Our.Umbraco.Passless.Credentials.Services;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace Our.Umbraco.Passless.Assertions.Endpoints
 {

@@ -5,45 +5,40 @@ using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
 using Our.Umbraco.Passless.Credentials.Services;
 using Our.Umbraco.Passless.Credentials.Models;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
 
-namespace Our.Umbraco.Passless.Credentials.Endpoints
+namespace Our.Umbraco.Passless.Credentials.Endpoints;
+
+[UmbracoRequireHttps]
+[DisableBrowserCache]
+[Area(UmbracoFidoConstants.AreaName)]
+public class GetCredentialsController : UmbracoAuthorizedController
 {
+    private readonly ICredentialsService credentialsService;
 
-    [UmbracoRequireHttps]
-    [DisableBrowserCache]
-    [Area(UmbracoFidoConstants.AreaName)]
-    public class GetCredentialsController : UmbracoAuthorizedController
+    public GetCredentialsController(ICredentialsService credentialsService)
     {
-        private readonly ICredentialsService credentialsService;
+        this.credentialsService = credentialsService;
+    }
 
-        public GetCredentialsController(ICredentialsService credentialsService)
+    [HttpGet]
+    public async Task<IActionResult> Index(CancellationToken cancellationToken = default)
+    {
+        var userEmail = User.Identity?.GetEmail();
+        if (string.IsNullOrEmpty(userEmail))
         {
-            this.credentialsService = credentialsService;
+            throw new InvalidOperationException("Unexpected: User email is null");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index(CancellationToken cancellationToken = default)
+        var credentials = await credentialsService.GetCredentialsByUserIdAsync(userEmail, cancellationToken);
+
+        return Ok(new UserCredentialsResponse()
         {
-            var userEmail = User.Identity?.GetEmail();
-            if (string.IsNullOrEmpty(userEmail))
+            UserEmail = userEmail,
+            UserCredentials = credentials.Select(x => new UserCredentialResponse()
             {
-                throw new InvalidOperationException("Unexpected: User email is null");
-            }
-
-            var credentials = await credentialsService.GetCredentialsByUserIdAsync(userEmail, cancellationToken);
-
-            return Ok(new UserCredentialsResponse()
-            {
-                UserEmail = userEmail,
-                UserCredentials = credentials.Select(x => new UserCredentialResponse()
-                {
-                    Alias = x.Alias,
-                    CredentialsId = Convert.ToHexString(x.Descriptor.Id)
-                }).ToArray()
-            });
-        }
+                Alias = x.Alias,
+                CredentialsId = Convert.ToHexString(x.Descriptor.Id)
+            }).ToArray()
+        });
     }
 }
