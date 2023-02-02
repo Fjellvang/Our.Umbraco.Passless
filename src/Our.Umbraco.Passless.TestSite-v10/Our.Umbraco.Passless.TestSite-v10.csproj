@@ -16,11 +16,7 @@
     <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2.0.9" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
   </ItemGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<!-- Copy the App_Plugins from the Passless source -->
-		<Message Text="XCopying app plugins" Importance="high" />
-		<Exec Command="xcopy &quot;$(ProjectDir)..\Our.Umbraco.Passless\UI\App_Plugins&quot; &quot;$(ProjectDir)..\Our.Umbraco.Passless.TestSite-v10\App_Plugins\&quot; /i /s /e /y" />
-	</Target>
+  <Import Project="..\Our.Umbraco.Passless\build\Our.Umbraco.Passless.targets" />
 
   <PropertyGroup>
     <!-- Razor files are needed for the backoffice to work correctly -->

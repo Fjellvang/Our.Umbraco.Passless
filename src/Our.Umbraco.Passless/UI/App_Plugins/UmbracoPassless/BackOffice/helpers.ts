@@ -1,4 +1,4 @@
-﻿coerceToArrayBuffer = function (thing, name) {
+﻿export function coerceToArrayBuffer(thing : any, name : any = undefined): ArrayBuffer {
     if (typeof thing === "string") {
         // base64url to base64
         thing = thing.replace(/-/g, "+").replace(/_/g, "/");
@@ -31,7 +31,7 @@
 };
 
 
-coerceToBase64Url = function (thing) {
+export function coerceToBase64Url(thing: any): string {
     // Array or ArrayBuffer to Uint8Array
     if (Array.isArray(thing)) {
         thing = Uint8Array.from(thing);
@@ -65,7 +65,7 @@ coerceToBase64Url = function (thing) {
 
 
 
-function detectFIDOSupport() {
+export function detectFIDOSupport(): void {
     if (window.PublicKeyCredential === undefined ||
         typeof window.PublicKeyCredential !== "function") {
         //$('#register-button').attr("disabled", true);
