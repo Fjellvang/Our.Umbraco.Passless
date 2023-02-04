@@ -11,3 +11,5 @@ src/Our.Umbraco.Passless.TestSite-v11/umbraco/Logs/
 
 src/Our.Umbraco.Passless/UI/node_modules/
 
+/src/Our.Umbraco.Passless/dist
+*.user

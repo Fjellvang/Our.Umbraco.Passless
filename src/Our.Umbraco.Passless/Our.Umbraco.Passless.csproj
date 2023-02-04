@@ -37,14 +37,11 @@
       <Pack>True</Pack>
       <PackagePath>buildTransitive</PackagePath>
     </None>
-    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\overlays\credentials.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\overlays\" />
-    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\overlays\credentials.html" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\overlays\" />
-    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\custom-login.html" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
-    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\customlogin.controller.js" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
-    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\helpers.js" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
-    <None Include="UI\App_Plugins\UmbracoPassless\BackOffice\passless.css" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\BackOffice\" />
-    <None Include="UI\App_Plugins\UmbracoPassless\lang\en-US.xml" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\lang\" />
-    <None Include="UI\App_Plugins\UmbracoPassless\package.manifest" Pack="true" PackagePath="content\App_Plugins\UmbracoPassless\" />
+    <Content Include="dist\**\*.*">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <PackagePath>dist</PackagePath>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

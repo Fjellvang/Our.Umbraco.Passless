@@ -1,0 +1,19 @@
+﻿{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "moduleResolution": "node",
+    "target": "ES2015",
+    "allowJs": true,
+    "removeComments": true,
+    "lib": [ "ES2015", "DOM" ],
+    "experimentalDecorators": true
+  },
+  "include": [
+    "./App_Plugins/UmbracoPassless/**/*"
+]
+}

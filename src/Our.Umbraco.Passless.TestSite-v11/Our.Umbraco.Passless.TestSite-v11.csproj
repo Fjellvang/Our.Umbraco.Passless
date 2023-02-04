@@ -18,11 +18,7 @@
   </ItemGroup>
 
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <!-- Copy the App_Plugins from the Passless source -->
-      <Message Text="XCopying app plugins" Importance="high" />
-      <Exec Command="xcopy &quot;$(ProjectDir)..\Our.Umbraco.Passless\UI\App_Plugins&quot; &quot;$(ProjectDir)..\Our.Umbraco.Passless.TestSite-v11\App_Plugins\&quot; /i /s /e /y" />
-  </Target>
+  <Import Project="..\Our.Umbraco.Passless\build\Our.Umbraco.Passless.targets" />
 
 
   <PropertyGroup>

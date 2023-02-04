@@ -69,9 +69,22 @@ Set this to false, and register your own implementation if you want to use a dif
 
 ## Frontend
 
-While working on the frontend navigate to ``src/UmbracoFidoLogin/UI`` and run ``npm run dev``
-The current webpack setup is just a dumb Webpack-copy step
+The frontend is built using node 16
+Navigate to ``src/Our.Umbraco.Passless/UI`` and run the following commands:
+```
+npm i
+npm run build:dev
+npm run dev
+```
 
+Now you're ready to work on the frontend.
+
+NOTE: the output is overwritten when building / debugging the website, run above commands **after** starting the build
+
+Use the following command to generate a production-ready build:
+```
+npm run build
+```
 
 Special thanks to:
 
