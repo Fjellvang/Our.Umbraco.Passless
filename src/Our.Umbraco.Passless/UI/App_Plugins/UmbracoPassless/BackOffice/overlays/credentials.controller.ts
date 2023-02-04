@@ -132,7 +132,7 @@ export class CredentialsController {
         navigator.credentials.create({
             publicKey: makeCredentialOptions
         }).then(newCredential => {
-            this.prepareNewCredentials(newCredential);
+            this.prepareNewCredentials(newCredential as PublicKeyCredential);
         }, failure => {
             console.log(failure);
             this.notificationsService.error("Failed to register authenticator, possibly due to it already being registered");
@@ -140,15 +140,14 @@ export class CredentialsController {
     }
 
     // TODO: define parameter type
-    private prepareNewCredentials(newCredentials: any): void {
+    private prepareNewCredentials(newCredentials: PublicKeyCredential): void {
         // Move data into Arrays incase it is super long
-        const attestationObject = new Uint8Array(newCredentials.response.attestationObject);
+        const attestationObject = new Uint8Array((newCredentials.response as AuthenticatorAttestationResponse).attestationObject);
         const clientDataJSON = new Uint8Array(newCredentials.response.clientDataJSON);
         const rawId = new Uint8Array(newCredentials.rawId);
         const base64UrlRawId = coerceToBase64Url(rawId);
 
-        // TODO: is this correct? original code passed the Uint8Array, but btoa requires a string
-        localStorage.setItem("lastCredentials", btoa(newCredentials.rawId));
+        localStorage.setItem("lastCredentials", newCredentials.id);
 
         const data = {
             id: newCredentials.id,
