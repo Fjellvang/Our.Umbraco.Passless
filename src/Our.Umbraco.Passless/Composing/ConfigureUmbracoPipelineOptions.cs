@@ -63,6 +63,10 @@ public class ConfigureUmbracoPipelineOptions : IConfigureOptions<UmbracoPipeline
                             $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
                             UmbracoPasslessConstants.AreaName,
                             UmbracoPasslessConstants.AreaName);
+                        endpoints.MapUmbracoRoute<VerifyResetCredentialsController>(
+                            $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
+                            UmbracoPasslessConstants.AreaName,
+                            UmbracoPasslessConstants.AreaName);
                     });
                 }
             });

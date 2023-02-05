@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
+using Our.Umbraco.Passless.Assertions.Endpoints;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Mail;
@@ -9,6 +11,7 @@ using Umbraco.Cms.Core.Models.Email;
 using Umbraco.Cms.Core.Models.Membership;
 using Umbraco.Cms.Core.Security;
 using Umbraco.Cms.Core.Services;
+using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
@@ -26,12 +29,16 @@ public class ForgotCredentialsController : UmbracoApiController
     private readonly GlobalSettings globalSettings;
     private readonly IEmailSender emailSender;
     private readonly ILocalizedTextService textService;
+    private readonly LinkGenerator linkGenerator;
+    private readonly WebRoutingSettings webRoutingSettings;
 
     public ForgotCredentialsController(IBackOfficeUserManager userManager,
                                        IUserService userService,
                                        IOptionsSnapshot<GlobalSettings> globalSettings,
                                        IEmailSender emailSender,
-                                       ILocalizedTextService textService
+                                       ILocalizedTextService textService,
+                                       LinkGenerator linkGenerator,
+                                       IOptions<WebRoutingSettings> webRoutingSettings
         )
     {
         this.userManager = userManager;
@@ -39,6 +46,8 @@ public class ForgotCredentialsController : UmbracoApiController
         this.globalSettings = globalSettings.Value;
         this.emailSender = emailSender;
         this.textService = textService;
+        this.linkGenerator = linkGenerator;
+        this.webRoutingSettings = webRoutingSettings.Value;
     }
 
     public async Task<IActionResult> Index(RequestPasswordResetModel model)
@@ -84,6 +93,14 @@ public class ForgotCredentialsController : UmbracoApiController
 
     private string ConstructCallbackUrl(string id, string code)
     {
-        return "TODO generate url";
+        var action = linkGenerator.GetUmbracoControllerUrl(
+            nameof(VerifyResetCredentialsController.Index),
+            typeof(VerifyResetCredentialsController),
+            new Dictionary<string, object?>() { { "area", UmbracoPasslessConstants.AreaName }, { "invite", $"{id}|{code.ToUrlBase64()}" } });
+
+        var applicationUri = HttpContext.Request
+                        .GetApplicationUri(webRoutingSettings);
+        var callbackUri = new Uri(applicationUri, action);
+        return callbackUri.ToString();
     }
 }
