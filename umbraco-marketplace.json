@@ -16,7 +16,15 @@
   ],
   "LicenseTypes": [ "Free" ],
   "AuthorDetails": {
-    "Name": "Aleksander Fjellvang"
+    "Name": "Aleksander Fjellvang",
+    "Url": "https://github.com/Fjellvang",
+    "Description": "Aleksander has been building umbraco solutions for the past 5+ years",
+    "Contributors": [
+      {
+        "Name": "Dennis Heutinck",
+        "Url": "https://dev.to/d_inventor"
+      }
+    ]
   },
   "IssueTrackerUrl": "https://github.com/Fjellvang/Our.Umbraco.Passless/issues",
   "DiscussionForumUrl": "https://github.com/Fjellvang/Our.Umbraco.Passless/discussions"
