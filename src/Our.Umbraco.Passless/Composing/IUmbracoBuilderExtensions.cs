@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Web.BackOffice.Security;
 using Umbraco.Extensions;
 
 namespace Our.Umbraco.Passless.Composing;
@@ -26,6 +27,7 @@ public static class IUmbracoBuilderExtensions
                 }, options =>
                 {
                     options.CustomBackOfficeView = "~/App_Plugins/UmbracoPassless/BackOffice/custom-login.html";
+                    options.DenyLocalLogin = false;
                 });
         });
         return builder;

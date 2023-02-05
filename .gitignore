@@ -2,6 +2,7 @@ bin/
 obj/
 .vs/
 src/Our.Umbraco.Passless.TestSite-v10/App_Plugins/
+src/Our.Umbraco.Passless.TestSite-v10/appsettings.Development.json
 src/Our.Umbraco.Passless.TestSite-v10/umbraco/Data/
 src/Our.Umbraco.Passless.TestSite-v10/umbraco/Logs/
 

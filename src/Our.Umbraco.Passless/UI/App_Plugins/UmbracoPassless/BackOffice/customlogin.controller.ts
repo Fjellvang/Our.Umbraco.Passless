@@ -9,33 +9,60 @@ export class CustomLoginController {
     private loadingUmbracoIdSetting: boolean;
     private assertionOptionsEndpoint: string;
     private makeAssertionEndpoint: string;
+    private forgotCredentialsEndpoint: string;
     private lastCredentials: string | null;
     private useLastCredentials: boolean;
+    private allowAuthReset: boolean;
+
+    private email = '';
+    private showEmailResetConfirmation = false;
 
     // TODO: define types for umbraco services
     constructor(private $scope: angular.IScope, private $window: angular.IWindowService, private $http: angular.IHttpService, private userService: any, private editorService: any) {
-
-        this.state = "login";
+        this.state = 'login';
         this.loadingUmbracoIdSetting = true;
-        this.assertionOptionsEndpoint = '/umbraco/backoffice/passless/assertionoptions';
+        this.assertionOptionsEndpoint = '/umbraco/backoffice/passless/assertionoptions';// TODO: maybe find a better solution than hardcoding the endpoints?
         this.makeAssertionEndpoint = '/umbraco/backoffice/passless/makeassertion';
+        this.forgotCredentialsEndpoint = '/umbraco/backoffice/passless/forgotcredentials';
         this.lastCredentials = '';
         this.useLastCredentials = true;
-
+        this.allowAuthReset = true; //TODO: Set this depending on SMTP settings? 
         this.init();
     }
 
     private init(): void {
-        this.lastCredentials = localStorage.getItem("lastCredentials");
+        this.lastCredentials = localStorage.getItem('lastCredentials');
 
         this.userService.isAuthenticated().then(() => {
-            this.state = "backoffice";
+            this.state = 'backoffice';
         }, () => { });
     }
 
     public toggleLastCredentials(): void {
 
         this.useLastCredentials = !this.useLastCredentials;
+    }
+
+    public showLogin(): void {
+        this.state = 'login';
+    }
+
+    public showAuthReset(): void {
+        this.state = 'requestAuthReset';
+    }
+
+    public requestAuthResetSubmit(email: string): void {
+        //TODO: Do input validation.
+
+        this.$http.post(this.forgotCredentialsEndpoint,
+            JSON.stringify({
+                email: email
+            })
+        ).then(() => {
+            //remove the email entered
+            this.email = "";
+            this.showEmailResetConfirmation = true;
+        });
     }
 
     public handleSignInSubmit(): void {

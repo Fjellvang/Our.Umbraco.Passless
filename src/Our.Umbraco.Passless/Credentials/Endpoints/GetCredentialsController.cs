@@ -10,7 +10,7 @@ namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
 [UmbracoRequireHttps]
 [DisableBrowserCache]
-[Area(UmbracoFidoConstants.AreaName)]
+[Area(UmbracoPasslessConstants.AreaName)]
 public class GetCredentialsController : UmbracoAuthorizedController
 {
     private readonly ICredentialsService credentialsService;

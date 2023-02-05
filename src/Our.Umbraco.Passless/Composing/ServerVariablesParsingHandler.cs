@@ -20,32 +20,32 @@ namespace Our.Umbraco.Passless.Composing
             var credentialsOptionsUrl = linkGenerator.GetUmbracoControllerUrl(
                 nameof(CredentialsOptionsController.Index),
                 typeof(CredentialsOptionsController),
-                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName });
+                new Dictionary<string, object?>() { ["area"] = UmbracoPasslessConstants.AreaName });
 
             var makeCredentialsUrl = linkGenerator.GetUmbracoControllerUrl(
                 nameof(MakeCredentialsController.Index),
                 typeof(MakeCredentialsController),
-                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName });
+                new Dictionary<string, object?>() { ["area"] = UmbracoPasslessConstants.AreaName });
 
             var getCredentialsUrl = linkGenerator.GetUmbracoControllerUrl(
                 nameof(GetCredentialsController.Index),
                 typeof(GetCredentialsController),
-                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName });
+                new Dictionary<string, object?>() { ["area"] = UmbracoPasslessConstants.AreaName });
 
             var deleteCredentialsUrl = linkGenerator.GetUmbracoControllerUrl(
                 nameof(DeleteCredentialsController.Index),
                 typeof(DeleteCredentialsController),
-                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName });
+                new Dictionary<string, object?>() { ["area"] = UmbracoPasslessConstants.AreaName });
 
             var assertionOptionsUrl = linkGenerator.GetUmbracoControllerUrl(
                 nameof(AssertionOptionsController.Index),
                 typeof(AssertionOptionsController),
-                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName });
+                new Dictionary<string, object?>() { ["area"] = UmbracoPasslessConstants.AreaName });
 
             var makeAssertionUrl = linkGenerator.GetUmbracoControllerUrl(
                 nameof(MakeAssertionController.Index),
                 typeof(MakeAssertionController),
-                new Dictionary<string, object?>() { ["area"] = UmbracoFidoConstants.AreaName });
+                new Dictionary<string, object?>() { ["area"] = UmbracoPasslessConstants.AreaName });
 
             var passlessLogin = new Dictionary<string, object>()
             {

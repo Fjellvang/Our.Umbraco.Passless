@@ -18,7 +18,7 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
 {
     [UmbracoRequireHttps]
     [DisableBrowserCache]
-    [Area(UmbracoFidoConstants.AreaName)]
+    [Area(UmbracoPasslessConstants.AreaName)]
     public class MakeAssertionController : UmbracoController
     {
         private readonly IFido2 fido2;
