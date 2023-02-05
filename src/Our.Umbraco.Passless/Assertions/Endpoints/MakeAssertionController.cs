@@ -72,7 +72,8 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
                     new
                     {
                         RedirectUrl = "/umbraco",//TODO: make configurable.
-                        Status = res.Status
+                        Status = res.Status,
+                        CredentialId = Convert.ToBase64String(res.CredentialId)
                     });
             }
             catch (Exception ex)
