@@ -1,4 +1,5 @@
 ﻿import { coerceToArrayBuffer, coerceToBase64Url } from "./helpers";
+import { AssertionResponse } from "./types";
 
 export class CustomLoginController {
 
@@ -89,10 +90,10 @@ export class CustomLoginController {
             }
         };
 
-        // TODO define type of response
-        this.$http.post<any>(this.makeAssertionEndpoint, JSON.stringify(data))
+        this.$http.post<AssertionResponse>(this.makeAssertionEndpoint, JSON.stringify(data))
             .then(success => {
                 const response = success.data;
+                localStorage.setItem("lastCredentials", response.credentialId);
                 this.$window.location.href = response.redirectUrl
             }, () => {
                 console.log("Error doing assertion");
