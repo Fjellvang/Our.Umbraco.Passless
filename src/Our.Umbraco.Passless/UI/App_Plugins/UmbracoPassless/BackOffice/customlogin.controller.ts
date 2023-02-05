@@ -38,7 +38,7 @@ export class CustomLoginController {
     }
 
     public handleSignInSubmit(): void {
-        this.$http.post(this.assertionOptionsEndpoint,
+        this.$http.post<PublicKeyCredentialRequestOptions>(this.assertionOptionsEndpoint,
             JSON.stringify({
                 lastCredentialId: this.useLastCredentials ? this.lastCredentials : ''
             })
@@ -47,12 +47,11 @@ export class CustomLoginController {
         });
     }
 
-    // TODO: define parameter type
-    private getCredentials(makeAssertionOptions: any): void {
+    private getCredentials(makeAssertionOptions: PublicKeyCredentialRequestOptions): void {
 
         // Turn the challenge back into the accepted format of padded base64
         makeAssertionOptions.challenge = coerceToArrayBuffer(makeAssertionOptions.challenge);
-        makeAssertionOptions.allowCredentials = makeAssertionOptions.allowCredentials.map((c: any) => {
+        makeAssertionOptions.allowCredentials = makeAssertionOptions.allowCredentials?.map((c: any) => {
             c.id = coerceToArrayBuffer(c.id);
             return c;
         });
@@ -60,23 +59,23 @@ export class CustomLoginController {
         // ask browser for credentials (browser will ask connected authenticators)
         navigator.credentials.get({ publicKey: makeAssertionOptions })
             .then(credential => {
-                this.verifyAssertionWithServer(credential);
+                this.verifyAssertionWithServer(credential as PublicKeyCredential);
             })
     }
 
-    // TODO: define parameter type
     /**
      * Sends the credential to the the FIDO2 server for assertion
      * @param {any} assertedCredential
      */
-    private verifyAssertionWithServer(assertedCredential: any): void {
+    private verifyAssertionWithServer(assertedCredential: PublicKeyCredential): void {
 
+        const response = assertedCredential.response as AuthenticatorAssertionResponse;
         // Move data into Arrays incase it is super long
-        let authData = new Uint8Array(assertedCredential.response.authenticatorData);
+        let authData = new Uint8Array(response.authenticatorData);
         let clientDataJSON = new Uint8Array(assertedCredential.response.clientDataJSON);
         let rawId = new Uint8Array(assertedCredential.rawId);
-        let sig = new Uint8Array(assertedCredential.response.signature);
-        let userHandle = new Uint8Array(assertedCredential.response.userHandle)
+        let sig = new Uint8Array(response.signature);
+        let userHandle = new Uint8Array(response.userHandle!);
         const data = {
             id: assertedCredential.id,
             rawId: coerceToBase64Url(rawId),
