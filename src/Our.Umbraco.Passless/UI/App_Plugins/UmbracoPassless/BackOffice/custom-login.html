@@ -2,7 +2,8 @@
     <div ng-if="vm.state !== 'backoffice'">
         <div ng-if="vm.state === 'login'">
             <button class="btn btn-block btn-social" type="submit" ng-click="vm.handleSignInSubmit()" title="Sign in with Passless">
-                <i ng-class="vm.login.properties.Icon" class="fa fa-user"></i>
+                <!--<i ng-class="vm.login.properties.Icon" class="fa fa-user"></i>-->
+                <img ng-class="vm.login.properties.Icon" src="assets/FIDO-Passkey_Icon-White.svg" alt="PassKeys" />
                 <localize key="login_signInWith" class="ng-isolate-scope"></localize> Passless
             </button>
             <umb-toggle ng-if="vm.lastCredentials"
@@ -63,6 +64,17 @@
             <umb-button type="submit"
                         button-style="action"
                         label-key="fido_registration"
+                        icon="fa {{login.properties.SocialIcon}}">
+            </umb-button>
+        </form>
+    </div>
+    <div ng-if="vm.state === 'resetAuth'">
+        <form ng-submit="vm.openPasslessOverlay()"
+              method="POST"
+              name="fidoRegisterForm" id="fidoRegisterForm">
+            <umb-button type="submit"
+                        button-style="action"
+                        label-key="fido_resetAuth"
                         icon="fa {{login.properties.SocialIcon}}">
             </umb-button>
         </form>

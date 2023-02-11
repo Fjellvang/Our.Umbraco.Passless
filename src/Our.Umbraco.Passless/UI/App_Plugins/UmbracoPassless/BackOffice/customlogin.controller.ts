@@ -3,7 +3,7 @@ import { AssertionResponse } from "./types";
 
 export class CustomLoginController {
 
-    static $inject: Array<string> = ["$scope", "$window", "$http", "userService", "editorService"];
+    static $inject: Array<string> = ["$scope", "$window", "$http", "userService", "editorService", "$location"];
 
     private state: string;
     private loadingUmbracoIdSetting: boolean;
@@ -18,7 +18,13 @@ export class CustomLoginController {
     private showEmailResetConfirmation = false;
 
     // TODO: define types for umbraco services
-    constructor(private $scope: angular.IScope, private $window: angular.IWindowService, private $http: angular.IHttpService, private userService: any, private editorService: any) {
+    constructor(private $scope: angular.IScope,
+        private $window: angular.IWindowService,
+        private $http: angular.IHttpService,
+        private userService: any,
+        private editorService: any,
+        private $location: angular.ILocationService
+    ) {
         this.state = 'login';
         this.loadingUmbracoIdSetting = true;
         this.assertionOptionsEndpoint = '/umbraco/backoffice/passless/assertionoptions';// TODO: maybe find a better solution than hardcoding the endpoints?
@@ -35,6 +41,11 @@ export class CustomLoginController {
 
         this.userService.isAuthenticated().then(() => {
             this.state = 'backoffice';
+            // Check if it is a new user
+            const resetValue = this.$location.search().reset;
+            if (resetValue && resetValue === "1") {
+                this.state = 'resetAuth';
+            }
         }, () => { });
     }
 
