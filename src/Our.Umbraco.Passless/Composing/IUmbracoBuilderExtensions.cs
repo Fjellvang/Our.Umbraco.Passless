@@ -27,7 +27,7 @@ public static class IUmbracoBuilderExtensions
                 }, options =>
                 {
                     options.CustomBackOfficeView = "~/App_Plugins/UmbracoPassless/BackOffice/custom-login.html";
-                    options.DenyLocalLogin = true;
+                    options.DenyLocalLogin = false;
                 });
         });
         return builder;
