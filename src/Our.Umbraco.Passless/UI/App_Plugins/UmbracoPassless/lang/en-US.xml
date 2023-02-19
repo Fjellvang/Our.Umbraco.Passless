@@ -4,6 +4,7 @@
 		<key alias="registration">Manage Passless devices</key>
 		<key alias="addDevice">Add Passless Device</key>
 		<key alias="signIn">Sign in with Passless</key>
-		<key alias="lostAuthenticator">Lost Auth?</key>
+		<key alias="lostAuthenticator">Lost Passless device?</key>
+		<key alias="resetAuth">Register a Passless device</key>
 	</area>
 </language>

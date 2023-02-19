@@ -72,11 +72,11 @@
         <form ng-submit="vm.openPasslessOverlay()"
               method="POST"
               name="fidoRegisterForm" id="fidoRegisterForm">
-            <umb-button type="submit"
-                        button-style="action"
-                        label-key="fido_resetAuth"
-                        icon="fa {{login.properties.SocialIcon}}">
-            </umb-button>
+            <button class="btn btn-block btn-social btn-action" type="submit" title="Sign in with Passless">
+                <!--<i ng-class="vm.login.properties.Icon" class="fa fa-user"></i>-->
+                <img ng-class="vm.login.properties.Icon" src="/App_plugins/UmbracoPassless/BackOffice/assets/FIDO-Passkey_Icon-White.svg" alt="PassKeys" />
+                <localize key="fido_resetAuth" class="ng-isolate-scope"></localize> 
+            </button>
         </form>
     </div>
 </div>

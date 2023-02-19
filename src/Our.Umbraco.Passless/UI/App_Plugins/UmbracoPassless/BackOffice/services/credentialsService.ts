@@ -15,11 +15,11 @@ export class CredentialsService {
     constructor(
         private $http: angular.IHttpService) {
 
-        this.makeCredentialsEndpoint = Umbraco.Sys.ServerVariables.passlessLogin.urls.makeCredentials;
-        this.credentialsOptionsEndpoint = Umbraco.Sys.ServerVariables.passlessLogin.urls.credentialsOptions;
+        this.makeCredentialsEndpoint = '/umbraco/backoffice/passless/makecredentials';
+        this.credentialsOptionsEndpoint = '/umbraco/backoffice/passless/credentialsoptions'
 
-        this.getCredentialsEndpoint = Umbraco.Sys.ServerVariables.passlessLogin.urls.getCredentials;
-        this.deleteCredentialsEndpoint = Umbraco.Sys.ServerVariables.passlessLogin.urls.deleteCredentials;
+        this.getCredentialsEndpoint = '/umbraco/backoffice/passless/getcredentials'
+        this.deleteCredentialsEndpoint = '/umbraco/backoffice/passless/deletecredentials'
 
     }
 

@@ -1,9 +1,10 @@
 ﻿import { coerceToArrayBuffer, coerceToBase64Url } from "./helpers";
+import { CredentialsService } from "./services/credentialsService";
 import { AssertionResponse } from "./types";
 
 export class CustomLoginController {
 
-    static $inject: Array<string> = ["$scope", "$window", "$http", "userService", "editorService", "$location"];
+    static $inject: Array<string> = ["$scope", "$window", "$http", "userService", "editorService", "$location", "UmbracoPassless.CredentialsService"];
 
     private state: string;
     private loadingUmbracoIdSetting: boolean;
@@ -23,7 +24,8 @@ export class CustomLoginController {
         private $http: angular.IHttpService,
         private userService: any,
         private editorService: any,
-        private $location: angular.ILocationService
+        private $location: angular.ILocationService,
+        private credentialsService: CredentialsService
     ) {
         this.state = 'login';
         this.loadingUmbracoIdSetting = true;
@@ -137,6 +139,10 @@ export class CustomLoginController {
                 console.log("Error doing assertion");
                 //TODO: Do some proper error messaging
             });
+    }
+
+    public registerLostCredential(): void {
+        this.credentialsService.registerNewCredentials("Backup", true);
     }
 
     //Registration
