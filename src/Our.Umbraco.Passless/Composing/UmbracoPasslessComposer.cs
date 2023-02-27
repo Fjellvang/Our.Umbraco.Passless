@@ -16,9 +16,6 @@ public class UmbracoPasslessComposer : IComposer
         //Options
         builder.Services.ConfigureOptions<ConfigureUmbracoPipelineOptions>();
 
-        //Notification handlers
-        builder.AddNotificationHandler<ServerVariablesParsingNotification, ServerVariablesParsingHandler>();
-
         //Fido
         builder.Services.AddFido2(options =>
         {
