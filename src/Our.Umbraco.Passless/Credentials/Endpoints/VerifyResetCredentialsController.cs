@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Net;
+using Umbraco.Cms.Core.Configuration.Models;
+using Umbraco.Cms.Core.Hosting;
 using Umbraco.Cms.Core.Models.Membership;
 using Umbraco.Cms.Core.Security;
 using Umbraco.Cms.Web.BackOffice.Controllers;
@@ -19,19 +22,22 @@ namespace Our.Umbraco.Passless.Credentials.Endpoints;
 [Area(UmbracoPasslessConstants.AreaName)]
 public class VerifyResetCredentialsController : UmbracoApiController
 {
-    private const string backofficeLandingPageUrl = "/umbraco"; //todo read from settings
+    private readonly string backofficeLandingPageUrl;
     private readonly IBackOfficeSignInManager signInManager;
     private readonly IBackOfficeUserManager userManager;
     private readonly ILogger<VerifyResetCredentialsController> logger;
 
     public VerifyResetCredentialsController(IBackOfficeSignInManager signInManager,
         IBackOfficeUserManager userManager,
-        ILogger<VerifyResetCredentialsController> logger
+        ILogger<VerifyResetCredentialsController> logger,
+        IOptionsMonitor<GlobalSettings> globalSettings,
+        IHostingEnvironment hostingEnvironment
         )
     {
         this.signInManager = signInManager;
         this.userManager = userManager;
         this.logger = logger;
+        this.backofficeLandingPageUrl = globalSettings.CurrentValue.GetBackOfficePath(hostingEnvironment);
     }
 
     // Logic copied from CMS Source - needs to be adapted
@@ -82,21 +88,15 @@ public class VerifyResetCredentialsController : UmbracoApiController
 
         var verified = await userManager.VerifyUserTokenAsync(identityUser, "Default", "ResetPassword", decoded);
 
-        //IdentityResult result = await userManager.ConfirmEmailAsync(identityUser, decoded!);
-
         if (!verified)
         {
             logger.LogWarning("Could not verify token");
-            return new RedirectResult("/umbraco#/login/false?invite=3");
+            return new RedirectResult($"{backofficeLandingPageUrl}#/login/false?invite=3");
         }
 
         //sign the user in
-        DateTime? previousLastLoginDate = identityUser.LastLoginDateUtc;
         await signInManager.SignInAsync(identityUser, false);
-        //reset the lastlogindate back to previous as the user hasn't actually logged in, to add a flag or similar to BackOfficeSignInManager would be a breaking change
-        identityUser.LastLoginDateUtc = previousLastLoginDate;
-        await userManager.UpdateAsync(identityUser);
 
-        return new RedirectResult("/umbraco#/login/false?invite=1");
+        return new RedirectResult($"{backofficeLandingPageUrl}#/login/false?invite=1");
     }
 }
