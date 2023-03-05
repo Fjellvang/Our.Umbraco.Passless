@@ -14,7 +14,6 @@ export class CredentialsController {
 
     private state: string;
     private registrationAlias: string;
-    private crossPlatform: boolean;
     private loading: boolean;
 
 
@@ -31,7 +30,6 @@ export class CredentialsController {
 
         this.state = 'ready'
         this.registrationAlias = '';
-        this.crossPlatform = true;
         this.loading = true;
         this.credentials = null;
         this.init();
@@ -39,10 +37,6 @@ export class CredentialsController {
 
     private init(): void {
         this.getCredentials();
-    }
-
-    public onCrossplaftormChange(): void {
-        this.crossPlatform = !this.crossPlatform;
     }
 
     public deleteCredentials(reg: UserCredential): void {
@@ -87,7 +81,7 @@ export class CredentialsController {
     }
 
     public submitRegisterPasslessForm(): void {
-        this.registrationService.registerNewCredentials(this.registrationAlias, this.crossPlatform)
+        this.registrationService.registerNewCredentials(this.registrationAlias)
             .then(success => {
                 this.onKeyRegisteredWithServer(success.data.result)
             }, failure => {

@@ -168,7 +168,7 @@ export class CustomLoginController {
     }
 
     public registerLostCredential(): void {
-        this.credentialsService.registerNewCredentials("Backup", true)
+        this.credentialsService.registerNewCredentials("Backup")
             .then(() => {
                 this.$window.location.href = Umbraco.Sys.ServerVariables.umbracoSettings.umbracoPath;
             })

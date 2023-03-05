@@ -31,8 +31,8 @@ export class CredentialsService {
         return this.$http.get<UserCredentials>(this.getCredentialsEndpoint);
     }
 
-    public registerNewCredentials(registrationAlias: string, crossPlatform: boolean): angular.IHttpPromise<CredentialMakeResult>  {
-        return this.$http.get<PublicKeyCredentialCreationOptions>(`${this.credentialsOptionsEndpoint}?crossPlatform=${crossPlatform}`)
+    public registerNewCredentials(registrationAlias: string): angular.IHttpPromise<CredentialMakeResult>  {
+        return this.$http.get<PublicKeyCredentialCreationOptions>(`${this.credentialsOptionsEndpoint}`)
             .then(success => {
                 const makeCredentialsOptions = success.data;
 
