@@ -2,6 +2,9 @@
 import { CredentialsService } from "./services/credentialsService";
 import { AssertionResponse } from "./types";
 
+// TODO: define a type for this variable
+declare const Umbraco: any;
+
 export class CustomLoginController {
 
     static $inject: Array<string> = ["$scope", "$window", "$http", "userService", "editorService", "$location", "UmbracoPassless.CredentialsService"];
@@ -34,7 +37,7 @@ export class CustomLoginController {
         this.forgotCredentialsEndpoint = '/umbraco/backoffice/passless/forgotcredentials';
         this.lastCredentials = '';
         this.useLastCredentials = true;
-        this.allowAuthReset = true; //TODO: Set this depending on SMTP settings? 
+        this.allowAuthReset = Umbraco.Sys.ServerVariables.umbracoSettings.canSendRequiredEmail;
         this.init();
     }
 
@@ -142,7 +145,11 @@ export class CustomLoginController {
     }
 
     public registerLostCredential(): void {
-        this.credentialsService.registerNewCredentials("Backup", true);
+        this.credentialsService.registerNewCredentials("Backup", true)
+            .then(() => {
+                this.$window.location.href = Umbraco.Sys.ServerVariables.umbracoSettings.umbracoPath;
+            })
+            ;
     }
 
     //Registration

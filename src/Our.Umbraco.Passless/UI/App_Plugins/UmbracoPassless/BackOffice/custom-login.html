@@ -69,7 +69,8 @@
         </form>
     </div>
     <div ng-if="vm.state === 'resetAuth'">
-        <form ng-submit="vm.openPasslessOverlay()"
+        <p>You can now register a new Passless device</p>
+        <form ng-submit="vm.registerLostCredential()"
               method="POST"
               name="fidoRegisterForm" id="fidoRegisterForm">
             <button class="btn btn-block btn-social btn-action" type="submit" title="Sign in with Passless">

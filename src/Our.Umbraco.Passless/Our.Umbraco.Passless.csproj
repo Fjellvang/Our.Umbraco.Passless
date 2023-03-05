@@ -17,9 +17,8 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageReleaseNotes>
-      - Enabled toggling the use of the umbraco database.
-      - Renamed some FE FIDO mentions to Passless
-      - Fixed some nullability checks
+      - Enabled LostAuthenticator step if SMTP is configured
+      - Enabled DenyLocalLogin
     </PackageReleaseNotes>
   </PropertyGroup>
 

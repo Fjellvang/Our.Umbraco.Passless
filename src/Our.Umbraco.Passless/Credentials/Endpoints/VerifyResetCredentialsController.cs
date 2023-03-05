@@ -97,6 +97,6 @@ public class VerifyResetCredentialsController : UmbracoApiController
         //sign the user in
         await signInManager.SignInAsync(identityUser, false);
 
-        return new RedirectResult($"{backofficeLandingPageUrl}#/login/false?invite=1");
+        return new RedirectResult($"{backofficeLandingPageUrl}#/login/false?reset=1");
     }
 }
