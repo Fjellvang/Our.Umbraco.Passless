@@ -1,27 +1,88 @@
 ﻿<div ng-controller="UmbracoPassless.CustomLoginController as vm">
     <div ng-if="vm.state !== 'backoffice'">
-        <button class="btn btn-block btn-social" type="submit" ng-click="vm.handleSignInSubmit()" title="Sign in with Passless">
-            <i ng-class="vm.login.properties.Icon" class="fa fa-user"></i>
-            <localize key="login_signInWith" class="ng-isolate-scope"></localize> Passless
-        </button>
-        <umb-toggle ng-if="vm.lastCredentials"
-                    checked="vm.useLastCredentials"
-                    on-click="vm.toggleLastCredentials()"
-                    show-labels="true"
-                    label-position="right"
-                    label-on="Sign in with last authenticator used in this browser"
-                    label-off="Sign in with last authenticator used in this browser">
-        </umb-toggle>
+        <div ng-if="vm.state === 'login'" class="fido-signin">
+            <div ng-if="vm.errors">
+                <div class="text-error" ng-repeat="error in vm.errors">
+                    <span>{{error}}</span>
+                </div>
+            </div>
+            <button class="btn btn-block btn-social btn-action" type="submit" ng-click="vm.handleSignInSubmit()" title="Sign in with Passless">
+                <!--<i ng-class="vm.login.properties.Icon" class="fa fa-user"></i>-->
+                <img ng-class="vm.login.properties.Icon" src="/App_plugins/UmbracoPassless/BackOffice/assets/FIDO-Passkey_Icon-White.svg" alt="PassKeys" />
+                <localize key="login_signInWith" class="ng-isolate-scope"></localize> Passless
+            </button>
+            <umb-toggle ng-if="vm.lastCredentials"
+                        checked="vm.useLastCredentials"
+                        on-click="vm.toggleLastCredentials()"
+                        show-labels="true"
+                        label-position="right"
+                        label-on="Sign in with last authenticator used in this browser"
+                        label-off="Sign in with last authenticator used in this browser">
+            </umb-toggle>
+            <div ng-show="vm.allowAuthReset">
+                <button type="button" class="btn-reset muted" style="text-decoration: underline;"
+                        ng-click="vm.showAuthReset()">
+                    <!-- TODO: FIX localization -->
+                    <localize key="fido_lostAuthenticator">Lost Authenticator?</localize>
+                </button>
+            </div>
+        </div>
+        <div ng-if="vm.state === 'requestAuthReset'"> <!-- TODO: SOME State to show/hide this -->
+            <p tabindex="0">
+                <!-- TODO: provide localize key -->
+                <localize key="fido_forgottenAuthInstruction">An email will be sent to the address specified with a link to reset your Authenticator</localize>
+            </p>
+
+            <form method="POST" name="vm.requestAuthResetForm" ng-submit="vm.requestAuthResetSubmit(email)">
+                <div class="control-group" ng-class="{error: vm.requestAuthResetForm.email.$invalid}">
+                    <label for="umb-email"><localize key="general_email">Email</localize></label>
+                    <input type="email" val-email ng-model="email" name="email" id="umb-email" class="-full-width-input" localize="placeholder" placeholder="@placeholders_email" focus-when="{{vm.view === 'request-password-reset'}}" />
+                </div>
+
+                <div ng-messages="vm.requestAuthResetForm.$error" class="control-group" ng-show="vm.requestAuthResetForm.$invalid">
+                    <p ng-message="auth" class="text-error" role="alert" tabindex="0">{{vm.errorMsg}}</p>
+                </div>
+
+                <div class="control-group" ng-show="vm.showEmailResetConfirmation">
+                    <div class="text-info" role="alert">
+                        <p tabindex="0">
+                            <!-- TODO: Provide localize key -->
+                            <localize key="fido_requestAuthResetConfirmation">An email with password reset instructions will be sent to the specified address if it matched our records</localize>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button type="submit" class="btn btn-success" val-trigger-change="#login .form input"><localize key="general_submit">Submit</localize></button>
+                    <button type="button" class="btn-reset muted" ng-click="vm.showLogin()" style="text-decoration: underline;">
+                        <localize key="login_returnToLogin">Return to login form</localize>
+                    </button>
+                </div>
+
+            </form>
+        </div>
     </div>
-    <div ng-if="vm.state === 'backoffice'">
+    <div ng-if="vm.state === 'backoffice'" class="fido-signup">
         <form ng-submit="vm.openPasslessOverlay()"
               method="POST"
               name="fidoRegisterForm" id="fidoRegisterForm">
-            <umb-button type="submit"
-                        button-style="action"
-                        label-key="fido_registration"
-                        icon="fa {{login.properties.SocialIcon}}">
-            </umb-button>
+            <button class="btn btn-block btn-social btn-action" type="submit" title="Sign in with Passless">
+                <!--<i ng-class="vm.login.properties.Icon" class="fa fa-user"></i>-->
+                <img ng-class="vm.login.properties.Icon" src="/App_plugins/UmbracoPassless/BackOffice/assets/FIDO-Passkey_Icon-White.svg" alt="PassKeys" />
+                <localize key="fido_registration" class="ng-isolate-scope"></localize> 
+            </button>
+        </form>
+    </div>
+    <div ng-if="vm.state === 'resetAuth'">
+        <p>You can now register a new Passless device</p>
+        <form ng-submit="vm.registerLostCredential()"
+              method="POST"
+              name="fidoRegisterForm" id="fidoRegisterForm">
+            <button class="btn btn-block btn-social btn-action" type="submit" title="Sign in with Passless">
+                <!--<i ng-class="vm.login.properties.Icon" class="fa fa-user"></i>-->
+                <img ng-class="vm.login.properties.Icon" src="/App_plugins/UmbracoPassless/BackOffice/assets/FIDO-Passkey_Icon-White.svg" alt="PassKeys" />
+                <localize key="fido_resetAuth" class="ng-isolate-scope"></localize> 
+            </button>
         </form>
     </div>
 </div>

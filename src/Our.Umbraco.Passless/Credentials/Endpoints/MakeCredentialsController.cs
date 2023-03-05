@@ -14,7 +14,7 @@ namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
 [UmbracoRequireHttps]
 [DisableBrowserCache]
-[Area(UmbracoFidoConstants.AreaName)]
+[Area(UmbracoPasslessConstants.AreaName)]
 public class MakeCredentialsController : UmbracoAuthorizedController
 {
     private readonly IFido2 fido2;

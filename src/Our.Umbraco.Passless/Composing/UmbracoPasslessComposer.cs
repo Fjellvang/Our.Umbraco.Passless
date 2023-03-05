@@ -6,6 +6,8 @@ using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
 using Our.Umbraco.Passless.Credentials.Persistence;
 using Our.Umbraco.Passless.Credentials.Services;
+using Our.Umbraco.Passless.Configuration;
+using Umbraco.Extensions;
 
 namespace Our.Umbraco.Passless.Composing;
 
@@ -16,8 +18,11 @@ public class UmbracoPasslessComposer : IComposer
         //Options
         builder.Services.ConfigureOptions<ConfigureUmbracoPipelineOptions>();
 
-        //Notification handlers
-        builder.AddNotificationHandler<ServerVariablesParsingNotification, ServerVariablesParsingHandler>();
+        var result = builder.Services.AddOptions<PasslessConfiguration>()
+            .Bind(builder.Config.GetSection("Passless"))
+            .ValidateDataAnnotations()
+            .ValidateOnStart()
+            ;
 
         //Fido
         builder.Services.AddFido2(options =>
@@ -39,8 +44,10 @@ public class UmbracoPasslessComposer : IComposer
             options.Cookie.SameSite = SameSiteMode.Unspecified;
         });
 
+        builder.Services.ConfigureOptions<ConfigureBackOfficeExternalLoginProviderOptions>();
 
-        var useUmbDBConfigPresent = bool.TryParse(builder.Config["Passless:useUmbracoDb"], out var useUmbracoDB);
+
+        var useUmbDBConfigPresent = bool.TryParse(builder.Config["Passless:UseUmbracoDb"], out var useUmbracoDB);
         if (!useUmbDBConfigPresent || useUmbracoDB)
         {
             builder.AddComponent<MigrationsComponent>();
@@ -49,6 +56,22 @@ public class UmbracoPasslessComposer : IComposer
 
         builder.Services.AddTransient<ICredentialsService, CredentialsService>();
 
-        builder.AddFidoBackofficeAuthentication();
+        builder.AddBackOfficeExternalLogins(logins =>
+        {
+            logins.AddBackOfficeLogin(
+                backOfficeAuthenticationBuilder =>
+                {
+                    backOfficeAuthenticationBuilder.AddRemoteScheme<PasslessRemoteAuthenticationOptions, PasslessRemoteAuthenticationHandler>(
+                        // The scheme must be set with this method to work for the backoffice
+                        backOfficeAuthenticationBuilder.SchemeForBackOffice("PasslessLogin")!,
+                        "Fido Login",
+                        options =>
+                        {
+                            options.CallbackPath = new PathString("/umbraco-passless-login"); // Not really used for now.
+                        }
+                        );
+                });
+        });
+
     }
 }

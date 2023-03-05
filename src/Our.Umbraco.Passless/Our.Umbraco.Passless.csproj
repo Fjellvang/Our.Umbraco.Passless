@@ -17,9 +17,10 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageReleaseNotes>
-      - Enabled toggling the use of the umbraco database.
-      - Renamed some FE FIDO mentions to Passless
-      - Fixed some nullability checks
+      - Enabled LostAuthenticator step if SMTP is configured
+      - Enabled DenyLocalLogin
+      - Added Some error messages on failed login
+      - Fixed some CSS
     </PackageReleaseNotes>
   </PropertyGroup>
 
@@ -50,6 +51,10 @@
     <PackageReference Include="Umbraco.Cms.Core" Version="10.3.2" />
     <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.3.2" />
     <PackageReference Include="Umbraco.Cms.Web.Common" Version="10.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UI\App_Plugins\UmbracoPassless\BackOffice\assets\" />
   </ItemGroup>
 
 </Project>

@@ -13,25 +13,35 @@ using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
 using static Umbraco.Cms.Core.Constants;
 using Our.Umbraco.Passless.Credentials.Services;
+using Microsoft.Extensions.Options;
+using Umbraco.Cms.Core.Configuration.Models;
+using Umbraco.Cms.Core.Hosting;
 
 namespace Our.Umbraco.Passless.Assertions.Endpoints
 {
     [UmbracoRequireHttps]
     [DisableBrowserCache]
-    [Area(UmbracoFidoConstants.AreaName)]
+    [Area(UmbracoPasslessConstants.AreaName)]
     public class MakeAssertionController : UmbracoController
     {
         private readonly IFido2 fido2;
         private readonly ICredentialsService credentialsService;
         private readonly IBackOfficeSignInManager signInManager;
         private readonly IBackOfficeUserManager userService;
+        private readonly string backOfficePath;
 
-        public MakeAssertionController(IFido2 fido2, ICredentialsService credentialsService, IBackOfficeSignInManager signInManager, IBackOfficeUserManager userService)
+        public MakeAssertionController(IFido2 fido2,
+                                       ICredentialsService credentialsService,
+                                       IBackOfficeSignInManager signInManager,
+                                       IOptionsMonitor<GlobalSettings> globalSettings,
+                                       IHostingEnvironment hostingEnvironment,
+                                       IBackOfficeUserManager userService)
         {
             this.fido2 = fido2;
             this.credentialsService = credentialsService;
             this.signInManager = signInManager;
             this.userService = userService;
+            this.backOfficePath = globalSettings.CurrentValue.GetBackOfficePath(hostingEnvironment);
         }
 
         [HttpPost]
@@ -71,7 +81,7 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
                 return Ok(
                     new
                     {
-                        RedirectUrl = "/umbraco",//TODO: make configurable.
+                        RedirectUrl = backOfficePath,
                         Status = res.Status,
                         CredentialId = Convert.ToBase64String(res.CredentialId)
                     });

@@ -8,12 +8,13 @@ using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
 using Our.Umbraco.Passless.Credentials.Services;
+using NPoco;
 
 namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
 [UmbracoRequireHttps]
 [DisableBrowserCache]
-[Area(UmbracoFidoConstants.AreaName)]
+[Area(UmbracoPasslessConstants.AreaName)]
 public class CredentialsOptionsController : UmbracoAuthorizedController
 {
     private readonly IFido2 fido2;
@@ -25,7 +26,7 @@ public class CredentialsOptionsController : UmbracoAuthorizedController
         this.credentialsService = credentialsService;
     }
     [HttpGet]
-    public async Task<IActionResult> Index([FromQuery] bool crossPlatform, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> Index([FromQuery] bool? crossPlatform, CancellationToken cancellationToken = default)
     {
         if (User.Identity is null)
         {
@@ -55,7 +56,10 @@ public class CredentialsOptionsController : UmbracoAuthorizedController
             UserVerification = UserVerificationRequirement.Required //Since we're doing passwordless login, we require UserVerification
         };
 
-        authenticatorSelection.AuthenticatorAttachment = crossPlatform ? AuthenticatorAttachment.CrossPlatform : AuthenticatorAttachment.Platform;
+        if (crossPlatform.HasValue)
+        {
+            authenticatorSelection.AuthenticatorAttachment = crossPlatform.Value ? AuthenticatorAttachment.CrossPlatform : AuthenticatorAttachment.Platform;
+        }
 
         var exts = new AuthenticationExtensionsClientInputs()
         {
