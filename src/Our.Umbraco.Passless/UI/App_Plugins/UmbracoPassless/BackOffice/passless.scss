@@ -5,7 +5,19 @@
     margin: 5px;
 }
 
-.btn-social>:first-child {
+fido-signin, .btn-social>:first-child {
     top: 4px;
     left: 4px;
+}
+
+fido-signup, .btn-social>:first-child {
+    top: 2px;
+    left: 4px;
+}
+
+.fido-credential input {
+    width: 100%;
+}
+.fido-button-wrap button {
+    width: 80px
 }

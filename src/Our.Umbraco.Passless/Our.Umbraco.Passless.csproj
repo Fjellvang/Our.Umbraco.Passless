@@ -19,6 +19,8 @@
     <PackageReleaseNotes>
       - Enabled LostAuthenticator step if SMTP is configured
       - Enabled DenyLocalLogin
+      - Added Some error messages on failed login
+      - Fixed some CSS
     </PackageReleaseNotes>
   </PropertyGroup>
 

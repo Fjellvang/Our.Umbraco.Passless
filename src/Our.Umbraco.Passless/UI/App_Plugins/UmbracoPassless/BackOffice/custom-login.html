@@ -1,6 +1,6 @@
 ﻿<div ng-controller="UmbracoPassless.CustomLoginController as vm">
     <div ng-if="vm.state !== 'backoffice'">
-        <div ng-if="vm.state === 'login'">
+        <div ng-if="vm.state === 'login'" class="fido-signin">
             <div ng-if="vm.errors">
                 <div class="text-error" ng-repeat="error in vm.errors">
                     <span>{{error}}</span>
@@ -62,7 +62,7 @@
             </form>
         </div>
     </div>
-    <div ng-if="vm.state === 'backoffice'">
+    <div ng-if="vm.state === 'backoffice'" class="fido-signup">
         <form ng-submit="vm.openPasslessOverlay()"
               method="POST"
               name="fidoRegisterForm" id="fidoRegisterForm">
