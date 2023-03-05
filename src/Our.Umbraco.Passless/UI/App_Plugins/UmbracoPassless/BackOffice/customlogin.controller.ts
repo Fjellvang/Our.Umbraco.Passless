@@ -52,6 +52,7 @@ export class CustomLoginController {
             const resetValue = this.$location.search().reset;
             if (resetValue && resetValue === "1") {
                 this.state = 'resetAuth';
+                this.hideLoginForm();
             }
         }, () => { });
     }
@@ -98,6 +99,12 @@ export class CustomLoginController {
         });
     }
 
+    private hideLoginForm() {
+        const loginBox = document.getElementsByClassName('ng-pristine ng-valid ng-scope')[0];
+        if (loginBox) {
+            loginBox.setAttribute('style', 'display: none');
+        }
+    }
     private showLoginForm() {
         const loginBox = document.getElementsByClassName('ng-pristine ng-valid ng-scope')[0];
         if (loginBox) {
