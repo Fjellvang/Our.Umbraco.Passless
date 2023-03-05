@@ -63,9 +63,14 @@ export class CustomLoginController {
 
     public showLogin(): void {
         this.state = 'login';
+        this.showLoginForm();
     }
 
     public showAuthReset(): void {
+        const loginBox = document.getElementsByClassName('ng-pristine ng-valid ng-scope')[0];
+        if (loginBox) {
+            loginBox.setAttribute('style','display: none');
+        }
         this.state = 'requestAuthReset';
     }
 
@@ -91,6 +96,13 @@ export class CustomLoginController {
         ).then(success => {
             this.getCredentials(success.data);
         });
+    }
+
+    private showLoginForm() {
+        const loginBox = document.getElementsByClassName('ng-pristine ng-valid ng-scope')[0];
+        if (loginBox) {
+            loginBox.setAttribute('style', '');
+        }
     }
 
     private getCredentials(makeAssertionOptions: PublicKeyCredentialRequestOptions): void {
