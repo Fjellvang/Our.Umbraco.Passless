@@ -52,7 +52,10 @@ public class ForgotCredentialsController : UmbracoApiController
 
     public async Task<IActionResult> Index(RequestPasswordResetModel model)
     {
-        //TODO: add check to allow password reset
+        if (!this.globalSettings.IsSmtpServerConfigured)
+        {
+            return StatusCode(501);
+        }
 
 
         //The following logic is more or less copy pasted from umbraco CMS, just adapted for our use.

@@ -8,7 +8,7 @@ using Umbraco.Extensions;
 using Our.Umbraco.Passless.Credentials.Endpoints;
 using Our.Umbraco.Passless.Assertions.Endpoints;
 
-namespace Our.Umbraco.Passless.Composing;
+namespace Our.Umbraco.Passless.Configuration;
 
 /// <summary>
 /// Creates custom routes for our custom controllers

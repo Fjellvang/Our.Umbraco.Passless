@@ -40,7 +40,8 @@ Install-Package Our.Umbraco.Passless
 You need to add these settings to your appsettings.config
 ``` json
  "Passless": {
-   "useUmbracoDb" : true, //Optional
+   "DenyLocalLogin": treu,//Optional, removes password login, defaults to false
+   "UseUmbracoDb" : true, //Optional
    "fido2": {
      "serverName": "{your server name}",
      "serverDomain": "{YOUR DOMAIN}",
@@ -63,7 +64,7 @@ For example:
 
 ### Use Umbraco DB
 
-The `useUmbracoDB` toggles whether we register our implementation of `IFidoCredentialRepository` and runs the migration adding the credentials table to the current umbraco database.
+The `UseUmbracoDB` toggles whether we register our implementation of `IFidoCredentialRepository` and runs the migration adding the credentials table to the current umbraco database.
 
 Set this to false, and register your own implementation if you want to use a different database for the users credentials.
 
