@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>0.0.2</Version>
+    <Version>0.0.4</Version>
     <Authors>Aleksander Fjellvang</Authors>
     <Description>Passworless login for Umbraco 10+ using FIDO and WebauthN</Description>
     <PackageProjectUrl>https://github.com/Fjellvang/Our.Umbraco.Passless</PackageProjectUrl>
