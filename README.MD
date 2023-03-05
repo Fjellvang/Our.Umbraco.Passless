@@ -16,11 +16,10 @@ When you've installed and configured the package, log into the backffice, press 
 - Passwordless login to the umbraco backoffice.
 - Register multiple Authenticators to your user
 - Platform (Windows hello etc) And Cross Platform (Android/Iphone via passkeys, YubiKey etc) Authenticators supported.
+- Forgot password registers new authenticator
 
 ## Planned features
 
-- Completely disable password login
-- Forgot password registers new authenticator
 - Passwordless login for members.
 - Better configuration for consumers
 - Umbraco 9 Support. This might take longer as the .net 5 version of fido2.net lib is quite outdated.
@@ -28,7 +27,6 @@ When you've installed and configured the package, log into the backffice, press 
 
 ### Known issues
 - The "Remember last authenticator" checkbox works poorly with passkeys, not sure if it can be helped?
-- The CSS styling could need a loving hand
 
 ## Install
 Use nuget to install Our.Umbraco.Passless
