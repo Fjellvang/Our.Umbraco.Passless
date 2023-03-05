@@ -40,7 +40,7 @@ Install-Package Our.Umbraco.Passless
 You need to add these settings to your appsettings.config
 ``` json
  "Passless": {
-   "DenyLocalLogin": treu,//Optional, removes password login, defaults to false
+   "DenyLocalLogin": true,//Optional, removes password login, defaults to false
    "UseUmbracoDb" : true, //Optional
    "fido2": {
      "serverName": "{your server name}",
