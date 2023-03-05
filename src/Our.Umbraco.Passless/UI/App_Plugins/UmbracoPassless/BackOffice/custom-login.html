@@ -1,6 +1,11 @@
 ﻿<div ng-controller="UmbracoPassless.CustomLoginController as vm">
     <div ng-if="vm.state !== 'backoffice'">
         <div ng-if="vm.state === 'login'">
+            <div ng-if="vm.errors">
+                <div class="text-error" ng-repeat="error in vm.errors">
+                    <span>{{error}}</span>
+                </div>
+            </div>
             <button class="btn btn-block btn-social btn-action" type="submit" ng-click="vm.handleSignInSubmit()" title="Sign in with Passless">
                 <!--<i ng-class="vm.login.properties.Icon" class="fa fa-user"></i>-->
                 <img ng-class="vm.login.properties.Icon" src="/App_plugins/UmbracoPassless/BackOffice/assets/FIDO-Passkey_Icon-White.svg" alt="PassKeys" />

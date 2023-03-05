@@ -17,6 +17,7 @@ export class CustomLoginController {
     private lastCredentials: string | null;
     private useLastCredentials: boolean;
     private allowAuthReset: boolean;
+    private errors: string[];
 
     private email = '';
     private showEmailResetConfirmation = false;
@@ -38,6 +39,7 @@ export class CustomLoginController {
         this.lastCredentials = '';
         this.useLastCredentials = true;
         this.allowAuthReset = Umbraco.Sys.ServerVariables.umbracoSettings.canSendRequiredEmail;
+        this.errors = [];
         this.init();
     }
 
@@ -104,6 +106,8 @@ export class CustomLoginController {
         navigator.credentials.get({ publicKey: makeAssertionOptions })
             .then(credential => {
                 this.verifyAssertionWithServer(credential as PublicKeyCredential);
+            }, () => {
+                this.errors.push("User cancelled, or the operation timed out");
             })
     }
 
@@ -140,7 +144,7 @@ export class CustomLoginController {
                 this.$window.location.href = response.redirectUrl
             }, () => {
                 console.log("Error doing assertion");
-                //TODO: Do some proper error messaging
+                this.errors.push("Your credentials could not be validated, please try again");
             });
     }
 
