@@ -1,5 +1,5 @@
 ﻿import { coerceToArrayBuffer, coerceToBase64Url } from "../helpers";
-import { CredentialMakeResult, UserCredentials } from "../types";
+import { AttestationVerificationSuccess, UserCredentials } from "../types";
 
 // TODO: define a type for this variable
 declare const Umbraco: any;
@@ -31,7 +31,7 @@ export class CredentialsService {
         return this.$http.get<UserCredentials>(this.getCredentialsEndpoint);
     }
 
-    public registerNewCredentials(registrationAlias: string): angular.IHttpPromise<CredentialMakeResult>  {
+    public registerNewCredentials(registrationAlias: string): angular.IHttpPromise<AttestationVerificationSuccess>  {
         return this.$http.get<PublicKeyCredentialCreationOptions>(`${this.credentialsOptionsEndpoint}`)
             .then(success => {
                 const makeCredentialsOptions = success.data;
@@ -43,7 +43,7 @@ export class CredentialsService {
             });
     }
 
-    private handleUserCredentials(makeCredentialOptions: PublicKeyCredentialCreationOptions, registrationAlias: string): angular.IHttpPromise<CredentialMakeResult>  {
+    private handleUserCredentials(makeCredentialOptions: PublicKeyCredentialCreationOptions, registrationAlias: string): angular.IHttpPromise<AttestationVerificationSuccess>  {
 
         // Turn the challenge back into the accepted format of padded base64
         makeCredentialOptions.challenge = coerceToArrayBuffer(makeCredentialOptions.challenge);
@@ -66,7 +66,7 @@ export class CredentialsService {
         });
     }
 
-    private prepareNewCredentials(newCredentials: PublicKeyCredential, registrationAlias: string): angular.IHttpPromise<CredentialMakeResult> {
+    private prepareNewCredentials(newCredentials: PublicKeyCredential, registrationAlias: string): angular.IHttpPromise<AttestationVerificationSuccess> {
         // Move data into Arrays incase it is super long
         const attestationObject = new Uint8Array((newCredentials.response as AuthenticatorAttestationResponse).attestationObject);
         const clientDataJSON = new Uint8Array(newCredentials.response.clientDataJSON);
@@ -88,9 +88,9 @@ export class CredentialsService {
         return this.registerCredentialWithServer(data, registrationAlias);
     }
 
-    private registerCredentialWithServer(formData: any, registrationAlias: string): angular.IHttpPromise<CredentialMakeResult> {
+    private registerCredentialWithServer(formData: any, registrationAlias: string): angular.IHttpPromise<AttestationVerificationSuccess> {
         const body = JSON.stringify(formData);
-        return this.$http.post<CredentialMakeResult>(`${this.makeCredentialsEndpoint}?alias=${registrationAlias}`, body);
+        return this.$http.post<AttestationVerificationSuccess>(`${this.makeCredentialsEndpoint}?alias=${registrationAlias}`, body);
     }
 
 }

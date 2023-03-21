@@ -5,13 +5,9 @@
 }
 
 //Incomplete model, we've for now only added what we need
-export interface CredentialMakeResult {
-    readonly result: AttestationVerificationSuccess;
-}
-
-//Incomplete model, we've for now only added what we need
 export interface AttestationVerificationSuccess {
     readonly credentialId: string;
+    readonly isPassKey: boolean;
 }
 
 export interface UserCredentials {

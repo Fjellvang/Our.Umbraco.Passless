@@ -83,7 +83,7 @@ export class CredentialsController {
     public submitRegisterPasslessForm(): void {
         this.registrationService.registerNewCredentials(this.registrationAlias)
             .then(success => {
-                this.onKeyRegisteredWithServer(success.data.result)
+                this.onKeyRegisteredWithServer(success.data)
             }, failure => {
                 this.notificationsService.error(failure);
             })
@@ -96,7 +96,9 @@ export class CredentialsController {
     }
     
     private onKeyRegisteredWithServer(credentials: AttestationVerificationSuccess): void {
-        localStorage.setItem("lastCredentials", (credentials.credentialId))
+        if (credentials.isPassKey === false) {
+            localStorage.setItem("lastCredentials", (credentials.credentialId));
+        }
         this.notificationsService.success(`Successfully added new credentials with the alias ${this.registrationAlias}`);
         this.state = 'ready';
         this.getCredentials();
