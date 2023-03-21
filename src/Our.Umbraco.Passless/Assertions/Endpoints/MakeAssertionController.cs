@@ -83,6 +83,7 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
                     {
                         RedirectUrl = backOfficePath,
                         Status = res.Status,
+                        IsPasskey = creds.IsPasskey,
                         CredentialId = Convert.ToBase64String(res.CredentialId)
                     });
             }

@@ -28,5 +28,7 @@ namespace Our.Umbraco.Passless.Credentials.Persistence
         public DateTime RegDate { get; set; }
         [Column("aaGuid")]
         public Guid AaGuid { get; set; }
+        [Column("isPasskey")]
+        public bool IsPassKey { get; set; }
     }
 }

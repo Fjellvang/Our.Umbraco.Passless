@@ -54,6 +54,7 @@ public class MakeCredentialsController : UmbracoAuthorizedController
                 throw new InvalidOperationException("Unexpected, credentials result is null");
             }
 
+            var isPasskey = success.Result.CredType.Equals("none", StringComparison.Ordinal); //TODO: This is not 100% correct. Local testing shows that if we request attestation and signin with passkeys, none is returned. There might be other cross-platform authenticators which return none?
             // 4. Add the credentials to the user. in the database.
             await credentialsService.AddCredential(new FidoCredentialModel(
                 alias,
@@ -63,12 +64,17 @@ public class MakeCredentialsController : UmbracoAuthorizedController
                 success.Result.User.Id,
                 success.Result.Counter,
                 success.Result.CredType,
-                DateTime.Now,
-                success.Result.Aaguid
+                DateTime.UtcNow,
+                success.Result.Aaguid,
+                isPasskey
             ));
 
 
-            return new JsonResult(success);
+            return new JsonResult(new
+            {
+                CredentialId = success.Result.CredentialId,
+                IsPassKey = isPasskey
+            });
         }
         catch (Exception ex)
         {

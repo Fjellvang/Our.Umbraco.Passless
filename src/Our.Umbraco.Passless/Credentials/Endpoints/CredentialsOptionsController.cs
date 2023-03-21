@@ -67,7 +67,7 @@ public class CredentialsOptionsController : UmbracoAuthorizedController
             UserVerificationMethod = true,
         };
 
-        var options = fido2.RequestNewCredential(user, existingKeys, authenticatorSelection, AttestationConveyancePreference.None, exts);
+        var options = fido2.RequestNewCredential(user, existingKeys, authenticatorSelection, AttestationConveyancePreference.Direct, exts);
 
         // 4. Temporarily store options, session/in-memory cache/redis/db
         HttpContext.Session.SetString("fido2.attestationOptions", options.ToJson());
