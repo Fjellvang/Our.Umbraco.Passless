@@ -159,7 +159,9 @@ export class CustomLoginController {
         this.$http.post<AssertionResponse>(this.makeAssertionEndpoint, JSON.stringify(data))
             .then(success => {
                 const response = success.data;
-                localStorage.setItem("lastCredentials", response.credentialId);
+                if (response.isPassKey === false) {
+                    localStorage.setItem("lastCredentials", response.credentialId);
+                }
                 this.$window.location.href = response.redirectUrl
             }, () => {
                 console.log("Error doing assertion");

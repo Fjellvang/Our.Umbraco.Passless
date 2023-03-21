@@ -2,6 +2,8 @@
     readonly redirectUrl: string;
     // Base 64 encoded credentials
     readonly credentialId: string;
+
+    readonly isPassKey: boolean;
 }
 
 //Incomplete model, we've for now only added what we need
