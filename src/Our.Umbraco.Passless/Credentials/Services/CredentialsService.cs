@@ -86,7 +86,8 @@ public class CredentialsService : ICredentialsService
             Convert.ToUInt32(entity.SignatureCounter),
             entity.CredType,
             entity.RegDate,
-            entity.AaGuid
+            entity.AaGuid,
+            entity.IsPassKey
         );
     }
 

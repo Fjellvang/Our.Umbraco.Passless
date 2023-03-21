@@ -38,6 +38,9 @@ public class MigrationsComponent : IComponent
         migrationPlan.From(string.Empty)
             .To<AddFidoCredentialEntity>("fidocredetials-db");
 
+        migrationPlan.From("fidocredetials-db")
+            .To<AddIsPassKeyToFidoCredential>(nameof(AddIsPassKeyToFidoCredential));
+
         var upgrader = new Upgrader(migrationPlan);
 
         upgrader.Execute(migrationPlanExecutor, scopeProvider, keyValueService);

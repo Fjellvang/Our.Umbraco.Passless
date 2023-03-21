@@ -63,8 +63,9 @@ public class MakeCredentialsController : UmbracoAuthorizedController
                 success.Result.User.Id,
                 success.Result.Counter,
                 success.Result.CredType,
-                DateTime.Now,
-                success.Result.Aaguid
+                DateTime.UtcNow,
+                success.Result.Aaguid,
+                success.Result.CredType.Equals("none", StringComparison.Ordinal) //TODO: This is not 100% correct. Local testing shows that if we request attestation and signin with passkeys, none is returned. There might be other cross-platform authenticators which return none?
             ));
 
 
