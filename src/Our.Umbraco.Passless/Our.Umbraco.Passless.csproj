@@ -17,10 +17,8 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageReleaseNotes>
-      - Enabled LostAuthenticator step if SMTP is configured
-      - Enabled DenyLocalLogin
-      - Added Some error messages on failed login
-      - Fixed some CSS
+      - Enforced Attestation, to detect passkeys signins.
+      - On passkey sign ins don't persist credential IDs due to windows hello bug
     </PackageReleaseNotes>
   </PropertyGroup>
 
