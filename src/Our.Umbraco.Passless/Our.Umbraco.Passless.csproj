@@ -19,6 +19,7 @@
     <PackageReleaseNotes>
       - Enforced Attestation, to detect passkeys signins.
       - On passkey sign ins don't persist credential IDs due to windows hello bug
+      - Minor TS type fixes
     </PackageReleaseNotes>
   </PropertyGroup>
 
