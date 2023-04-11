@@ -1,12 +1,14 @@
-﻿import { CredentialsService } from "../services/credentialsService";
+﻿import { Constants } from "../constants";
+import { CredentialsService } from "../services/credentialsService";
 import { AttestationVerificationSuccess, UserCredential, UserCredentials } from "../types";
-
-// TODO: define a type for this variable
-declare const Umbraco: any;
 
 // TODO: define a type for the model
 export interface ICredentialsControllerScope extends angular.IScope {
-    model: any;
+    model: CredentialControllerScopeModel;
+}
+
+interface CredentialControllerScopeModel {
+    close: () => void;
 }
 
 export class CredentialsController {
@@ -96,12 +98,11 @@ export class CredentialsController {
     }
     
     private onKeyRegisteredWithServer(credentials: AttestationVerificationSuccess): void {
-        if (credentials.isPassKey === false) {
-            localStorage.setItem("lastCredentials", (credentials.credentialId));
+        if (credentials.isPasskey === false) {
+            localStorage.setItem(Constants.lastCredentialsIdentifier, (credentials.credentialId));
         }
         this.notificationsService.success(`Successfully added new credentials with the alias ${this.registrationAlias}`);
         this.state = 'ready';
         this.getCredentials();
     }
-
 }

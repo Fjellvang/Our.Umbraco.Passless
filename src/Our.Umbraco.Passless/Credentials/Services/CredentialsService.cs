@@ -20,10 +20,10 @@ public class CredentialsService : ICredentialsService
     {
         using var scope = scopeProvider.CreateCoreScope(autoComplete: true);
 
-        var exsistingCredentials = await fidoCredentialRepository.GetCredentialsByIdAsync(credential.Descriptor.Id);
+        var existingCredentials = await fidoCredentialRepository.GetCredentialsByIdAsync(credential.Descriptor.Id);
 
         //TODO: Not a fan of this. We shouldn't be over fetching. Refactor.
-        if (exsistingCredentials is not null)
+        if (existingCredentials is not null)
         {
             throw new InvalidOperationException("Credentials already registered to a user");
         }
@@ -39,7 +39,8 @@ public class CredentialsService : ICredentialsService
             SignatureCounter = credential.SignatureCounter,
             CredType = credential.CredType,
             RegDate = DateTime.UtcNow,
-            AaGuid = credential.AaGuid
+            AaGuid = credential.AaGuid,
+            IsPassKey = credential.IsPasskey
         });
     }
 

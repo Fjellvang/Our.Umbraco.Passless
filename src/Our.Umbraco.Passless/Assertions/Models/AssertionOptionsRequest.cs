@@ -1,4 +1,4 @@
-﻿namespace Our.Umbraco.Passless.Credentials.Models
+﻿namespace Our.Umbraco.Passless.Assertions.Models
 {
     public class AssertionOptionsRequest
     {
