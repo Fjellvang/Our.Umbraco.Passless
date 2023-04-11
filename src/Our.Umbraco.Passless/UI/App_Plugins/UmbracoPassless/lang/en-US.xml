@@ -5,6 +5,7 @@
 		<key alias="addDevice">Add Passless Device</key>
 		<key alias="signIn">Sign in with Passless</key>
 		<key alias="lostAuthenticator">Lost Passless device?</key>
+		<key alias="usernameLogin">Login with username</key>
 		<key alias="resetAuth">Register a Passless device</key>
 	</area>
 </language>
