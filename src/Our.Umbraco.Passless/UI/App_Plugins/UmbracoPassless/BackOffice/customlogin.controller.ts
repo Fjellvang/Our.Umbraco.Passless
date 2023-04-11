@@ -1,9 +1,10 @@
-﻿import { coerceToArrayBuffer, coerceToBase64Url } from "./helpers";
+﻿import { Constants } from "./constants";
+import { coerceToArrayBuffer, coerceToBase64Url } from "./helpers";
 import { CredentialsService } from "./services/credentialsService";
-import { AssertionResponse } from "./types";
+import { AssertionResponse, UmbracoConfig } from "./types";
 
 // TODO: define a type for this variable
-declare const Umbraco: any;
+declare const Umbraco: UmbracoConfig;
 
 export class CustomLoginController {
 
@@ -160,11 +161,10 @@ export class CustomLoginController {
             .then(success => {
                 const response = success.data;
                 if (response.isPasskey === false) {
-                    localStorage.setItem("lastCredentials", response.credentialId);
+                    localStorage.setItem(Constants.lastCredentialsIdentifier, response.credentialId);
                 }
                 this.$window.location.href = response.redirectUrl
             }, () => {
-                console.log("Error doing assertion");
                 this.errors.push("Your credentials could not be validated, please try again");
             });
     }
