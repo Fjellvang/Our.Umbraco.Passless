@@ -3,7 +3,7 @@
     // Base 64 encoded credentials
     readonly credentialId: string;
 
-    readonly isPassKey: boolean;
+    readonly isPasskey: boolean;
 }
 
 //Incomplete model, we've for now only added what we need
