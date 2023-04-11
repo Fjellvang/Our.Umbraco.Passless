@@ -53,7 +53,7 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
                 var jsonOptions = HttpContext.Session.GetString("fido2.assertionOptions");
                 var options = AssertionOptions.FromJson(jsonOptions);
 
-                var creds = await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(clientResponse.Id));
+                var creds = await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(clientResponse.Id), cancellationToken);
                 if (creds is null)
                 {
                     return new UnauthorizedResult();

@@ -96,7 +96,7 @@ export class CredentialsController {
     }
     
     private onKeyRegisteredWithServer(credentials: AttestationVerificationSuccess): void {
-        if (credentials.isPassKey === false) {
+        if (credentials.isPasskey === false) {
             localStorage.setItem("lastCredentials", (credentials.credentialId));
         }
         this.notificationsService.success(`Successfully added new credentials with the alias ${this.registrationAlias}`);

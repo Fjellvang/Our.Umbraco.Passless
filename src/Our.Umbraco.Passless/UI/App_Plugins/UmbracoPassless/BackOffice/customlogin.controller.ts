@@ -159,7 +159,7 @@ export class CustomLoginController {
         this.$http.post<AssertionResponse>(this.makeAssertionEndpoint, JSON.stringify(data))
             .then(success => {
                 const response = success.data;
-                if (response.isPassKey === false) {
+                if (response.isPasskey === false) {
                     localStorage.setItem("lastCredentials", response.credentialId);
                 }
                 this.$window.location.href = response.redirectUrl

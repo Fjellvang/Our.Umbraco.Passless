@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
-using Our.Umbraco.Passless.Credentials.Models;
+using Our.Umbraco.Passless.Assertions.Models;
 
 namespace Our.Umbraco.Passless.Assertions.Endpoints
 {
@@ -33,8 +33,7 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
             if (!string.IsNullOrEmpty(assertionOptions.LastCredentialId))
             {
                 var credentialId = Convert.FromBase64String(assertionOptions.LastCredentialId);
-
-                PublicKeyCredentialDescriptor item = new PublicKeyCredentialDescriptor(credentialId);
+                PublicKeyCredentialDescriptor item = new(credentialId);
                 allowedCredentials.Add(item);
             }
 
@@ -45,7 +44,7 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
                 {
                     UserVerificationMethod = true
                 }
-                );
+            );
 
             // Temporarily store options, session/in-memory cache/redis/db
             HttpContext.Session.SetString("fido2.assertionOptions", options.ToJson());

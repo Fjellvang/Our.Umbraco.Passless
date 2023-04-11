@@ -9,7 +9,7 @@
 //Incomplete model, we've for now only added what we need
 export interface AttestationVerificationSuccess {
     readonly credentialId: string;
-    readonly isPassKey: boolean;
+    readonly isPasskey: boolean;
 }
 
 export interface UserCredentials {

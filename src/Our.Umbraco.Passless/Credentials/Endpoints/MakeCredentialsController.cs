@@ -73,7 +73,7 @@ public class MakeCredentialsController : UmbracoAuthorizedController
             return new JsonResult(new
             {
                 CredentialId = success.Result.CredentialId,
-                IsPassKey = isPasskey
+                IsPasskey = isPasskey
             });
         }
         catch (Exception ex)
