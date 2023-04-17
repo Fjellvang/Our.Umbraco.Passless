@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="nl" intName="Dutch (NL)" localName="Nederlands (NL)" lcid="" culture="nl-NL">
+	<area alias="fido">
+		<key alias="registration">Beheer Passless apparaten</key>
+		<key alias="addDevice">Passless apparaat toevoegen</key>
+		<key alias="signIn">Log in met Passless</key>
+		<key alias="lostAuthenticator">Passless apparaat verloren?</key>
+		<key alias="usernameLogin">Log in met gebruikersnaam</key>
+		<key alias="resetAuth">Registreer een Passless apparaat</key>
+	</area>
+</language>
