@@ -21,3 +21,12 @@ fido-signup, .btn-social>:first-child {
 .fido-button-wrap button {
     width: 80px
 }
+
+.loginForm {
+    text-align: right;
+}
+
+.passlessLoginManagement{
+    display: flex;
+    justify-content: space-between;
+}

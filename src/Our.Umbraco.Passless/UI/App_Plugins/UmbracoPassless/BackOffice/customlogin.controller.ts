@@ -19,6 +19,7 @@ export class CustomLoginController {
     private useLastCredentials: boolean;
     private allowAuthReset: boolean;
     private errors: string[];
+    private loginFormHidden: boolean;
 
     private email = '';
     private showEmailResetConfirmation = false;
@@ -41,6 +42,7 @@ export class CustomLoginController {
         this.useLastCredentials = true;
         this.allowAuthReset = Umbraco.Sys.ServerVariables.umbracoSettings.canSendRequiredEmail;
         this.errors = [];
+        this.loginFormHidden = true;
         this.init();
     }
 
@@ -55,7 +57,9 @@ export class CustomLoginController {
                 this.state = 'resetAuth';
                 this.hideLoginForm();
             }
-        }, () => { });
+        }, () => {
+            this.hideLoginForm();
+        });
     }
 
     public toggleLastCredentials(): void {
@@ -66,13 +70,11 @@ export class CustomLoginController {
     public showLogin(): void {
         this.state = 'login';
         this.showLoginForm();
+        this.loginFormHidden = false;
     }
 
     public showAuthReset(): void {
-        const loginBox = document.getElementsByClassName('ng-pristine ng-valid ng-scope')[0];
-        if (loginBox) {
-            loginBox.setAttribute('style','display: none');
-        }
+        this.hideLoginForm();
         this.state = 'requestAuthReset';
     }
 
@@ -101,13 +103,13 @@ export class CustomLoginController {
     }
 
     private hideLoginForm() {
-        const loginBox = document.getElementsByClassName('ng-pristine ng-valid ng-scope')[0];
+        const loginBox = document.getElementsByName('vm.loginForm')[0];
         if (loginBox) {
             loginBox.setAttribute('style', 'display: none');
         }
     }
     private showLoginForm() {
-        const loginBox = document.getElementsByClassName('ng-pristine ng-valid ng-scope')[0];
+        const loginBox = document.getElementsByName('vm.loginForm')[0];
         if (loginBox) {
             loginBox.setAttribute('style', '');
         }

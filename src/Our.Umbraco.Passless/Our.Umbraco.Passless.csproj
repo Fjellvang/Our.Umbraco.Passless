@@ -21,6 +21,8 @@
       - On passkey sign ins don't persist credential IDs due to windows hello bug
       - Minor TS type fixes
       - Update NPM packages
+      - Hide the login form during login, can be shown with the "login with username" button
+      - Added some danish translations
     </PackageReleaseNotes>
   </PropertyGroup>
 
