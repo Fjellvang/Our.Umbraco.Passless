@@ -1,0 +1,25 @@
+﻿{
+  "$schema": "../../umbraco-package-schema.json",
+  "name": "My Auth Package",
+  "allowPublicAccess": true,
+  "extensions": [
+    {
+      "type": "authProvider",
+      "alias": "Our.Umbraco.PasslessLogin",
+      "name": "PasslessLogin",
+      "forProviderName": "Umbraco.PasslessLogin",
+      "meta": {
+        "label": "PasslessLogin",
+        "defaultView": {
+          "icon": "icon-cloud"
+        },
+        "behavior": {
+          "autoRedirect": false
+        },
+        "linking": {
+          "allowManualLinking": true
+        }
+      }
+    }
+  ]
+}

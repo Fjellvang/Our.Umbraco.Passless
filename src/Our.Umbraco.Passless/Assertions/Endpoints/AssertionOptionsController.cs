@@ -2,14 +2,12 @@
 using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using Our.Umbraco.Passless.Assertions.Models;
 
 namespace Our.Umbraco.Passless.Assertions.Endpoints
 {
-    [UmbracoRequireHttps]
     [DisableBrowserCache]
     [Area(UmbracoPasslessConstants.AreaName)]
     public class AssertionOptionsController : UmbracoController

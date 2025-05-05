@@ -5,21 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text;
 using Umbraco.Cms.Core.Security;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Web.BackOffice.Filters;
-using Umbraco.Cms.Web.BackOffice.Security;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
-using static Umbraco.Cms.Core.Constants;
 using Our.Umbraco.Passless.Credentials.Services;
 using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Hosting;
+using Umbraco.Cms.Web.Common.Security;
 
 namespace Our.Umbraco.Passless.Assertions.Endpoints
 {
-    [UmbracoRequireHttps]
     [DisableBrowserCache]
     [Area(UmbracoPasslessConstants.AreaName)]
     public class MakeAssertionController : UmbracoController

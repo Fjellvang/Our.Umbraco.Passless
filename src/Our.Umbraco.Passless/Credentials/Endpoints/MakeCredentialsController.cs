@@ -3,8 +3,6 @@ using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Text;
-using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using Our.Umbraco.Passless.Credentials.Services;
@@ -12,7 +10,6 @@ using Our.Umbraco.Passless.Credentials.Models;
 
 namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
-[UmbracoRequireHttps]
 [DisableBrowserCache]
 [Area(UmbracoPasslessConstants.AreaName)]
 public class MakeCredentialsController : UmbracoAuthorizedController

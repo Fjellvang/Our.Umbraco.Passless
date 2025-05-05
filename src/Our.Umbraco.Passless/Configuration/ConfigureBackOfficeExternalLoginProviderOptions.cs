@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Umbraco.Cms.Core.Configuration.Models;
-using Umbraco.Cms.Web.BackOffice.Security;
+using Umbraco.Cms.Api.Management.Security;
 
 namespace Our.Umbraco.Passless.Configuration
 {
@@ -24,7 +23,7 @@ namespace Our.Umbraco.Passless.Configuration
 
         public void Configure(BackOfficeExternalLoginProviderOptions options)
         {
-            options.CustomBackOfficeView = "~/App_Plugins/UmbracoPassless/BackOffice/custom-login.html";
+            // options.CustomBackOfficeView = "~/App_Plugins/UmbracoPassless/BackOffice/custom-login.html";
             options.DenyLocalLogin = passlessConfiguration.DenyLocalLogin;
         }
     }

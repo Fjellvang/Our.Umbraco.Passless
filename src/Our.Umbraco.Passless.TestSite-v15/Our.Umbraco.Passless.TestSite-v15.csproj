@@ -17,6 +17,19 @@
         <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Our.Umbraco.Passless\Our.Umbraco.Passless.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="App_Plugins\ExternalLoginProviders\umbraco-package.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        <PackagePath>dist</PackagePath>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
     <PropertyGroup>
         <!-- Razor files are needed for the backoffice to work correctly -->
         <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>

@@ -1,6 +1,5 @@
 ﻿using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
@@ -8,7 +7,6 @@ using Our.Umbraco.Passless.Credentials.Services;
 
 namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
-[UmbracoRequireHttps]
 [DisableBrowserCache]
 [Area(UmbracoPasslessConstants.AreaName)]
 public class DeleteCredentialsController : UmbracoAuthorizedController

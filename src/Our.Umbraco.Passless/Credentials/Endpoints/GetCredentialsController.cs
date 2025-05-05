@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Web.BackOffice.Filters;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
@@ -8,7 +7,6 @@ using Our.Umbraco.Passless.Credentials.Models;
 
 namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
-[UmbracoRequireHttps]
 [DisableBrowserCache]
 [Area(UmbracoPasslessConstants.AreaName)]
 public class GetCredentialsController : UmbracoAuthorizedController
