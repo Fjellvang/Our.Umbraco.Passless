@@ -2,7 +2,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
-const magicImporter = require('node-sass-magic-importer');
+// const magicImporter = require('node-sass-magic-importer');
 const CopyPlugin = require('copy-webpack-plugin');
 
 const config = {
@@ -34,19 +34,7 @@ const config = {
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            webpackImporter: false,
-                            sassOptions: {
-                                importer: [
-                                    magicImporter()
-                                ],
-                                quietDeps: true
-                            }
-                        }
-                    }
-                ]
+                    'sass-loader'                ]
             }
         ]
     },
