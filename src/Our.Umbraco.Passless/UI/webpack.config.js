@@ -2,7 +2,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
-// const magicImporter = require('node-sass-magic-importer');
 const CopyPlugin = require('copy-webpack-plugin');
 
 const config = {
