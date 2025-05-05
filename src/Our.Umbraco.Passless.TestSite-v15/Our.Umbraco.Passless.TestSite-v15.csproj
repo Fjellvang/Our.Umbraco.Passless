@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="App_Plugins\ExternalLoginProviders\my-external-login.js" />
       <Content Include="App_Plugins\ExternalLoginProviders\umbraco-package.json">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>Always</CopyToPublishDirectory>
