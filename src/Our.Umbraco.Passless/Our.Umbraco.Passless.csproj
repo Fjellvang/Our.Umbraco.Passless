@@ -1,9 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+    <ContentTargetFolders>.</ContentTargetFolders>
     <Version>0.0.5</Version>
     <Authors>Aleksander Fjellvang</Authors>
     <Description>Passworless login for Umbraco 10+ using FIDO and WebauthN</Description>
@@ -40,14 +42,7 @@
       <Pack>True</Pack>
       <PackagePath>buildTransitive</PackagePath>
     </None>
-    <Content Include="dist\**\*.*">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-      <PackagePath>dist</PackagePath>
-    </Content>
-    <Content Update="dist\ExternalLoginProviders\umbraco-package.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+
   </ItemGroup>
 
   <ItemGroup>
@@ -59,7 +54,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="build\" />
     <Folder Include="UI\App_Plugins\UmbracoPassless\BackOffice\assets\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="dist\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
 </Project>

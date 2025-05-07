@@ -22,13 +22,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="App_Plugins\ExternalLoginProviders\my-external-login.js" />
-      <Content Include="App_Plugins\ExternalLoginProviders\umbraco-package.json">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-        <PackagePath>dist</PackagePath>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
+      <StaticWebAssetEndpoint Remove="App_Plugins\Umbraco.BlockGridEditor.DefaultCustomViews\umbBlockGridDemoHeadlineBlock.8e5paz87xj.html" />
+      <StaticWebAssetEndpoint Remove="App_Plugins\Umbraco.BlockGridEditor.DefaultCustomViews\umbBlockGridDemoHeadlineBlock.html" />
+      <StaticWebAssetEndpoint Remove="App_Plugins\Umbraco.BlockGridEditor.DefaultCustomViews\umbBlockGridDemoImageBlock.html" />
+      <StaticWebAssetEndpoint Remove="App_Plugins\Umbraco.BlockGridEditor.DefaultCustomViews\umbBlockGridDemoImageBlock.mkhpzbamkt.html" />
+      <StaticWebAssetEndpoint Remove="App_Plugins\Umbraco.BlockGridEditor.DefaultCustomViews\umbBlockGridDemoRichTextBlock.html" />
+      <StaticWebAssetEndpoint Remove="App_Plugins\Umbraco.BlockGridEditor.DefaultCustomViews\umbBlockGridDemoRichTextBlock.thqhshp20y.html" />
+      <StaticWebAssetEndpoint Remove="App_Plugins\Umbraco.BlockGridEditor.DefaultCustomViews\umbBlockGridDemoTwoColumnLayoutBlock.duxb7paw18.html" />
+      <StaticWebAssetEndpoint Remove="App_Plugins\Umbraco.BlockGridEditor.DefaultCustomViews\umbBlockGridDemoTwoColumnLayoutBlock.html" />
     </ItemGroup>
 
     <PropertyGroup>

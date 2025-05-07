@@ -31,7 +31,7 @@ export default class MyCustomView extends HTMLElement {
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
         this.shadowRoot.getElementById('button').addEventListener('click', () => {
-            alert('Button clicked!');
+            alert('Button clicked!2');
             // this.onSubmit(this.manifest.forProviderName);
         });
     }
