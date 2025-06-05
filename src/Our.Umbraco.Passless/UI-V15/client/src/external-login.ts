@@ -21,13 +21,18 @@ export default class MyLitView extends LitElement {
   get displayName() {
     return this.manifest.meta?.label ?? this.manifest.forProviderName;
   }
+  
+  
 
   render() {
     return html`
         <h3>Our Company</h3>
         <p>If you have an account with Our Company, you can sign in to Umbraco by clicking the button below. HELLO VITE</p>
         <p>The user is currently: ${this.userLoginState}</p>
-        <uui-button type="button" id="button" look="primary" label="${this.displayName}" @click=${() => this.onSubmit(this.manifest.forProviderName)}>
+        <uui-button type="button" id="button" look="primary" label="${this.displayName}" @click=${() => 
+            // this.onSubmit(this.manifest.forProviderName)
+            alert(`Clicked on ${this.displayName}`)
+          }>
           <uui-icon name="icon-cloud"></uui-icon>
           ${this.displayName}
         </uui-button>

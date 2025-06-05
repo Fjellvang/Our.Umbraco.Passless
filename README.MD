@@ -69,11 +69,10 @@ Set this to false, and register your own implementation if you want to use a dif
 ## Frontend
 
 The frontend is built using node 16
-Navigate to ``src/Our.Umbraco.Passless/UI`` and run the following commands:
+Navigate to ``src/Our.Umbraco.Passless/UI-V15/client`` and run the following commands:
 ```
 npm i
-npm run build:dev
-npm run dev
+npm run build
 ```
 
 Now you're ready to work on the frontend.
