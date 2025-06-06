@@ -1,43 +1,32 @@
-import { LitElement, css, html } from 'lit';
+import { LitElement, css, html, svg } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { CredentialsService } from './credentials-service.js';
+import './passkeys-overlay.js';
 
 /**
- * Passkeys management component for Umbraco 15 current user actions
+ * Passkeys management component for Umbraco 15 user profile actions
  */
 @customElement('passkeys-manager')
 export default class PasskeysManager extends LitElement {
-  @state() isLoading: boolean = false;
-  @state() errorMessage: string = '';
-  @state() successMessage: string = '';
+  @state() private overlayOpen: boolean = false;
 
-  // @ts-ignore
-    private credentialsService: CredentialsService;
-
-  constructor() {
-    super();
-    this.credentialsService = new CredentialsService();
+  private handlePasskeysClick() {
+    this.overlayOpen = true;
   }
 
-  private async handlePasskeysClick() {
-    try {
-      this.isLoading = true;
-      this.errorMessage = '';
-      this.successMessage = '';
-      
-      // For now, just show that the button works
-      console.log('Passkeys button clicked');
-      this.successMessage = 'Passkeys feature coming soon!';
-      
-      // TODO: Implement actual credentials management
-      // const credentials = await this.credentialsService.getCredentials();
-      
-    } catch (error) {
-      console.error('Passkeys action failed:', error);
-      this.errorMessage = error instanceof Error ? error.message : 'Operation failed';
-    } finally {
-      this.isLoading = false;
-    }
+  private handleOverlayClose() {
+    this.overlayOpen = false;
+  }
+
+  private get passkeyIcon() {
+    return svg`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+        <g>
+          <circle cx="10.5" cy="6" r="4.5" style="fill:currentColor"/>
+          <path d="M22.5,10.5a3.5,3.5,0,1,0-5,3.15V19L19,20.5,21.5,18,20,16.5,21.5,15l-1.24-1.24A3.5,3.5,0,0,0,22.5,10.5Zm-3.5,0a1,1,0,1,1,1-1A1,1,0,0,1,19,10.5Z" style="fill:currentColor"/>
+          <path d="M14.44,12.52A6,6,0,0,0,12,12H9a6,6,0,0,0-6,6v2H16V14.49A5.16,5.16,0,0,1,14.44,12.52Z" style="fill:currentColor"/>
+        </g>
+      </svg>
+    `;
   }
 
   render() {
@@ -47,50 +36,30 @@ export default class PasskeysManager extends LitElement {
           type="button" 
           look="primary" 
           label="Manage Passkeys"
-          ?disabled=${this.isLoading}
           @click=${this.handlePasskeysClick}>
-          <uui-icon name="icon-fingerprint"></uui-icon>
-          ${this.isLoading ? 'Loading...' : 'Passkeys'}
+          ${this.passkeyIcon}
+          Manage Passkeys
         </uui-button>
         
-        ${this.successMessage ? html`
-          <div class="message success">
-            ${this.successMessage}
-          </div>
-        ` : ''}
-        
-        ${this.errorMessage ? html`
-          <div class="message error">
-            ${this.errorMessage}
-          </div>
-        ` : ''}
+        <passkeys-overlay 
+          .open=${this.overlayOpen}
+          .onClose=${this.handleOverlayClose}>
+        </passkeys-overlay>
       </div>
     `;
   }
 
   static styles = css`
     .passkeys-container {
+      display: block;
+      width: 100%;
+    }
+    
+    uui-button {
+      width: 100%;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       gap: 8px;
-    }
-    
-    .message {
-      padding: 8px 12px;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-    
-    .message.success {
-      background-color: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
-    
-    .message.error {
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
     }
   `;
 }

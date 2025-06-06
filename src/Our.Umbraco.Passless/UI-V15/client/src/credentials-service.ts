@@ -8,10 +8,10 @@ export class CredentialsService {
     private deleteCredentialsEndpoint: string;
 
     constructor() {
-        this.makeCredentialsEndpoint = '/umbraco/backoffice/passless/makecredentials';
-        this.credentialsOptionsEndpoint = '/umbraco/backoffice/passless/credentialsoptions';
-        this.getCredentialsEndpoint = '/umbraco/backoffice/passless/getcredentials';
-        this.deleteCredentialsEndpoint = '/umbraco/backoffice/passless/deletecredentials';
+        this.makeCredentialsEndpoint = '/umbraco/management/api/v1/passless/credentials/make';
+        this.credentialsOptionsEndpoint = '/umbraco/management/api/v1/passless/credentials/options';
+        this.getCredentialsEndpoint = '/umbraco/management/api/v1/passless/credentials';
+        this.deleteCredentialsEndpoint = '/umbraco/management/api/v1/passless/credentials/delete';
     }
 
     public async deleteCredential(credentialsId: string): Promise<void> {
@@ -20,6 +20,7 @@ export class CredentialsService {
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify({})
         });
 
@@ -33,7 +34,8 @@ export class CredentialsService {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-            }
+            },
+            credentials: 'include'
         });
 
         if (!response.ok) {
@@ -49,7 +51,8 @@ export class CredentialsService {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                }
+                },
+                credentials: 'include'
             });
 
             if (!response.ok) {
@@ -132,6 +135,7 @@ export class CredentialsService {
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify(formData)
         });
 

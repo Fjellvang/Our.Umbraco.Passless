@@ -3,16 +3,18 @@ using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
-using Umbraco.Cms.Web.Common.Controllers;
-using Umbraco.Cms.Web.Common.Filters;
+using Asp.Versioning;
+using Umbraco.Cms.Api.Management.Controllers;
 using Umbraco.Extensions;
 using Our.Umbraco.Passless.Credentials.Services;
+using Umbraco.Cms.Api.Management.Routing;
 
 namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
-[DisableBrowserCache]
-[Area(UmbracoPasslessConstants.AreaName)]
-public class CredentialsOptionsController : UmbracoAuthorizedController
+[ApiVersion("1.0")]
+[VersionedApiBackOfficeRoute("passless/credentials/options")]
+[ApiExplorerSettings(GroupName = "Passless")]
+public class CredentialsOptionsController : ManagementApiControllerBase
 {
     private readonly IFido2 fido2;
     private readonly ICredentialsService credentialsService;
@@ -22,8 +24,11 @@ public class CredentialsOptionsController : UmbracoAuthorizedController
         this.fido2 = fido2;
         this.credentialsService = credentialsService;
     }
+    
     [HttpGet]
-    public async Task<IActionResult> Index([FromQuery] bool? crossPlatform, CancellationToken cancellationToken = default)
+    [MapToApiVersion("1.0")]
+    [ProducesResponseType(typeof(CredentialCreateOptions), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetCredentialOptions([FromQuery] bool? crossPlatform, CancellationToken cancellationToken = default)
     {
         if (User.Identity is null)
         {

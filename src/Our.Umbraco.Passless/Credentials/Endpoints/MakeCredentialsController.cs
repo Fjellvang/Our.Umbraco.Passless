@@ -3,16 +3,18 @@ using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Umbraco.Cms.Web.Common.Controllers;
-using Umbraco.Cms.Web.Common.Filters;
+using Asp.Versioning;
+using Umbraco.Cms.Api.Management.Controllers;
+using Umbraco.Cms.Api.Management.Routing;
 using Our.Umbraco.Passless.Credentials.Services;
 using Our.Umbraco.Passless.Credentials.Models;
 
 namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
-[DisableBrowserCache]
-[Area(UmbracoPasslessConstants.AreaName)]
-public class MakeCredentialsController : UmbracoAuthorizedController
+[ApiVersion("1.0")]
+[VersionedApiBackOfficeRoute("passless/credentials/make")]
+[ApiExplorerSettings(GroupName = "Passless")]
+public class MakeCredentialsController : ManagementApiControllerBase
 {
     private readonly IFido2 fido2;
     private readonly ICredentialsService credentialsService;
@@ -24,7 +26,10 @@ public class MakeCredentialsController : UmbracoAuthorizedController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Index([FromQuery] string alias, [FromBody] AuthenticatorAttestationRawResponse attestationResponse, CancellationToken cancellationToken)
+    [MapToApiVersion("1.0")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> MakeCredential([FromQuery] string alias, [FromBody] AuthenticatorAttestationRawResponse attestationResponse, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(alias))
         {

@@ -3,235 +3,235 @@
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const N = globalThis, V = N.ShadowRoot && (N.ShadyCSS === void 0 || N.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, q = Symbol(), K = /* @__PURE__ */ new WeakMap();
-let nt = class {
-  constructor(t, e, s) {
-    if (this._$cssResult$ = !0, s !== q)
+const B = globalThis, Y = B.ShadowRoot && (B.ShadyCSS === void 0 || B.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, Q = Symbol(), ie = /* @__PURE__ */ new WeakMap();
+let ye = class {
+  constructor(e, t, s) {
+    if (this._$cssResult$ = !0, s !== Q)
       throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
-    this.cssText = t, this.t = e;
+    this.cssText = e, this.t = t;
   }
   get styleSheet() {
-    let t = this.o;
-    const e = this.t;
-    if (V && t === void 0) {
-      const s = e !== void 0 && e.length === 1;
-      s && (t = K.get(e)), t === void 0 && ((this.o = t = new CSSStyleSheet()).replaceSync(this.cssText), s && K.set(e, t));
+    let e = this.o;
+    const t = this.t;
+    if (Y && e === void 0) {
+      const s = t !== void 0 && t.length === 1;
+      s && (e = ie.get(t)), e === void 0 && ((this.o = e = new CSSStyleSheet()).replaceSync(this.cssText), s && ie.set(t, e));
     }
-    return t;
+    return e;
   }
   toString() {
     return this.cssText;
   }
 };
-const ct = (r) => new nt(typeof r == "string" ? r : r + "", void 0, q), dt = (r, ...t) => {
-  const e = r.length === 1 ? r[0] : t.reduce((s, i, o) => s + ((n) => {
-    if (n._$cssResult$ === !0)
-      return n.cssText;
-    if (typeof n == "number")
-      return n;
-    throw Error("Value passed to 'css' function must be a 'css' function result: " + n + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
-  })(i) + r[o + 1], r[0]);
-  return new nt(e, r, q);
-}, ut = (r, t) => {
-  if (V)
-    r.adoptedStyleSheets = t.map((e) => e instanceof CSSStyleSheet ? e : e.styleSheet);
+const be = (r) => new ye(typeof r == "string" ? r : r + "", void 0, Q), X = (r, ...e) => {
+  const t = r.length === 1 ? r[0] : e.reduce((s, i, n) => s + ((o) => {
+    if (o._$cssResult$ === !0)
+      return o.cssText;
+    if (typeof o == "number")
+      return o;
+    throw Error("Value passed to 'css' function must be a 'css' function result: " + o + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
+  })(i) + r[n + 1], r[0]);
+  return new ye(t, r, Q);
+}, we = (r, e) => {
+  if (Y)
+    r.adoptedStyleSheets = e.map((t) => t instanceof CSSStyleSheet ? t : t.styleSheet);
   else
-    for (const e of t) {
-      const s = document.createElement("style"), i = N.litNonce;
-      i !== void 0 && s.setAttribute("nonce", i), s.textContent = e.cssText, r.appendChild(s);
+    for (const t of e) {
+      const s = document.createElement("style"), i = B.litNonce;
+      i !== void 0 && s.setAttribute("nonce", i), s.textContent = t.cssText, r.appendChild(s);
     }
-}, Z = V ? (r) => r : (r) => r instanceof CSSStyleSheet ? ((t) => {
-  let e = "";
-  for (const s of t.cssRules)
-    e += s.cssText;
-  return ct(e);
+}, re = Y ? (r) => r : (r) => r instanceof CSSStyleSheet ? ((e) => {
+  let t = "";
+  for (const s of e.cssRules)
+    t += s.cssText;
+  return be(t);
 })(r) : r;
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const { is: pt, defineProperty: $t, getOwnPropertyDescriptor: _t, getOwnPropertyNames: ft, getOwnPropertySymbols: mt, getPrototypeOf: yt } = Object, f = globalThis, G = f.trustedTypes, At = G ? G.emptyScript : "", D = f.reactiveElementPolyfillSupport, P = (r, t) => r, R = { toAttribute(r, t) {
-  switch (t) {
+const { is: Ee, defineProperty: Se, getOwnPropertyDescriptor: xe, getOwnPropertyNames: Ce, getOwnPropertySymbols: Pe, getPrototypeOf: Oe } = Object, A = globalThis, ne = A.trustedTypes, Me = ne ? ne.emptyScript : "", V = A.reactiveElementPolyfillSupport, T = (r, e) => r, F = { toAttribute(r, e) {
+  switch (e) {
     case Boolean:
-      r = r ? At : null;
+      r = r ? Me : null;
       break;
     case Object:
     case Array:
       r = r == null ? r : JSON.stringify(r);
   }
   return r;
-}, fromAttribute(r, t) {
-  let e = r;
-  switch (t) {
+}, fromAttribute(r, e) {
+  let t = r;
+  switch (e) {
     case Boolean:
-      e = r !== null;
+      t = r !== null;
       break;
     case Number:
-      e = r === null ? null : Number(r);
+      t = r === null ? null : Number(r);
       break;
     case Object:
     case Array:
       try {
-        e = JSON.parse(r);
+        t = JSON.parse(r);
       } catch {
-        e = null;
+        t = null;
       }
   }
-  return e;
-} }, W = (r, t) => !pt(r, t), Q = { attribute: !0, type: String, converter: R, reflect: !1, useDefault: !1, hasChanged: W };
-Symbol.metadata ?? (Symbol.metadata = Symbol("metadata")), f.litPropertyMetadata ?? (f.litPropertyMetadata = /* @__PURE__ */ new WeakMap());
-let v = class extends HTMLElement {
-  static addInitializer(t) {
-    this._$Ei(), (this.l ?? (this.l = [])).push(t);
+  return t;
+} }, ee = (r, e) => !Ee(r, e), oe = { attribute: !0, type: String, converter: F, reflect: !1, useDefault: !1, hasChanged: ee };
+Symbol.metadata ?? (Symbol.metadata = Symbol("metadata")), A.litPropertyMetadata ?? (A.litPropertyMetadata = /* @__PURE__ */ new WeakMap());
+let P = class extends HTMLElement {
+  static addInitializer(e) {
+    this._$Ei(), (this.l ?? (this.l = [])).push(e);
   }
   static get observedAttributes() {
     return this.finalize(), this._$Eh && [...this._$Eh.keys()];
   }
-  static createProperty(t, e = Q) {
-    if (e.state && (e.attribute = !1), this._$Ei(), this.prototype.hasOwnProperty(t) && ((e = Object.create(e)).wrapped = !0), this.elementProperties.set(t, e), !e.noAccessor) {
-      const s = Symbol(), i = this.getPropertyDescriptor(t, s, e);
-      i !== void 0 && $t(this.prototype, t, i);
+  static createProperty(e, t = oe) {
+    if (t.state && (t.attribute = !1), this._$Ei(), this.prototype.hasOwnProperty(e) && ((t = Object.create(t)).wrapped = !0), this.elementProperties.set(e, t), !t.noAccessor) {
+      const s = Symbol(), i = this.getPropertyDescriptor(e, s, t);
+      i !== void 0 && Se(this.prototype, e, i);
     }
   }
-  static getPropertyDescriptor(t, e, s) {
-    const { get: i, set: o } = _t(this.prototype, t) ?? { get() {
-      return this[e];
-    }, set(n) {
-      this[e] = n;
+  static getPropertyDescriptor(e, t, s) {
+    const { get: i, set: n } = xe(this.prototype, e) ?? { get() {
+      return this[t];
+    }, set(o) {
+      this[t] = o;
     } };
-    return { get: i, set(n) {
-      const a = i == null ? void 0 : i.call(this);
-      o == null || o.call(this, n), this.requestUpdate(t, a, s);
+    return { get: i, set(o) {
+      const l = i == null ? void 0 : i.call(this);
+      n == null || n.call(this, o), this.requestUpdate(e, l, s);
     }, configurable: !0, enumerable: !0 };
   }
-  static getPropertyOptions(t) {
-    return this.elementProperties.get(t) ?? Q;
+  static getPropertyOptions(e) {
+    return this.elementProperties.get(e) ?? oe;
   }
   static _$Ei() {
-    if (this.hasOwnProperty(P("elementProperties")))
+    if (this.hasOwnProperty(T("elementProperties")))
       return;
-    const t = yt(this);
-    t.finalize(), t.l !== void 0 && (this.l = [...t.l]), this.elementProperties = new Map(t.elementProperties);
+    const e = Oe(this);
+    e.finalize(), e.l !== void 0 && (this.l = [...e.l]), this.elementProperties = new Map(e.elementProperties);
   }
   static finalize() {
-    if (this.hasOwnProperty(P("finalized")))
+    if (this.hasOwnProperty(T("finalized")))
       return;
-    if (this.finalized = !0, this._$Ei(), this.hasOwnProperty(P("properties"))) {
-      const e = this.properties, s = [...ft(e), ...mt(e)];
+    if (this.finalized = !0, this._$Ei(), this.hasOwnProperty(T("properties"))) {
+      const t = this.properties, s = [...Ce(t), ...Pe(t)];
       for (const i of s)
-        this.createProperty(i, e[i]);
+        this.createProperty(i, t[i]);
     }
-    const t = this[Symbol.metadata];
-    if (t !== null) {
-      const e = litPropertyMetadata.get(t);
-      if (e !== void 0)
-        for (const [s, i] of e)
+    const e = this[Symbol.metadata];
+    if (e !== null) {
+      const t = litPropertyMetadata.get(e);
+      if (t !== void 0)
+        for (const [s, i] of t)
           this.elementProperties.set(s, i);
     }
     this._$Eh = /* @__PURE__ */ new Map();
-    for (const [e, s] of this.elementProperties) {
-      const i = this._$Eu(e, s);
-      i !== void 0 && this._$Eh.set(i, e);
+    for (const [t, s] of this.elementProperties) {
+      const i = this._$Eu(t, s);
+      i !== void 0 && this._$Eh.set(i, t);
     }
     this.elementStyles = this.finalizeStyles(this.styles);
   }
-  static finalizeStyles(t) {
-    const e = [];
-    if (Array.isArray(t)) {
-      const s = new Set(t.flat(1 / 0).reverse());
+  static finalizeStyles(e) {
+    const t = [];
+    if (Array.isArray(e)) {
+      const s = new Set(e.flat(1 / 0).reverse());
       for (const i of s)
-        e.unshift(Z(i));
+        t.unshift(re(i));
     } else
-      t !== void 0 && e.push(Z(t));
-    return e;
+      e !== void 0 && t.push(re(e));
+    return t;
   }
-  static _$Eu(t, e) {
-    const s = e.attribute;
-    return s === !1 ? void 0 : typeof s == "string" ? s : typeof t == "string" ? t.toLowerCase() : void 0;
+  static _$Eu(e, t) {
+    const s = t.attribute;
+    return s === !1 ? void 0 : typeof s == "string" ? s : typeof e == "string" ? e.toLowerCase() : void 0;
   }
   constructor() {
     super(), this._$Ep = void 0, this.isUpdatePending = !1, this.hasUpdated = !1, this._$Em = null, this._$Ev();
   }
   _$Ev() {
+    var e;
+    this._$ES = new Promise((t) => this.enableUpdating = t), this._$AL = /* @__PURE__ */ new Map(), this._$E_(), this.requestUpdate(), (e = this.constructor.l) == null || e.forEach((t) => t(this));
+  }
+  addController(e) {
     var t;
-    this._$ES = new Promise((e) => this.enableUpdating = e), this._$AL = /* @__PURE__ */ new Map(), this._$E_(), this.requestUpdate(), (t = this.constructor.l) == null || t.forEach((e) => e(this));
+    (this._$EO ?? (this._$EO = /* @__PURE__ */ new Set())).add(e), this.renderRoot !== void 0 && this.isConnected && ((t = e.hostConnected) == null || t.call(e));
   }
-  addController(t) {
-    var e;
-    (this._$EO ?? (this._$EO = /* @__PURE__ */ new Set())).add(t), this.renderRoot !== void 0 && this.isConnected && ((e = t.hostConnected) == null || e.call(t));
-  }
-  removeController(t) {
-    var e;
-    (e = this._$EO) == null || e.delete(t);
+  removeController(e) {
+    var t;
+    (t = this._$EO) == null || t.delete(e);
   }
   _$E_() {
-    const t = /* @__PURE__ */ new Map(), e = this.constructor.elementProperties;
-    for (const s of e.keys())
-      this.hasOwnProperty(s) && (t.set(s, this[s]), delete this[s]);
-    t.size > 0 && (this._$Ep = t);
+    const e = /* @__PURE__ */ new Map(), t = this.constructor.elementProperties;
+    for (const s of t.keys())
+      this.hasOwnProperty(s) && (e.set(s, this[s]), delete this[s]);
+    e.size > 0 && (this._$Ep = e);
   }
   createRenderRoot() {
-    const t = this.shadowRoot ?? this.attachShadow(this.constructor.shadowRootOptions);
-    return ut(t, this.constructor.elementStyles), t;
+    const e = this.shadowRoot ?? this.attachShadow(this.constructor.shadowRootOptions);
+    return we(e, this.constructor.elementStyles), e;
   }
   connectedCallback() {
-    var t;
-    this.renderRoot ?? (this.renderRoot = this.createRenderRoot()), this.enableUpdating(!0), (t = this._$EO) == null || t.forEach((e) => {
+    var e;
+    this.renderRoot ?? (this.renderRoot = this.createRenderRoot()), this.enableUpdating(!0), (e = this._$EO) == null || e.forEach((t) => {
       var s;
-      return (s = e.hostConnected) == null ? void 0 : s.call(e);
+      return (s = t.hostConnected) == null ? void 0 : s.call(t);
     });
   }
-  enableUpdating(t) {
+  enableUpdating(e) {
   }
   disconnectedCallback() {
-    var t;
-    (t = this._$EO) == null || t.forEach((e) => {
+    var e;
+    (e = this._$EO) == null || e.forEach((t) => {
       var s;
-      return (s = e.hostDisconnected) == null ? void 0 : s.call(e);
+      return (s = t.hostDisconnected) == null ? void 0 : s.call(t);
     });
   }
-  attributeChangedCallback(t, e, s) {
-    this._$AK(t, s);
+  attributeChangedCallback(e, t, s) {
+    this._$AK(e, s);
   }
-  _$ET(t, e) {
-    var o;
-    const s = this.constructor.elementProperties.get(t), i = this.constructor._$Eu(t, s);
+  _$ET(e, t) {
+    var n;
+    const s = this.constructor.elementProperties.get(e), i = this.constructor._$Eu(e, s);
     if (i !== void 0 && s.reflect === !0) {
-      const n = (((o = s.converter) == null ? void 0 : o.toAttribute) !== void 0 ? s.converter : R).toAttribute(e, s.type);
-      this._$Em = t, n == null ? this.removeAttribute(i) : this.setAttribute(i, n), this._$Em = null;
+      const o = (((n = s.converter) == null ? void 0 : n.toAttribute) !== void 0 ? s.converter : F).toAttribute(t, s.type);
+      this._$Em = e, o == null ? this.removeAttribute(i) : this.setAttribute(i, o), this._$Em = null;
     }
   }
-  _$AK(t, e) {
-    var o, n;
-    const s = this.constructor, i = s._$Eh.get(t);
+  _$AK(e, t) {
+    var n, o;
+    const s = this.constructor, i = s._$Eh.get(e);
     if (i !== void 0 && this._$Em !== i) {
-      const a = s.getPropertyOptions(i), h = typeof a.converter == "function" ? { fromAttribute: a.converter } : ((o = a.converter) == null ? void 0 : o.fromAttribute) !== void 0 ? a.converter : R;
-      this._$Em = i, this[i] = h.fromAttribute(e, a.type) ?? ((n = this._$Ej) == null ? void 0 : n.get(i)) ?? null, this._$Em = null;
+      const l = s.getPropertyOptions(i), a = typeof l.converter == "function" ? { fromAttribute: l.converter } : ((n = l.converter) == null ? void 0 : n.fromAttribute) !== void 0 ? l.converter : F;
+      this._$Em = i, this[i] = a.fromAttribute(t, l.type) ?? ((o = this._$Ej) == null ? void 0 : o.get(i)) ?? null, this._$Em = null;
     }
   }
-  requestUpdate(t, e, s) {
+  requestUpdate(e, t, s) {
     var i;
-    if (t !== void 0) {
-      const o = this.constructor, n = this[t];
-      if (s ?? (s = o.getPropertyOptions(t)), !((s.hasChanged ?? W)(n, e) || s.useDefault && s.reflect && n === ((i = this._$Ej) == null ? void 0 : i.get(t)) && !this.hasAttribute(o._$Eu(t, s))))
+    if (e !== void 0) {
+      const n = this.constructor, o = this[e];
+      if (s ?? (s = n.getPropertyOptions(e)), !((s.hasChanged ?? ee)(o, t) || s.useDefault && s.reflect && o === ((i = this._$Ej) == null ? void 0 : i.get(e)) && !this.hasAttribute(n._$Eu(e, s))))
         return;
-      this.C(t, e, s);
+      this.C(e, t, s);
     }
     this.isUpdatePending === !1 && (this._$ES = this._$EP());
   }
-  C(t, e, { useDefault: s, reflect: i, wrapped: o }, n) {
-    s && !(this._$Ej ?? (this._$Ej = /* @__PURE__ */ new Map())).has(t) && (this._$Ej.set(t, n ?? e ?? this[t]), o !== !0 || n !== void 0) || (this._$AL.has(t) || (this.hasUpdated || s || (e = void 0), this._$AL.set(t, e)), i === !0 && this._$Em !== t && (this._$Eq ?? (this._$Eq = /* @__PURE__ */ new Set())).add(t));
+  C(e, t, { useDefault: s, reflect: i, wrapped: n }, o) {
+    s && !(this._$Ej ?? (this._$Ej = /* @__PURE__ */ new Map())).has(e) && (this._$Ej.set(e, o ?? t ?? this[e]), n !== !0 || o !== void 0) || (this._$AL.has(e) || (this.hasUpdated || s || (t = void 0), this._$AL.set(e, t)), i === !0 && this._$Em !== e && (this._$Eq ?? (this._$Eq = /* @__PURE__ */ new Set())).add(e));
   }
   async _$EP() {
     this.isUpdatePending = !0;
     try {
       await this._$ES;
-    } catch (e) {
-      Promise.reject(e);
+    } catch (t) {
+      Promise.reject(t);
     }
-    const t = this.scheduleUpdate();
-    return t != null && await t, !this.isUpdatePending;
+    const e = this.scheduleUpdate();
+    return e != null && await e, !this.isUpdatePending;
   }
   scheduleUpdate() {
     return this.performUpdate();
@@ -242,37 +242,37 @@ let v = class extends HTMLElement {
       return;
     if (!this.hasUpdated) {
       if (this.renderRoot ?? (this.renderRoot = this.createRenderRoot()), this._$Ep) {
-        for (const [o, n] of this._$Ep)
-          this[o] = n;
+        for (const [n, o] of this._$Ep)
+          this[n] = o;
         this._$Ep = void 0;
       }
       const i = this.constructor.elementProperties;
       if (i.size > 0)
-        for (const [o, n] of i) {
-          const { wrapped: a } = n, h = this[o];
-          a !== !0 || this._$AL.has(o) || h === void 0 || this.C(o, void 0, n, h);
+        for (const [n, o] of i) {
+          const { wrapped: l } = o, a = this[n];
+          l !== !0 || this._$AL.has(n) || a === void 0 || this.C(n, void 0, o, a);
         }
     }
-    let t = !1;
-    const e = this._$AL;
+    let e = !1;
+    const t = this._$AL;
     try {
-      t = this.shouldUpdate(e), t ? (this.willUpdate(e), (s = this._$EO) == null || s.forEach((i) => {
-        var o;
-        return (o = i.hostUpdate) == null ? void 0 : o.call(i);
-      }), this.update(e)) : this._$EM();
+      e = this.shouldUpdate(t), e ? (this.willUpdate(t), (s = this._$EO) == null || s.forEach((i) => {
+        var n;
+        return (n = i.hostUpdate) == null ? void 0 : n.call(i);
+      }), this.update(t)) : this._$EM();
     } catch (i) {
-      throw t = !1, this._$EM(), i;
+      throw e = !1, this._$EM(), i;
     }
-    t && this._$AE(e);
+    e && this._$AE(t);
   }
-  willUpdate(t) {
+  willUpdate(e) {
   }
-  _$AE(t) {
-    var e;
-    (e = this._$EO) == null || e.forEach((s) => {
+  _$AE(e) {
+    var t;
+    (t = this._$EO) == null || t.forEach((s) => {
       var i;
       return (i = s.hostUpdated) == null ? void 0 : i.call(s);
-    }), this.hasUpdated || (this.hasUpdated = !0, this.firstUpdated(t)), this.updated(t);
+    }), this.hasUpdated || (this.hasUpdated = !0, this.firstUpdated(e)), this.updated(e);
   }
   _$EM() {
     this._$AL = /* @__PURE__ */ new Map(), this.isUpdatePending = !1;
@@ -283,99 +283,99 @@ let v = class extends HTMLElement {
   getUpdateComplete() {
     return this._$ES;
   }
-  shouldUpdate(t) {
+  shouldUpdate(e) {
     return !0;
   }
-  update(t) {
-    this._$Eq && (this._$Eq = this._$Eq.forEach((e) => this._$ET(e, this[e]))), this._$EM();
+  update(e) {
+    this._$Eq && (this._$Eq = this._$Eq.forEach((t) => this._$ET(t, this[t]))), this._$EM();
   }
-  updated(t) {
+  updated(e) {
   }
-  firstUpdated(t) {
+  firstUpdated(e) {
   }
 };
-v.elementStyles = [], v.shadowRootOptions = { mode: "open" }, v[P("elementProperties")] = /* @__PURE__ */ new Map(), v[P("finalized")] = /* @__PURE__ */ new Map(), D == null || D({ ReactiveElement: v }), (f.reactiveElementVersions ?? (f.reactiveElementVersions = [])).push("2.1.0");
+P.elementStyles = [], P.shadowRootOptions = { mode: "open" }, P[T("elementProperties")] = /* @__PURE__ */ new Map(), P[T("finalized")] = /* @__PURE__ */ new Map(), V == null || V({ ReactiveElement: P }), (A.reactiveElementVersions ?? (A.reactiveElementVersions = [])).push("2.1.0");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const C = globalThis, L = C.trustedTypes, X = L ? L.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, ot = "$lit$", _ = `lit$${Math.random().toFixed(9).slice(2)}$`, ht = "?" + _, gt = `<${ht}>`, g = document, U = () => g.createComment(""), x = (r) => r === null || typeof r != "object" && typeof r != "function", F = Array.isArray, vt = (r) => F(r) || typeof (r == null ? void 0 : r[Symbol.iterator]) == "function", z = `[ 	
-\f\r]`, w = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, Y = /-->/g, tt = />/g, m = RegExp(`>|${z}(?:([^\\s"'>=/]+)(${z}*=${z}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g"), et = /'/g, st = /"/g, at = /^(?:script|style|textarea|title)$/i, bt = (r) => (t, ...e) => ({ _$litType$: r, strings: t, values: e }), Et = bt(1), b = Symbol.for("lit-noChange"), d = Symbol.for("lit-nothing"), it = /* @__PURE__ */ new WeakMap(), y = g.createTreeWalker(g, 129);
-function lt(r, t) {
-  if (!F(r) || !r.hasOwnProperty("raw"))
+const N = globalThis, W = N.trustedTypes, ae = W ? W.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, ge = "$lit$", m = `lit$${Math.random().toFixed(9).slice(2)}$`, $e = "?" + m, Ue = `<${$e}>`, C = document, H = () => C.createComment(""), j = (r) => r === null || typeof r != "object" && typeof r != "function", te = Array.isArray, ke = (r) => te(r) || typeof (r == null ? void 0 : r[Symbol.iterator]) == "function", K = `[ 	
+\f\r]`, k = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, le = /-->/g, ce = />/g, w = RegExp(`>|${K}(?:([^\\s"'>=/]+)(${K}*=${K}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`, "g"), de = /'/g, he = /"/g, ve = /^(?:script|style|textarea|title)$/i, me = (r) => (e, ...t) => ({ _$litType$: r, strings: e, values: t }), p = me(1), Te = me(2), O = Symbol.for("lit-noChange"), u = Symbol.for("lit-nothing"), ue = /* @__PURE__ */ new WeakMap(), E = C.createTreeWalker(C, 129);
+function _e(r, e) {
+  if (!te(r) || !r.hasOwnProperty("raw"))
     throw Error("invalid template strings array");
-  return X !== void 0 ? X.createHTML(t) : t;
+  return ae !== void 0 ? ae.createHTML(e) : e;
 }
-const St = (r, t) => {
-  const e = r.length - 1, s = [];
-  let i, o = t === 2 ? "<svg>" : t === 3 ? "<math>" : "", n = w;
-  for (let a = 0; a < e; a++) {
-    const h = r[a];
-    let c, u, l = -1, p = 0;
-    for (; p < h.length && (n.lastIndex = p, u = n.exec(h), u !== null); )
-      p = n.lastIndex, n === w ? u[1] === "!--" ? n = Y : u[1] !== void 0 ? n = tt : u[2] !== void 0 ? (at.test(u[2]) && (i = RegExp("</" + u[2], "g")), n = m) : u[3] !== void 0 && (n = m) : n === m ? u[0] === ">" ? (n = i ?? w, l = -1) : u[1] === void 0 ? l = -2 : (l = n.lastIndex - u[2].length, c = u[1], n = u[3] === void 0 ? m : u[3] === '"' ? st : et) : n === st || n === et ? n = m : n === Y || n === tt ? n = w : (n = m, i = void 0);
-    const $ = n === m && r[a + 1].startsWith("/>") ? " " : "";
-    o += n === w ? h + gt : l >= 0 ? (s.push(c), h.slice(0, l) + ot + h.slice(l) + _ + $) : h + _ + (l === -2 ? a : $);
+const Ne = (r, e) => {
+  const t = r.length - 1, s = [];
+  let i, n = e === 2 ? "<svg>" : e === 3 ? "<math>" : "", o = k;
+  for (let l = 0; l < t; l++) {
+    const a = r[l];
+    let d, h, c = -1, g = 0;
+    for (; g < a.length && (o.lastIndex = g, h = o.exec(a), h !== null); )
+      g = o.lastIndex, o === k ? h[1] === "!--" ? o = le : h[1] !== void 0 ? o = ce : h[2] !== void 0 ? (ve.test(h[2]) && (i = RegExp("</" + h[2], "g")), o = w) : h[3] !== void 0 && (o = w) : o === w ? h[0] === ">" ? (o = i ?? k, c = -1) : h[1] === void 0 ? c = -2 : (c = o.lastIndex - h[2].length, d = h[1], o = h[3] === void 0 ? w : h[3] === '"' ? he : de) : o === he || o === de ? o = w : o === le || o === ce ? o = k : (o = w, i = void 0);
+    const v = o === w && r[l + 1].startsWith("/>") ? " " : "";
+    n += o === k ? a + Ue : c >= 0 ? (s.push(d), a.slice(0, c) + ge + a.slice(c) + m + v) : a + m + (c === -2 ? l : v);
   }
-  return [lt(r, o + (r[e] || "<?>") + (t === 2 ? "</svg>" : t === 3 ? "</math>" : "")), s];
+  return [_e(r, n + (r[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), s];
 };
-class M {
-  constructor({ strings: t, _$litType$: e }, s) {
+class D {
+  constructor({ strings: e, _$litType$: t }, s) {
     let i;
     this.parts = [];
-    let o = 0, n = 0;
-    const a = t.length - 1, h = this.parts, [c, u] = St(t, e);
-    if (this.el = M.createElement(c, s), y.currentNode = this.el.content, e === 2 || e === 3) {
-      const l = this.el.content.firstChild;
-      l.replaceWith(...l.childNodes);
+    let n = 0, o = 0;
+    const l = e.length - 1, a = this.parts, [d, h] = Ne(e, t);
+    if (this.el = D.createElement(d, s), E.currentNode = this.el.content, t === 2 || t === 3) {
+      const c = this.el.content.firstChild;
+      c.replaceWith(...c.childNodes);
     }
-    for (; (i = y.nextNode()) !== null && h.length < a; ) {
+    for (; (i = E.nextNode()) !== null && a.length < l; ) {
       if (i.nodeType === 1) {
         if (i.hasAttributes())
-          for (const l of i.getAttributeNames())
-            if (l.endsWith(ot)) {
-              const p = u[n++], $ = i.getAttribute(l).split(_), H = /([.?@])?(.*)/.exec(p);
-              h.push({ type: 1, index: o, name: H[2], strings: $, ctor: H[1] === "." ? Pt : H[1] === "?" ? Ct : H[1] === "@" ? Ot : k }), i.removeAttribute(l);
+          for (const c of i.getAttributeNames())
+            if (c.endsWith(ge)) {
+              const g = h[o++], v = i.getAttribute(c).split(m), z = /([.?@])?(.*)/.exec(g);
+              a.push({ type: 1, index: n, name: z[2], strings: v, ctor: z[1] === "." ? He : z[1] === "?" ? je : z[1] === "@" ? De : q }), i.removeAttribute(c);
             } else
-              l.startsWith(_) && (h.push({ type: 6, index: o }), i.removeAttribute(l));
-        if (at.test(i.tagName)) {
-          const l = i.textContent.split(_), p = l.length - 1;
-          if (p > 0) {
-            i.textContent = L ? L.emptyScript : "";
-            for (let $ = 0; $ < p; $++)
-              i.append(l[$], U()), y.nextNode(), h.push({ type: 2, index: ++o });
-            i.append(l[p], U());
+              c.startsWith(m) && (a.push({ type: 6, index: n }), i.removeAttribute(c));
+        if (ve.test(i.tagName)) {
+          const c = i.textContent.split(m), g = c.length - 1;
+          if (g > 0) {
+            i.textContent = W ? W.emptyScript : "";
+            for (let v = 0; v < g; v++)
+              i.append(c[v], H()), E.nextNode(), a.push({ type: 2, index: ++n });
+            i.append(c[g], H());
           }
         }
       } else if (i.nodeType === 8)
-        if (i.data === ht)
-          h.push({ type: 2, index: o });
+        if (i.data === $e)
+          a.push({ type: 2, index: n });
         else {
-          let l = -1;
-          for (; (l = i.data.indexOf(_, l + 1)) !== -1; )
-            h.push({ type: 7, index: o }), l += _.length - 1;
+          let c = -1;
+          for (; (c = i.data.indexOf(m, c + 1)) !== -1; )
+            a.push({ type: 7, index: n }), c += m.length - 1;
         }
-      o++;
+      n++;
     }
   }
-  static createElement(t, e) {
-    const s = g.createElement("template");
-    return s.innerHTML = t, s;
+  static createElement(e, t) {
+    const s = C.createElement("template");
+    return s.innerHTML = e, s;
   }
 }
-function E(r, t, e = r, s) {
-  var n, a;
-  if (t === b)
-    return t;
-  let i = s !== void 0 ? (n = e._$Co) == null ? void 0 : n[s] : e._$Cl;
-  const o = x(t) ? void 0 : t._$litDirective$;
-  return (i == null ? void 0 : i.constructor) !== o && ((a = i == null ? void 0 : i._$AO) == null || a.call(i, !1), o === void 0 ? i = void 0 : (i = new o(r), i._$AT(r, e, s)), s !== void 0 ? (e._$Co ?? (e._$Co = []))[s] = i : e._$Cl = i), i !== void 0 && (t = E(r, i._$AS(r, t.values), i, s)), t;
+function M(r, e, t = r, s) {
+  var o, l;
+  if (e === O)
+    return e;
+  let i = s !== void 0 ? (o = t._$Co) == null ? void 0 : o[s] : t._$Cl;
+  const n = j(e) ? void 0 : e._$litDirective$;
+  return (i == null ? void 0 : i.constructor) !== n && ((l = i == null ? void 0 : i._$AO) == null || l.call(i, !1), n === void 0 ? i = void 0 : (i = new n(r), i._$AT(r, t, s)), s !== void 0 ? (t._$Co ?? (t._$Co = []))[s] = i : t._$Cl = i), i !== void 0 && (e = M(r, i._$AS(r, e.values), i, s)), e;
 }
-class wt {
-  constructor(t, e) {
-    this._$AV = [], this._$AN = void 0, this._$AD = t, this._$AM = e;
+class Re {
+  constructor(e, t) {
+    this._$AV = [], this._$AN = void 0, this._$AD = e, this._$AM = t;
   }
   get parentNode() {
     return this._$AM.parentNode;
@@ -383,37 +383,37 @@ class wt {
   get _$AU() {
     return this._$AM._$AU;
   }
-  u(t) {
-    const { el: { content: e }, parts: s } = this._$AD, i = ((t == null ? void 0 : t.creationScope) ?? g).importNode(e, !0);
-    y.currentNode = i;
-    let o = y.nextNode(), n = 0, a = 0, h = s[0];
-    for (; h !== void 0; ) {
-      if (n === h.index) {
-        let c;
-        h.type === 2 ? c = new T(o, o.nextSibling, this, t) : h.type === 1 ? c = new h.ctor(o, h.name, h.strings, this, t) : h.type === 6 && (c = new Ut(o, this, t)), this._$AV.push(c), h = s[++a];
+  u(e) {
+    const { el: { content: t }, parts: s } = this._$AD, i = ((e == null ? void 0 : e.creationScope) ?? C).importNode(t, !0);
+    E.currentNode = i;
+    let n = E.nextNode(), o = 0, l = 0, a = s[0];
+    for (; a !== void 0; ) {
+      if (o === a.index) {
+        let d;
+        a.type === 2 ? d = new I(n, n.nextSibling, this, e) : a.type === 1 ? d = new a.ctor(n, a.name, a.strings, this, e) : a.type === 6 && (d = new Ie(n, this, e)), this._$AV.push(d), a = s[++l];
       }
-      n !== (h == null ? void 0 : h.index) && (o = y.nextNode(), n++);
+      o !== (a == null ? void 0 : a.index) && (n = E.nextNode(), o++);
     }
-    return y.currentNode = g, i;
+    return E.currentNode = C, i;
   }
-  p(t) {
-    let e = 0;
+  p(e) {
+    let t = 0;
     for (const s of this._$AV)
-      s !== void 0 && (s.strings !== void 0 ? (s._$AI(t, s, e), e += s.strings.length - 2) : s._$AI(t[e])), e++;
+      s !== void 0 && (s.strings !== void 0 ? (s._$AI(e, s, t), t += s.strings.length - 2) : s._$AI(e[t])), t++;
   }
 }
-class T {
+class I {
   get _$AU() {
-    var t;
-    return ((t = this._$AM) == null ? void 0 : t._$AU) ?? this._$Cv;
+    var e;
+    return ((e = this._$AM) == null ? void 0 : e._$AU) ?? this._$Cv;
   }
-  constructor(t, e, s, i) {
-    this.type = 2, this._$AH = d, this._$AN = void 0, this._$AA = t, this._$AB = e, this._$AM = s, this.options = i, this._$Cv = (i == null ? void 0 : i.isConnected) ?? !0;
+  constructor(e, t, s, i) {
+    this.type = 2, this._$AH = u, this._$AN = void 0, this._$AA = e, this._$AB = t, this._$AM = s, this.options = i, this._$Cv = (i == null ? void 0 : i.isConnected) ?? !0;
   }
   get parentNode() {
-    let t = this._$AA.parentNode;
-    const e = this._$AM;
-    return e !== void 0 && (t == null ? void 0 : t.nodeType) === 11 && (t = e.parentNode), t;
+    let e = this._$AA.parentNode;
+    const t = this._$AM;
+    return t !== void 0 && (e == null ? void 0 : e.nodeType) === 11 && (e = t.parentNode), e;
   }
   get startNode() {
     return this._$AA;
@@ -421,129 +421,129 @@ class T {
   get endNode() {
     return this._$AB;
   }
-  _$AI(t, e = this) {
-    t = E(this, t, e), x(t) ? t === d || t == null || t === "" ? (this._$AH !== d && this._$AR(), this._$AH = d) : t !== this._$AH && t !== b && this._(t) : t._$litType$ !== void 0 ? this.$(t) : t.nodeType !== void 0 ? this.T(t) : vt(t) ? this.k(t) : this._(t);
+  _$AI(e, t = this) {
+    e = M(this, e, t), j(e) ? e === u || e == null || e === "" ? (this._$AH !== u && this._$AR(), this._$AH = u) : e !== this._$AH && e !== O && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : ke(e) ? this.k(e) : this._(e);
   }
-  O(t) {
-    return this._$AA.parentNode.insertBefore(t, this._$AB);
+  O(e) {
+    return this._$AA.parentNode.insertBefore(e, this._$AB);
   }
-  T(t) {
-    this._$AH !== t && (this._$AR(), this._$AH = this.O(t));
+  T(e) {
+    this._$AH !== e && (this._$AR(), this._$AH = this.O(e));
   }
-  _(t) {
-    this._$AH !== d && x(this._$AH) ? this._$AA.nextSibling.data = t : this.T(g.createTextNode(t)), this._$AH = t;
+  _(e) {
+    this._$AH !== u && j(this._$AH) ? this._$AA.nextSibling.data = e : this.T(C.createTextNode(e)), this._$AH = e;
   }
-  $(t) {
-    var o;
-    const { values: e, _$litType$: s } = t, i = typeof s == "number" ? this._$AC(t) : (s.el === void 0 && (s.el = M.createElement(lt(s.h, s.h[0]), this.options)), s);
-    if (((o = this._$AH) == null ? void 0 : o._$AD) === i)
-      this._$AH.p(e);
+  $(e) {
+    var n;
+    const { values: t, _$litType$: s } = e, i = typeof s == "number" ? this._$AC(e) : (s.el === void 0 && (s.el = D.createElement(_e(s.h, s.h[0]), this.options)), s);
+    if (((n = this._$AH) == null ? void 0 : n._$AD) === i)
+      this._$AH.p(t);
     else {
-      const n = new wt(i, this), a = n.u(this.options);
-      n.p(e), this.T(a), this._$AH = n;
+      const o = new Re(i, this), l = o.u(this.options);
+      o.p(t), this.T(l), this._$AH = o;
     }
   }
-  _$AC(t) {
-    let e = it.get(t.strings);
-    return e === void 0 && it.set(t.strings, e = new M(t)), e;
+  _$AC(e) {
+    let t = ue.get(e.strings);
+    return t === void 0 && ue.set(e.strings, t = new D(e)), t;
   }
-  k(t) {
-    F(this._$AH) || (this._$AH = [], this._$AR());
-    const e = this._$AH;
+  k(e) {
+    te(this._$AH) || (this._$AH = [], this._$AR());
+    const t = this._$AH;
     let s, i = 0;
-    for (const o of t)
-      i === e.length ? e.push(s = new T(this.O(U()), this.O(U()), this, this.options)) : s = e[i], s._$AI(o), i++;
-    i < e.length && (this._$AR(s && s._$AB.nextSibling, i), e.length = i);
+    for (const n of e)
+      i === t.length ? t.push(s = new I(this.O(H()), this.O(H()), this, this.options)) : s = t[i], s._$AI(n), i++;
+    i < t.length && (this._$AR(s && s._$AB.nextSibling, i), t.length = i);
   }
-  _$AR(t = this._$AA.nextSibling, e) {
+  _$AR(e = this._$AA.nextSibling, t) {
     var s;
-    for ((s = this._$AP) == null ? void 0 : s.call(this, !1, !0, e); t && t !== this._$AB; ) {
-      const i = t.nextSibling;
-      t.remove(), t = i;
+    for ((s = this._$AP) == null ? void 0 : s.call(this, !1, !0, t); e && e !== this._$AB; ) {
+      const i = e.nextSibling;
+      e.remove(), e = i;
     }
   }
-  setConnected(t) {
-    var e;
-    this._$AM === void 0 && (this._$Cv = t, (e = this._$AP) == null || e.call(this, t));
+  setConnected(e) {
+    var t;
+    this._$AM === void 0 && (this._$Cv = e, (t = this._$AP) == null || t.call(this, e));
   }
 }
-class k {
+class q {
   get tagName() {
     return this.element.tagName;
   }
   get _$AU() {
     return this._$AM._$AU;
   }
-  constructor(t, e, s, i, o) {
-    this.type = 1, this._$AH = d, this._$AN = void 0, this.element = t, this.name = e, this._$AM = i, this.options = o, s.length > 2 || s[0] !== "" || s[1] !== "" ? (this._$AH = Array(s.length - 1).fill(new String()), this.strings = s) : this._$AH = d;
+  constructor(e, t, s, i, n) {
+    this.type = 1, this._$AH = u, this._$AN = void 0, this.element = e, this.name = t, this._$AM = i, this.options = n, s.length > 2 || s[0] !== "" || s[1] !== "" ? (this._$AH = Array(s.length - 1).fill(new String()), this.strings = s) : this._$AH = u;
   }
-  _$AI(t, e = this, s, i) {
-    const o = this.strings;
-    let n = !1;
-    if (o === void 0)
-      t = E(this, t, e, 0), n = !x(t) || t !== this._$AH && t !== b, n && (this._$AH = t);
+  _$AI(e, t = this, s, i) {
+    const n = this.strings;
+    let o = !1;
+    if (n === void 0)
+      e = M(this, e, t, 0), o = !j(e) || e !== this._$AH && e !== O, o && (this._$AH = e);
     else {
-      const a = t;
-      let h, c;
-      for (t = o[0], h = 0; h < o.length - 1; h++)
-        c = E(this, a[s + h], e, h), c === b && (c = this._$AH[h]), n || (n = !x(c) || c !== this._$AH[h]), c === d ? t = d : t !== d && (t += (c ?? "") + o[h + 1]), this._$AH[h] = c;
+      const l = e;
+      let a, d;
+      for (e = n[0], a = 0; a < n.length - 1; a++)
+        d = M(this, l[s + a], t, a), d === O && (d = this._$AH[a]), o || (o = !j(d) || d !== this._$AH[a]), d === u ? e = u : e !== u && (e += (d ?? "") + n[a + 1]), this._$AH[a] = d;
     }
-    n && !i && this.j(t);
+    o && !i && this.j(e);
   }
-  j(t) {
-    t === d ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, t ?? "");
+  j(e) {
+    e === u ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
   }
 }
-class Pt extends k {
+class He extends q {
   constructor() {
     super(...arguments), this.type = 3;
   }
-  j(t) {
-    this.element[this.name] = t === d ? void 0 : t;
+  j(e) {
+    this.element[this.name] = e === u ? void 0 : e;
   }
 }
-class Ct extends k {
+class je extends q {
   constructor() {
     super(...arguments), this.type = 4;
   }
-  j(t) {
-    this.element.toggleAttribute(this.name, !!t && t !== d);
+  j(e) {
+    this.element.toggleAttribute(this.name, !!e && e !== u);
   }
 }
-class Ot extends k {
-  constructor(t, e, s, i, o) {
-    super(t, e, s, i, o), this.type = 5;
+class De extends q {
+  constructor(e, t, s, i, n) {
+    super(e, t, s, i, n), this.type = 5;
   }
-  _$AI(t, e = this) {
-    if ((t = E(this, t, e, 0) ?? d) === b)
+  _$AI(e, t = this) {
+    if ((e = M(this, e, t, 0) ?? u) === O)
       return;
-    const s = this._$AH, i = t === d && s !== d || t.capture !== s.capture || t.once !== s.once || t.passive !== s.passive, o = t !== d && (s === d || i);
-    i && this.element.removeEventListener(this.name, this, s), o && this.element.addEventListener(this.name, this, t), this._$AH = t;
+    const s = this._$AH, i = e === u && s !== u || e.capture !== s.capture || e.once !== s.once || e.passive !== s.passive, n = e !== u && (s === u || i);
+    i && this.element.removeEventListener(this.name, this, s), n && this.element.addEventListener(this.name, this, e), this._$AH = e;
   }
-  handleEvent(t) {
-    var e;
-    typeof this._$AH == "function" ? this._$AH.call(((e = this.options) == null ? void 0 : e.host) ?? this.element, t) : this._$AH.handleEvent(t);
+  handleEvent(e) {
+    var t;
+    typeof this._$AH == "function" ? this._$AH.call(((t = this.options) == null ? void 0 : t.host) ?? this.element, e) : this._$AH.handleEvent(e);
   }
 }
-class Ut {
-  constructor(t, e, s) {
-    this.element = t, this.type = 6, this._$AN = void 0, this._$AM = e, this.options = s;
+class Ie {
+  constructor(e, t, s) {
+    this.element = e, this.type = 6, this._$AN = void 0, this._$AM = t, this.options = s;
   }
   get _$AU() {
     return this._$AM._$AU;
   }
-  _$AI(t) {
-    E(this, t);
+  _$AI(e) {
+    M(this, e);
   }
 }
-const I = C.litHtmlPolyfillSupport;
-I == null || I(M, T), (C.litHtmlVersions ?? (C.litHtmlVersions = [])).push("3.3.0");
-const xt = (r, t, e) => {
-  const s = (e == null ? void 0 : e.renderBefore) ?? t;
+const Z = N.litHtmlPolyfillSupport;
+Z == null || Z(D, I), (N.litHtmlVersions ?? (N.litHtmlVersions = [])).push("3.3.0");
+const Le = (r, e, t) => {
+  const s = (t == null ? void 0 : t.renderBefore) ?? e;
   let i = s._$litPart$;
   if (i === void 0) {
-    const o = (e == null ? void 0 : e.renderBefore) ?? null;
-    s._$litPart$ = i = new T(t.insertBefore(U(), o), o, void 0, e ?? {});
+    const n = (t == null ? void 0 : t.renderBefore) ?? null;
+    s._$litPart$ = i = new I(e.insertBefore(H(), n), n, void 0, t ?? {});
   }
   return i._$AI(r), i;
 };
@@ -552,120 +552,241 @@ const xt = (r, t, e) => {
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const A = globalThis;
-class O extends v {
+const S = globalThis;
+class x extends P {
   constructor() {
     super(...arguments), this.renderOptions = { host: this }, this._$Do = void 0;
   }
   createRenderRoot() {
-    var e;
-    const t = super.createRenderRoot();
-    return (e = this.renderOptions).renderBefore ?? (e.renderBefore = t.firstChild), t;
+    var t;
+    const e = super.createRenderRoot();
+    return (t = this.renderOptions).renderBefore ?? (t.renderBefore = e.firstChild), e;
   }
-  update(t) {
-    const e = this.render();
-    this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(t), this._$Do = xt(e, this.renderRoot, this.renderOptions);
+  update(e) {
+    const t = this.render();
+    this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(e), this._$Do = Le(t, this.renderRoot, this.renderOptions);
   }
   connectedCallback() {
-    var t;
-    super.connectedCallback(), (t = this._$Do) == null || t.setConnected(!0);
+    var e;
+    super.connectedCallback(), (e = this._$Do) == null || e.setConnected(!0);
   }
   disconnectedCallback() {
-    var t;
-    super.disconnectedCallback(), (t = this._$Do) == null || t.setConnected(!1);
+    var e;
+    super.disconnectedCallback(), (e = this._$Do) == null || e.setConnected(!1);
   }
   render() {
-    return b;
+    return O;
   }
 }
-var rt;
-O._$litElement$ = !0, O.finalized = !0, (rt = A.litElementHydrateSupport) == null || rt.call(A, { LitElement: O });
-const B = A.litElementPolyfillSupport;
-B == null || B({ LitElement: O });
-(A.litElementVersions ?? (A.litElementVersions = [])).push("4.2.0");
+var fe;
+x._$litElement$ = !0, x.finalized = !0, (fe = S.litElementHydrateSupport) == null || fe.call(S, { LitElement: x });
+const G = S.litElementPolyfillSupport;
+G == null || G({ LitElement: x });
+(S.litElementVersions ?? (S.litElementVersions = [])).push("4.2.0");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const Mt = (r) => (t, e) => {
-  e !== void 0 ? e.addInitializer(() => {
-    customElements.define(r, t);
-  }) : customElements.define(r, t);
+const se = (r) => (e, t) => {
+  t !== void 0 ? t.addInitializer(() => {
+    customElements.define(r, e);
+  }) : customElements.define(r, e);
 };
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const Tt = { attribute: !0, type: String, converter: R, reflect: !1, hasChanged: W }, Ht = (r = Tt, t, e) => {
-  const { kind: s, metadata: i } = e;
-  let o = globalThis.litPropertyMetadata.get(i);
-  if (o === void 0 && globalThis.litPropertyMetadata.set(i, o = /* @__PURE__ */ new Map()), s === "setter" && ((r = Object.create(r)).wrapped = !0), o.set(e.name, r), s === "accessor") {
-    const { name: n } = e;
-    return { set(a) {
-      const h = t.get.call(this);
-      t.set.call(this, a), this.requestUpdate(n, h, r);
-    }, init(a) {
-      return a !== void 0 && this.C(n, void 0, r, a), a;
+const ze = { attribute: !0, type: String, converter: F, reflect: !1, hasChanged: ee }, Be = (r = ze, e, t) => {
+  const { kind: s, metadata: i } = t;
+  let n = globalThis.litPropertyMetadata.get(i);
+  if (n === void 0 && globalThis.litPropertyMetadata.set(i, n = /* @__PURE__ */ new Map()), s === "setter" && ((r = Object.create(r)).wrapped = !0), n.set(t.name, r), s === "accessor") {
+    const { name: o } = t;
+    return { set(l) {
+      const a = e.get.call(this);
+      e.set.call(this, l), this.requestUpdate(o, a, r);
+    }, init(l) {
+      return l !== void 0 && this.C(o, void 0, r, l), l;
     } };
   }
   if (s === "setter") {
-    const { name: n } = e;
-    return function(a) {
-      const h = this[n];
-      t.call(this, a), this.requestUpdate(n, h, r);
+    const { name: o } = t;
+    return function(l) {
+      const a = this[o];
+      e.call(this, l), this.requestUpdate(o, a, r);
     };
   }
   throw Error("Unsupported decorator location: " + s);
 };
-function J(r) {
-  return (t, e) => typeof e == "object" ? Ht(r, t, e) : ((s, i, o) => {
-    const n = i.hasOwnProperty(o);
-    return i.constructor.createProperty(o, s), n ? Object.getOwnPropertyDescriptor(i, o) : void 0;
-  })(r, t, e);
+function L(r) {
+  return (e, t) => typeof t == "object" ? Be(r, e, t) : ((s, i, n) => {
+    const o = i.hasOwnProperty(n);
+    return i.constructor.createProperty(n, s), o ? Object.getOwnPropertyDescriptor(i, n) : void 0;
+  })(r, e, t);
 }
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-function Nt(r) {
-  return J({ ...r, state: !0, attribute: !1 });
+function y(r) {
+  return L({ ...r, state: !0, attribute: !1 });
 }
-var Rt = Object.defineProperty, Lt = Object.getOwnPropertyDescriptor, j = (r, t, e, s) => {
-  for (var i = s > 1 ? void 0 : s ? Lt(t, e) : t, o = r.length - 1, n; o >= 0; o--)
-    (n = r[o]) && (i = (s ? n(t, e, i) : n(i)) || i);
-  return s && i && Rt(t, e, i), i;
-};
-let S = class extends O {
-  constructor() {
-    super(...arguments), this.userLoginState = "";
+function R(r, e = void 0) {
+  if (typeof r == "string") {
+    r = r.replace(/-/g, "+").replace(/_/g, "/");
+    const t = window.atob(r), s = new Uint8Array(t.length);
+    for (let i = 0; i < t.length; i++)
+      s[i] = t.charCodeAt(i);
+    r = s;
   }
-  // static get properties() {
-  //   return {
-  //     manifest: { type: Object },
-  //     onSubmit: { type: Function },
-  //     userLoginState: { type: String, state: true }
-  //   };
-  // }
+  if (Array.isArray(r) && (r = new Uint8Array(r)), r instanceof Uint8Array && (r = r.buffer), !(r instanceof ArrayBuffer))
+    throw new TypeError("could not coerce '" + e + "' to ArrayBuffer");
+  return r;
+}
+function _(r) {
+  if (Array.isArray(r) && (r = Uint8Array.from(r)), r instanceof ArrayBuffer && (r = new Uint8Array(r)), r instanceof Uint8Array) {
+    let e = "";
+    const t = r.byteLength;
+    for (let s = 0; s < t; s++)
+      e += String.fromCharCode(r[s]);
+    r = window.btoa(e);
+  }
+  if (typeof r != "string")
+    throw new Error("could not coerce to string");
+  return r = r.replace(/\+/g, "-").replace(/\//g, "_").replace(/=*$/g, ""), r;
+}
+const pe = {
+  lastCredentialsIdentifier: "lastCredentials"
+};
+class Fe {
+  constructor() {
+    this.assertionOptionsEndpoint = "/umbraco/backoffice/passless/assertionoptions", this.makeAssertionEndpoint = "/umbraco/backoffice/passless/makeassertion", this.forgotCredentialsEndpoint = "/umbraco/backoffice/passless/forgotcredentials";
+  }
+  async handleSignInSubmit(e = !0) {
+    try {
+      const t = localStorage.getItem(pe.lastCredentialsIdentifier), s = await fetch(this.assertionOptionsEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          lastCredentialId: e ? t : ""
+        })
+      });
+      if (!s.ok)
+        throw new Error(`Failed to get assertion options: ${s.statusText}`);
+      const i = await s.json();
+      await this.getCredentials(i);
+    } catch (t) {
+      throw console.error("Sign in failed:", t), new Error("Sign in failed. Please try again.");
+    }
+  }
+  async requestAuthReset(e) {
+    try {
+      const t = await fetch(this.forgotCredentialsEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({ email: e })
+      });
+      if (!t.ok)
+        throw new Error(`Failed to request auth reset: ${t.statusText}`);
+    } catch (t) {
+      throw console.error("Auth reset failed:", t), new Error("Failed to send reset email. Please try again.");
+    }
+  }
+  async getCredentials(e) {
+    var t;
+    e.challenge = R(e.challenge), e.allowCredentials = (t = e.allowCredentials) == null ? void 0 : t.map((s) => (s.id = R(s.id), s));
+    try {
+      const s = await navigator.credentials.get({ publicKey: e });
+      if (!s)
+        throw new Error("No credential received");
+      await this.verifyAssertionWithServer(s);
+    } catch (s) {
+      throw console.error("Credential get failed:", s), new Error("User cancelled, or the operation timed out");
+    }
+  }
+  /**
+   * Sends the credential to the FIDO2 server for assertion
+   */
+  async verifyAssertionWithServer(e) {
+    try {
+      const t = e.response, s = new Uint8Array(t.authenticatorData), i = new Uint8Array(e.response.clientDataJSON), n = new Uint8Array(e.rawId), o = new Uint8Array(t.signature), l = t.userHandle ? new Uint8Array(t.userHandle) : null, a = {
+        id: e.id,
+        rawId: _(n),
+        type: e.type,
+        extensions: e.getClientExtensionResults(),
+        response: {
+          authenticatorData: _(s),
+          clientDataJSON: _(i),
+          userHandle: l ? _(l) : null,
+          signature: _(o)
+        }
+      }, d = await fetch(this.makeAssertionEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify(a)
+      });
+      if (!d.ok)
+        throw new Error(`Server validation failed: ${d.statusText}`);
+      const h = await d.json();
+      h.isPasskey === !1 && localStorage.setItem(pe.lastCredentialsIdentifier, h.credentialId), window.location.href = h.redirectUrl;
+    } catch (t) {
+      throw console.error("Assertion verification failed:", t), new Error("Your credentials could not be validated, please try again");
+    }
+  }
+}
+var We = Object.defineProperty, Je = Object.getOwnPropertyDescriptor, U = (r, e, t, s) => {
+  for (var i = s > 1 ? void 0 : s ? Je(e, t) : e, n = r.length - 1, o; n >= 0; n--)
+    (o = r[n]) && (i = (s ? o(e, t, i) : o(i)) || i);
+  return s && i && We(e, t, i), i;
+};
+let b = class extends x {
+  constructor() {
+    super(), this.userLoginState = "", this.isLoading = !1, this.errorMessage = "", this.authService = new Fe();
+  }
   get displayName() {
     var r;
     return ((r = this.manifest.meta) == null ? void 0 : r.label) ?? this.manifest.forProviderName;
   }
+  async handlePasslessLogin() {
+    try {
+      this.isLoading = !0, this.errorMessage = "", this.userLoginState = "Authenticating...", await this.authService.handleSignInSubmit(!0), this.userLoginState = "Authentication successful!";
+    } catch (r) {
+      console.error("Passless login failed:", r), this.errorMessage = r instanceof Error ? r.message : "Authentication failed", this.userLoginState = "Authentication failed";
+    } finally {
+      this.isLoading = !1;
+    }
+  }
   render() {
-    return Et`
-        <h3>Our Company</h3>
-        <p>If you have an account with Our Company, you can sign in to Umbraco by clicking the button below. HELLO VITE</p>
-        <p>The user is currently: ${this.userLoginState}</p>
-        <uui-button type="button" id="button" look="primary" label="${this.displayName}" @click=${() => this.onSubmit(this.manifest.forProviderName)}>
-          <uui-icon name="icon-cloud"></uui-icon>
-          ${this.displayName}
+    return p`
+        <h3>Passless Authentication</h3>
+        <p>Sign in to Umbraco using your passkey or security key.</p>
+        ${this.userLoginState ? p`<p>Status: ${this.userLoginState}</p>` : ""}
+        ${this.errorMessage ? p`<p style="color: red;">Error: ${this.errorMessage}</p>` : ""}
+        <uui-button 
+          type="button" 
+          id="button" 
+          look="primary" 
+          label="${this.displayName}" 
+          ?disabled=${this.isLoading}
+          @click=${this.handlePasslessLogin}>
+          <uui-icon name="icon-fingerprint"></uui-icon>
+          ${this.isLoading ? "Authenticating..." : this.displayName}
         </uui-button>
     `;
   }
 };
-S.styles = dt`
+b.styles = X`
     :host {
       display: block;
       width: 100%;
@@ -673,20 +794,509 @@ S.styles = dt`
     #button {
       width: 100%;
     }
+    p[style*="color: red"] {
+      margin: 8px 0;
+      font-size: 14px;
+    }
   `;
-j([
-  J({ type: Object })
-], S.prototype, "manifest", 2);
-j([
-  J({ type: Function })
-], S.prototype, "onSubmit", 2);
-j([
-  Nt()
-], S.prototype, "userLoginState", 2);
-S = j([
-  Mt("my-lit-view")
-], S);
+U([
+  L({ type: Object })
+], b.prototype, "manifest", 2);
+U([
+  L({ type: Function })
+], b.prototype, "onSubmit", 2);
+U([
+  y()
+], b.prototype, "userLoginState", 2);
+U([
+  y()
+], b.prototype, "isLoading", 2);
+U([
+  y()
+], b.prototype, "errorMessage", 2);
+b = U([
+  se("my-lit-view")
+], b);
+class qe {
+  constructor() {
+    this.makeCredentialsEndpoint = "/umbraco/management/api/v1/passless/credentials/make", this.credentialsOptionsEndpoint = "/umbraco/management/api/v1/passless/credentials/options", this.getCredentialsEndpoint = "/umbraco/management/api/v1/passless/credentials", this.deleteCredentialsEndpoint = "/umbraco/management/api/v1/passless/credentials/delete";
+  }
+  async deleteCredential(e) {
+    const t = await fetch(`${this.deleteCredentialsEndpoint}?id=${e}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify({})
+    });
+    if (!t.ok)
+      throw new Error(`Failed to delete credential: ${t.statusText}`);
+  }
+  async getCredentials() {
+    const e = await fetch(this.getCredentialsEndpoint, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include"
+    });
+    if (!e.ok)
+      throw new Error(`Failed to get credentials: ${e.statusText}`);
+    return await e.json();
+  }
+  async registerNewCredentials(e) {
+    try {
+      const t = await fetch(this.credentialsOptionsEndpoint, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include"
+      });
+      if (!t.ok)
+        throw new Error(`Failed to get credential options: ${t.statusText}`);
+      const s = await t.json();
+      return await this.handleUserCredentials(s, e);
+    } catch (t) {
+      throw console.error("Error contacting server:", t), new Error("Error contacting server");
+    }
+  }
+  async handleUserCredentials(e, t) {
+    var s, i;
+    e.challenge = R(e.challenge), e.user.id = R(e.user.id), e.excludeCredentials = (s = e.excludeCredentials) == null ? void 0 : s.map((n) => (n.id = R(n.id), n)), ((i = e.authenticatorSelection) == null ? void 0 : i.authenticatorAttachment) === null && (e.authenticatorSelection.authenticatorAttachment = void 0);
+    try {
+      const n = await navigator.credentials.create({
+        publicKey: e
+      });
+      if (!n)
+        throw new Error("Failed to create credentials");
+      return await this.prepareNewCredentials(n, t);
+    } catch (n) {
+      throw new Error(`Credential creation failed: ${n}`);
+    }
+  }
+  async prepareNewCredentials(e, t) {
+    const s = new Uint8Array(
+      e.response.attestationObject
+    ), i = new Uint8Array(e.response.clientDataJSON), n = new Uint8Array(e.rawId), o = _(n), l = {
+      id: e.id,
+      rawId: o,
+      type: e.type,
+      extensions: e.getClientExtensionResults(),
+      response: {
+        attestationObject: _(s),
+        clientDataJSON: _(i)
+      }
+    };
+    return await this.registerCredentialWithServer(l, t);
+  }
+  async registerCredentialWithServer(e, t) {
+    const s = await fetch(`${this.makeCredentialsEndpoint}?alias=${t}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify(e)
+    });
+    if (!s.ok)
+      throw new Error(`Failed to register credential: ${s.statusText}`);
+    return await s.json();
+  }
+}
+var Ve = Object.defineProperty, Ke = Object.getOwnPropertyDescriptor, $ = (r, e, t, s) => {
+  for (var i = s > 1 ? void 0 : s ? Ke(e, t) : e, n = r.length - 1, o; n >= 0; n--)
+    (o = r[n]) && (i = (s ? o(e, t, i) : o(i)) || i);
+  return s && i && Ve(e, t, i), i;
+};
+let f = class extends x {
+  constructor() {
+    super(), this.open = !1, this.loading = !1, this.credentials = null, this.state = "ready", this.registrationAlias = "", this.errorMessage = "", this.successMessage = "", this.credentialsService = new qe();
+  }
+  connectedCallback() {
+    super.connectedCallback(), this.open && this.init();
+  }
+  updated(r) {
+    r.has("open") && this.open && this.init();
+  }
+  async init() {
+    await this.getCredentials();
+  }
+  async getCredentials() {
+    try {
+      this.loading = !0, this.errorMessage = "", this.credentials = await this.credentialsService.getCredentials();
+    } catch (r) {
+      console.error("Failed to get credentials:", r), this.errorMessage = r instanceof Error ? r.message : "Failed to load credentials";
+    } finally {
+      this.loading = !1;
+    }
+  }
+  async deleteCredential(r) {
+    if (confirm(`Are you sure you want to delete the credential "${r.alias}"?`))
+      try {
+        if (await this.credentialsService.deleteCredential(r.credentialsId), this.successMessage = `Registration deleted: ${r.alias}`, this.credentials) {
+          const e = this.credentials.userCredentials.indexOf(r);
+          this.credentials.userCredentials.splice(e, 1), this.requestUpdate();
+        }
+      } catch (e) {
+        console.error("Failed to delete credential:", e), this.errorMessage = e instanceof Error ? e.message : "Failed to delete credential";
+      }
+  }
+  addNewCredentials() {
+    this.state = "adding", this.registrationAlias = "", this.errorMessage = "", this.successMessage = "";
+  }
+  async submitRegisterPasslessForm() {
+    if (!this.registrationAlias.trim()) {
+      this.errorMessage = "Please enter an alias for the authenticator";
+      return;
+    }
+    try {
+      this.loading = !0, this.errorMessage = "", await this.credentialsService.registerNewCredentials(this.registrationAlias), this.onKeyRegisteredWithServer();
+    } catch (r) {
+      console.error("Registration failed:", r), this.errorMessage = r instanceof Error ? r.message : "Registration failed";
+    } finally {
+      this.loading = !1;
+    }
+  }
+  onKeyRegisteredWithServer() {
+    this.successMessage = `Successfully added new credentials with the alias "${this.registrationAlias}"`, this.state = "ready", this.registrationAlias = "", this.getCredentials();
+  }
+  handleClose() {
+    this.state = "ready", this.registrationAlias = "", this.errorMessage = "", this.successMessage = "", this.onClose && this.onClose();
+  }
+  handleAliasInput(r) {
+    const e = r.target;
+    this.registrationAlias = e.value;
+  }
+  handleKeyDown(r) {
+    r.key === "Enter" && this.state === "adding" ? this.submitRegisterPasslessForm() : r.key === "Escape" && this.handleClose();
+  }
+  render() {
+    var r, e;
+    return this.open ? p`
+      <div class="overlay-backdrop" @click=${this.handleClose}>
+        <div class="overlay-content" @click=${(t) => t.stopPropagation()}>
+          <div class="overlay-header">
+            <h2>Manage Passkeys</h2>
+            <uui-button 
+              type="button" 
+              look="primary" 
+              @click=${this.handleClose}
+              class="close-button">
+              <uui-icon name="icon-delete"></uui-icon>
+            </uui-button>
+          </div>
+
+          <div class="overlay-body">
+            ${this.loading ? p`
+              <div class="loading">
+                <uui-loader></uui-loader>
+                <p>Loading...</p>
+              </div>
+            ` : p`
+              <div class="content">
+                <h3>Registrations</h3>
+                <p>Here you can manage your Passless Authenticators</p>
+
+                ${this.errorMessage ? p`
+                  <div class="message error">${this.errorMessage}</div>
+                ` : ""}
+
+                ${this.successMessage ? p`
+                  <div class="message success">${this.successMessage}</div>
+                ` : ""}
+
+                <div class="credentials-list">
+                  ${(e = (r = this.credentials) == null ? void 0 : r.userCredentials) == null ? void 0 : e.map((t) => p`
+                    <div class="credential-item">
+                      <span class="credential-info">
+                        <uui-icon name="icon-keychain"></uui-icon>
+                        ${t.alias}
+                      </span>
+                      <uui-button 
+                        type="button" 
+                        look="primary" 
+                        color="danger"
+                        @click=${() => this.deleteCredential(t)}>
+                        Delete
+                      </uui-button>
+                    </div>
+                  `)}
+
+                  ${this.state === "ready" ? p`
+                    <uui-button 
+                      type="button" 
+                      look="primary" 
+                      @click=${this.addNewCredentials}>
+                      Add Device
+                    </uui-button>
+                  ` : ""}
+
+                  ${this.state === "adding" ? p`
+                    <div class="add-credential">
+                      <uui-input 
+                        type="text"
+                        placeholder="Alias of the authenticator"
+                        .value=${this.registrationAlias}
+                        @input=${this.handleAliasInput}
+                        @keydown=${this.handleKeyDown}
+                        auto-focus>
+                      </uui-input>
+                      <uui-button 
+                        type="button" 
+                        look="primary" 
+                        ?disabled=${this.loading}
+                        @click=${this.submitRegisterPasslessForm}>
+                        ${this.loading ? "Adding..." : "Add"}
+                      </uui-button>
+                    </div>
+                  ` : ""}
+                </div>
+              </div>
+            `}
+          </div>
+
+          <div class="overlay-footer">
+            <uui-button 
+              type="button" 
+              look="secondary" 
+              @click=${this.handleClose}>
+              Close
+            </uui-button>
+          </div>
+        </div>
+      </div>
+    ` : p``;
+  }
+};
+f.styles = X`
+    .overlay-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .overlay-content {
+      background: var(--uui-color-surface, #fff);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .overlay-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid var(--uui-color-border, #e0e0e0);
+    }
+
+    .overlay-header h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .close-button {
+      min-width: auto;
+      padding: 8px;
+    }
+
+    .overlay-body {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      gap: 16px;
+    }
+
+    .content h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .content p {
+      margin: 0 0 24px 0;
+      color: var(--uui-color-text-alt, #666);
+    }
+
+    .message {
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .message.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .credentials-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .credential-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1px solid var(--uui-color-border, #e0e0e0);
+      border-radius: 4px;
+      background: var(--uui-color-surface-alt, #f9f9f9);
+    }
+
+    .credential-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .add-credential {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid var(--uui-color-border, #e0e0e0);
+      border-radius: 4px;
+      background: var(--uui-color-surface-alt, #f9f9f9);
+    }
+
+    .add-credential uui-input {
+      flex: 1;
+    }
+
+    .overlay-footer {
+      padding: 20px;
+      border-top: 1px solid var(--uui-color-border, #e0e0e0);
+      display: flex;
+      justify-content: flex-end;
+    }
+  `;
+$([
+  L({ type: Boolean })
+], f.prototype, "open", 2);
+$([
+  L({ type: Function })
+], f.prototype, "onClose", 2);
+$([
+  y()
+], f.prototype, "loading", 2);
+$([
+  y()
+], f.prototype, "credentials", 2);
+$([
+  y()
+], f.prototype, "state", 2);
+$([
+  y()
+], f.prototype, "registrationAlias", 2);
+$([
+  y()
+], f.prototype, "errorMessage", 2);
+$([
+  y()
+], f.prototype, "successMessage", 2);
+f = $([
+  se("passkeys-overlay")
+], f);
+var Ze = Object.defineProperty, Ge = Object.getOwnPropertyDescriptor, Ae = (r, e, t, s) => {
+  for (var i = s > 1 ? void 0 : s ? Ge(e, t) : e, n = r.length - 1, o; n >= 0; n--)
+    (o = r[n]) && (i = (s ? o(e, t, i) : o(i)) || i);
+  return s && i && Ze(e, t, i), i;
+};
+let J = class extends x {
+  constructor() {
+    super(...arguments), this.overlayOpen = !1;
+  }
+  handlePasskeysClick() {
+    this.overlayOpen = !0;
+  }
+  handleOverlayClose() {
+    this.overlayOpen = !1;
+  }
+  get passkeyIcon() {
+    return Te`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+        <g>
+          <circle cx="10.5" cy="6" r="4.5" style="fill:currentColor"/>
+          <path d="M22.5,10.5a3.5,3.5,0,1,0-5,3.15V19L19,20.5,21.5,18,20,16.5,21.5,15l-1.24-1.24A3.5,3.5,0,0,0,22.5,10.5Zm-3.5,0a1,1,0,1,1,1-1A1,1,0,0,1,19,10.5Z" style="fill:currentColor"/>
+          <path d="M14.44,12.52A6,6,0,0,0,12,12H9a6,6,0,0,0-6,6v2H16V14.49A5.16,5.16,0,0,1,14.44,12.52Z" style="fill:currentColor"/>
+        </g>
+      </svg>
+    `;
+  }
+  render() {
+    return p`
+      <div class="passkeys-container">
+        <uui-button 
+          type="button" 
+          look="primary" 
+          label="Manage Passkeys"
+          @click=${this.handlePasskeysClick}>
+          ${this.passkeyIcon}
+          Manage Passkeys
+        </uui-button>
+        
+        <passkeys-overlay 
+          .open=${this.overlayOpen}
+          .onClose=${this.handleOverlayClose}>
+        </passkeys-overlay>
+      </div>
+    `;
+  }
+};
+J.styles = X`
+    .passkeys-container {
+      display: block;
+      width: 100%;
+    }
+    
+    uui-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  `;
+Ae([
+  y()
+], J.prototype, "overlayOpen", 2);
+J = Ae([
+  se("passkeys-manager")
+], J);
 export {
-  S as default
+  b as MyLitView,
+  J as PasskeysManager,
+  f as PasskeysOverlay
 };
 //# sourceMappingURL=client.js.map

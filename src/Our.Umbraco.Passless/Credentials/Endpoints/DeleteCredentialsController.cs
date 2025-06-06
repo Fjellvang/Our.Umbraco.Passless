@@ -1,15 +1,18 @@
-﻿using Fido2NetLib.Objects;
+﻿using Asp.Versioning;
+using Fido2NetLib.Objects;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Web.Common.Controllers;
-using Umbraco.Cms.Web.Common.Filters;
+using Umbraco.Cms.Api.Management.Controllers;
 using Umbraco.Extensions;
 using Our.Umbraco.Passless.Credentials.Services;
+using Umbraco.Cms.Api.Management.Routing;
 
 namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
-[DisableBrowserCache]
-[Area(UmbracoPasslessConstants.AreaName)]
-public class DeleteCredentialsController : UmbracoAuthorizedController
+[ApiVersion("1.0")]
+[VersionedApiBackOfficeRoute("passless/credentials/delete")]
+[ApiExplorerSettings(GroupName = "Passless")]
+public class DeleteCredentialsController : ManagementApiControllerBase
 {
     private readonly ICredentialsService credentialsService;
 
@@ -19,12 +22,20 @@ public class DeleteCredentialsController : UmbracoAuthorizedController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Index(string id)
+    [MapToApiVersion("1.0")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeleteCredential([FromQuery] string id)
     {
         var userEmail = User.Identity?.GetEmail();
         if (string.IsNullOrEmpty(userEmail))
         {
-            throw new InvalidOperationException("Unexpected: User email is null");
+            return BadRequest("User email is not available");
+        }
+
+        if (string.IsNullOrEmpty(id))
+        {
+            return BadRequest("Credential ID is required");
         }
 
         await credentialsService.DeleteCredentialsAsync(userEmail, new PublicKeyCredentialDescriptor(Convert.FromHexString(id)));

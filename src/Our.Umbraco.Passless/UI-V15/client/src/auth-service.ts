@@ -22,6 +22,7 @@ export class AuthService {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify({
                     lastCredentialId: useLastCredentials ? lastCredentials : ''
                 })
@@ -46,6 +47,7 @@ export class AuthService {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify({ email })
             });
 
@@ -113,6 +115,7 @@ export class AuthService {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify(data)
             });
 
