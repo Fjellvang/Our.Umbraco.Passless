@@ -21,6 +21,17 @@
           "allowManualLinking": false
         }
       }
+    },
+    {
+      "type": "userProfileApp",
+      "alias": "Our.Umbraco.PasskeysManager",
+      "name": "PasskeysManager",
+      "element": "/App_Plugins/ExternalLoginProviders/client.js",
+      "elementName": "passkeys-manager",
+      "meta": {
+        "label": "Manage Passkeys",
+        "icon": "icon-fingerprint"
+      }
     }
   ]
 }

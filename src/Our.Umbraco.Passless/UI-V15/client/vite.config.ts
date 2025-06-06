@@ -3,7 +3,7 @@
 export default defineConfig({
     build: {
         lib: {
-            entry: "src/external-login.ts", // your web component source file
+            entry: "src/index.ts", // main entry point for all web components
             formats: ["es"],
         },
         outDir: "../../wwwroot/App_Plugins/ExternalLoginProviders", // all compiled files will be placed here
