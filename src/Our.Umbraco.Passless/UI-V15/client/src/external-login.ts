@@ -32,7 +32,8 @@ export default class MyLitView extends LitElement {
       this.userLoginState = 'Authenticating...';
       
       await this.authService.handleSignInSubmit(true);
-      
+      // HacK: We call the default onSubmit method, since the backoffice controller signed us in.
+      this.onSubmit('Umbraco');
       // If we reach this point, authentication was successful
       // The auth service will handle the redirect
       this.userLoginState = 'Authentication successful!';

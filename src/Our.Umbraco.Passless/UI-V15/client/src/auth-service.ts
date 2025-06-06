@@ -131,8 +131,7 @@ export class AuthService {
             }
 
             // Redirect to the success URL
-            window.location.href = assertionResponse.redirectUrl;
-            
+            // window.location.href = assertionResponse.redirectUrl;
         } catch (error) {
             console.error('Assertion verification failed:', error);
             throw new Error('Your credentials could not be validated, please try again');

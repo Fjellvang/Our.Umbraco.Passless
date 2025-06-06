@@ -6,7 +6,6 @@ namespace Our.Umbraco.Passless.Configuration
     public class ConfigureBackOfficeExternalLoginProviderOptions : IConfigureNamedOptions<BackOfficeExternalLoginProviderOptions>
     {
         private readonly PasslessConfiguration passlessConfiguration;
-
         public ConfigureBackOfficeExternalLoginProviderOptions(IOptions<PasslessConfiguration> passlessConfiguration)
         {
             this.passlessConfiguration = passlessConfiguration.Value;

@@ -24,7 +24,7 @@ let ge = class {
     return this.cssText;
   }
 };
-const be = (r) => new ge(typeof r == "string" ? r : r + "", void 0, X), ee = (r, ...e) => {
+const we = (r) => new ge(typeof r == "string" ? r : r + "", void 0, X), ee = (r, ...e) => {
   const t = r.length === 1 ? r[0] : e.reduce((s, i, n) => s + ((o) => {
     if (o._$cssResult$ === !0)
       return o.cssText;
@@ -45,7 +45,7 @@ const be = (r) => new ge(typeof r == "string" ? r : r + "", void 0, X), ee = (r,
   let t = "";
   for (const s of e.cssRules)
     t += s.cssText;
-  return be(t);
+  return we(t);
 })(r) : r;
 /**
  * @license
@@ -302,7 +302,7 @@ P.elementStyles = [], P.shadowRootOptions = { mode: "open" }, P[T("elementProper
  * SPDX-License-Identifier: BSD-3-Clause
  */
 const N = globalThis, J = N.trustedTypes, le = J ? J.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, $e = "$lit$", v = `lit$${Math.random().toFixed(9).slice(2)}$`, me = "?" + v, Ue = `<${me}>`, C = document, H = () => C.createComment(""), j = (r) => r === null || typeof r != "object" && typeof r != "function", se = Array.isArray, Te = (r) => se(r) || typeof (r == null ? void 0 : r[Symbol.iterator]) == "function", Z = `[ 	
-\f\r]`, U = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, ce = /-->/g, de = />/g, b = RegExp(`>|${Z}(?:([^\\s"'>=/]+)(${Z}*=${Z}*(?:[^ 	
+\f\r]`, U = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, ce = /-->/g, de = />/g, w = RegExp(`>|${Z}(?:([^\\s"'>=/]+)(${Z}*=${Z}*(?:[^ 	
 \f\r"'\`<>=]|("|')|))|$)`, "g"), he = /'/g, ue = /"/g, ve = /^(?:script|style|textarea|title)$/i, Ae = (r) => (e, ...t) => ({ _$litType$: r, strings: e, values: t }), p = Ae(1), Ne = Ae(2), O = Symbol.for("lit-noChange"), u = Symbol.for("lit-nothing"), pe = /* @__PURE__ */ new WeakMap(), E = C.createTreeWalker(C, 129);
 function _e(r, e) {
   if (!se(r) || !r.hasOwnProperty("raw"))
@@ -316,8 +316,8 @@ const Re = (r, e) => {
     const a = r[l];
     let d, h, c = -1, g = 0;
     for (; g < a.length && (o.lastIndex = g, h = o.exec(a), h !== null); )
-      g = o.lastIndex, o === U ? h[1] === "!--" ? o = ce : h[1] !== void 0 ? o = de : h[2] !== void 0 ? (ve.test(h[2]) && (i = RegExp("</" + h[2], "g")), o = b) : h[3] !== void 0 && (o = b) : o === b ? h[0] === ">" ? (o = i ?? U, c = -1) : h[1] === void 0 ? c = -2 : (c = o.lastIndex - h[2].length, d = h[1], o = h[3] === void 0 ? b : h[3] === '"' ? ue : he) : o === ue || o === he ? o = b : o === ce || o === de ? o = U : (o = b, i = void 0);
-    const m = o === b && r[l + 1].startsWith("/>") ? " " : "";
+      g = o.lastIndex, o === U ? h[1] === "!--" ? o = ce : h[1] !== void 0 ? o = de : h[2] !== void 0 ? (ve.test(h[2]) && (i = RegExp("</" + h[2], "g")), o = w) : h[3] !== void 0 && (o = w) : o === w ? h[0] === ">" ? (o = i ?? U, c = -1) : h[1] === void 0 ? c = -2 : (c = o.lastIndex - h[2].length, d = h[1], o = h[3] === void 0 ? w : h[3] === '"' ? ue : he) : o === ue || o === he ? o = w : o === ce || o === de ? o = U : (o = w, i = void 0);
+    const m = o === w && r[l + 1].startsWith("/>") ? " " : "";
     n += o === U ? a + Ue : c >= 0 ? (s.push(d), a.slice(0, c) + $e + a.slice(c) + v + m) : a + v + (c === -2 ? l : m);
   }
   return [_e(r, n + (r[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), s];
@@ -740,7 +740,7 @@ class We {
       if (!d.ok)
         throw new Error(`Server validation failed: ${d.statusText}`);
       const h = await d.json();
-      h.isPasskey === !1 && localStorage.setItem(fe.lastCredentialsIdentifier, h.credentialId), window.location.href = h.redirectUrl;
+      h.isPasskey === !1 && localStorage.setItem(fe.lastCredentialsIdentifier, h.credentialId);
     } catch (t) {
       throw console.error("Assertion verification failed:", t), new Error("Your credentials could not be validated, please try again");
     }
@@ -751,7 +751,7 @@ var Je = Object.defineProperty, Ke = Object.getOwnPropertyDescriptor, M = (r, e,
     (o = r[n]) && (i = (s ? o(e, t, i) : o(i)) || i);
   return s && i && Je(e, t, i), i;
 };
-let w = class extends x {
+let b = class extends x {
   constructor() {
     super(), this.userLoginState = "", this.isLoading = !1, this.errorMessage = "", this.authService = new We();
   }
@@ -761,7 +761,7 @@ let w = class extends x {
   }
   async handlePasslessLogin() {
     try {
-      this.isLoading = !0, this.errorMessage = "", this.userLoginState = "Authenticating...", await this.authService.handleSignInSubmit(!0), this.userLoginState = "Authentication successful!";
+      this.isLoading = !0, this.errorMessage = "", this.userLoginState = "Authenticating...", await this.authService.handleSignInSubmit(!0), this.onSubmit("Umbraco"), this.userLoginState = "Authentication successful!";
     } catch (r) {
       console.error("Passless login failed:", r), this.errorMessage = r instanceof Error ? r.message : "Authentication failed", this.userLoginState = "Authentication failed";
     } finally {
@@ -787,7 +787,7 @@ let w = class extends x {
     `;
   }
 };
-w.styles = ee`
+b.styles = ee`
     :host {
       display: block;
       width: 100%;
@@ -802,22 +802,22 @@ w.styles = ee`
   `;
 M([
   L({ type: Object })
-], w.prototype, "manifest", 2);
+], b.prototype, "manifest", 2);
 M([
   L({ type: Function })
-], w.prototype, "onSubmit", 2);
+], b.prototype, "onSubmit", 2);
 M([
   y()
-], w.prototype, "userLoginState", 2);
+], b.prototype, "userLoginState", 2);
 M([
   y()
-], w.prototype, "isLoading", 2);
+], b.prototype, "isLoading", 2);
 M([
   y()
-], w.prototype, "errorMessage", 2);
-w = M([
+], b.prototype, "errorMessage", 2);
+b = M([
   ie("my-lit-view")
-], w);
+], b);
 class qe {
   constructor() {
     this.makeCredentialsEndpoint = "/umbraco/management/api/v1/passless/credentials/make", this.credentialsOptionsEndpoint = "/umbraco/management/api/v1/passless/credentials/options", this.getCredentialsEndpoint = "/umbraco/management/api/v1/passless/credentials", this.deleteCredentialsEndpoint = "/umbraco/management/api/v1/passless/credentials/delete";
@@ -896,18 +896,18 @@ class qe {
     return await this.registerCredentialWithServer(l, t);
   }
   async registerCredentialWithServer(e, t) {
-    const s = B.TOKEN, i = await s(), n = await fetch(`${this.makeCredentialsEndpoint}?alias=${t}`, {
+    const s = B.TOKEN, i = await s(), n = JSON.stringify(e), o = await fetch(`${this.makeCredentialsEndpoint}?alias=${t}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + i
       },
       credentials: "include",
-      body: JSON.stringify(e)
+      body: n
     });
-    if (!n.ok)
-      throw new Error(`Failed to register credential: ${n.statusText}`);
-    return await n.json();
+    if (!o.ok)
+      throw new Error(`Failed to register credential: ${o.statusText}`);
+    return await o.json();
   }
 }
 var Ve = Object.defineProperty, Ze = Object.getOwnPropertyDescriptor, $ = (r, e, t, s) => {
@@ -1234,7 +1234,7 @@ $([
 f = $([
   ie("passkeys-overlay")
 ], f);
-var Ge = Object.defineProperty, Ye = Object.getOwnPropertyDescriptor, we = (r, e, t, s) => {
+var Ge = Object.defineProperty, Ye = Object.getOwnPropertyDescriptor, be = (r, e, t, s) => {
   for (var i = s > 1 ? void 0 : s ? Ye(e, t) : e, n = r.length - 1, o; n >= 0; n--)
     (o = r[n]) && (i = (s ? o(e, t, i) : o(i)) || i);
   return s && i && Ge(e, t, i), i;
@@ -1293,14 +1293,14 @@ K.styles = ee`
       gap: 8px;
     }
   `;
-we([
+be([
   y()
 ], K.prototype, "overlayOpen", 2);
-K = we([
+K = be([
   ie("passkeys-manager")
 ], K);
 export {
-  w as MyLitView,
+  b as MyLitView,
   K as PasskeysManager,
   f as PasskeysOverlay
 };

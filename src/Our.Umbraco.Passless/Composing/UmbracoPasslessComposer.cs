@@ -65,7 +65,7 @@ public class UmbracoPasslessComposer : IComposer
                     backOfficeAuthenticationBuilder.AddRemoteScheme<PasslessRemoteAuthenticationOptions, PasslessRemoteAuthenticationHandler>(
                         // The scheme must be set with this method to work for the backoffice
                         BackOfficeAuthenticationBuilder.SchemeForBackOffice("PasslessLogin")!,
-                        "Fido Login",
+                        "Umbraco.PasslessLogin",
                         options =>
                         {
                             options.CallbackPath = new PathString("/umbraco-passless-login"); // Not really used for now.

@@ -37,7 +37,8 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
             this.credentialsService = credentialsService;
             this.signInManager = signInManager;
             this.userService = userService;
-            this.backOfficePath = globalSettings.CurrentValue.GetBackOfficePath(hostingEnvironment);
+            this.backOfficePath =
+                "umbraco/section/content"; //globalSettings.CurrentValue.GetBackOfficePath(hostingEnvironment);
         }
 
         [HttpPost]
@@ -73,7 +74,7 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
                 var userEmail = Encoding.UTF8.GetString(creds.UserHandle);
                 var user = await userService.FindByEmailAsync(userEmail);
                 await signInManager.SignInAsync(user, true);
-
+                
                 return Ok(
                     new
                     {

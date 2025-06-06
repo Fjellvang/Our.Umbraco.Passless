@@ -8,6 +8,8 @@ using Umbraco.Cms.Api.Management.Controllers;
 using Umbraco.Cms.Api.Management.Routing;
 using Our.Umbraco.Passless.Credentials.Services;
 using Our.Umbraco.Passless.Credentials.Models;
+using System.Text;
+using System.Text.Json;
 
 namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
@@ -29,12 +31,37 @@ public class MakeCredentialsController : ManagementApiControllerBase
     [MapToApiVersion("1.0")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> MakeCredential([FromQuery] string alias, [FromBody] AuthenticatorAttestationRawResponse? attestationResponse, CancellationToken cancellationToken)
+    public async Task<IActionResult> MakeCredential([FromQuery] string alias, 
+        //[FromBody] AuthenticatorAttestationRawResponse? credentialRequest,
+        CancellationToken cancellationToken)
     {
+        // read string from request
+        var body = await new StreamReader(HttpContext.Request.Body, Encoding.UTF8).ReadToEndAsync();
+
+        var credentialRequest = JsonSerializer.Deserialize<AuthenticatorAttestationRawResponse>(body); 
         if (string.IsNullOrEmpty(alias))
         {
             return BadRequest("The alias field is required");
         }
+
+        if (credentialRequest == null)
+        {
+            return BadRequest("Credential request is required");
+        }
+
+        // Convert the custom model to AuthenticatorAttestationRawResponse
+        // var attestationResponse = new AuthenticatorAttestationRawResponse
+        // {
+        //     Id = DecodeBase64Url(credentialRequest.Id),
+        //     RawId = DecodeBase64Url(credentialRequest.RawId),
+        //     Type = credentialRequest.Type,
+        //     Extensions = credentialRequest.Extensions,
+        //     Response = new AuthenticatorAttestationRawResponse.ResponseData
+        //     {
+        //         AttestationObject = DecodeBase64Url(credentialRequest.Response.AttestationObject),
+        //         ClientDataJson = DecodeBase64Url(credentialRequest.Response.ClientDataJSON)
+        //     }
+        // };
         try
         {
             // 1. get the options we sent the client
@@ -49,7 +76,7 @@ public class MakeCredentialsController : ManagementApiControllerBase
             };
 
             // 3. make the credentials
-            var success = await fido2.MakeNewCredentialAsync(attestationResponse, options, isUniqueCallback, cancellationToken: cancellationToken);
+            var success = await fido2.MakeNewCredentialAsync(credentialRequest, options, isUniqueCallback, cancellationToken: cancellationToken);
 
             if (success.Result is null)
             {

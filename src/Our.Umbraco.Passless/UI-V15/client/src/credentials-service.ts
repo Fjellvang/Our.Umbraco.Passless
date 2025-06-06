@@ -143,6 +143,7 @@ export class CredentialsService {
     ): Promise<AttestationVerificationSuccess> {
         const tokenPromise = (OpenAPI.TOKEN as any as () => Promise<string>);
         const token = await tokenPromise();
+        const body = JSON.stringify(formData);
         const response = await fetch(`${this.makeCredentialsEndpoint}?alias=${registrationAlias}`, {
             method: 'POST',
             headers: {
@@ -150,7 +151,7 @@ export class CredentialsService {
                 'Authorization': 'Bearer ' + token
             },
             credentials: 'include',
-            body: JSON.stringify(formData)
+            body: body
         });
 
         if (!response.ok) {
