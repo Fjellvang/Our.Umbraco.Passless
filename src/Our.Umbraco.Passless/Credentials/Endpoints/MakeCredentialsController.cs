@@ -29,7 +29,7 @@ public class MakeCredentialsController : ManagementApiControllerBase
     [MapToApiVersion("1.0")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> MakeCredential([FromQuery] string alias, [FromBody] AuthenticatorAttestationRawResponse attestationResponse, CancellationToken cancellationToken)
+    public async Task<IActionResult> MakeCredential([FromQuery] string alias, [FromBody] AuthenticatorAttestationRawResponse? attestationResponse, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(alias))
         {
