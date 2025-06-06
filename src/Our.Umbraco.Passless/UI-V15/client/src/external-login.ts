@@ -1,40 +1,65 @@
 
 import { LitElement, css, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { AuthService } from './auth-service.ts';
 
 /**
- * This is an example how to set up a LitElement component.
+ * Passless authentication component for Umbraco 15
  */
 @customElement('my-lit-view')
 export default class MyLitView extends LitElement {
   @property({ type: Object }) manifest: any;
   @property({ type: Function }) onSubmit!: (providerName: string) => void;
   @state() userLoginState: string = '';
-  // static get properties() {
-  //   return {
-  //     manifest: { type: Object },
-  //     onSubmit: { type: Function },
-  //     userLoginState: { type: String, state: true }
-  //   };
-  // }
+  @state() isLoading: boolean = false;
+  @state() errorMessage: string = '';
+
+  private authService: AuthService;
+
+  constructor() {
+    super();
+    this.authService = new AuthService();
+  }
 
   get displayName() {
     return this.manifest.meta?.label ?? this.manifest.forProviderName;
   }
-  
-  
+
+  private async handlePasslessLogin() {
+    try {
+      this.isLoading = true;
+      this.errorMessage = '';
+      this.userLoginState = 'Authenticating...';
+      
+      await this.authService.handleSignInSubmit(true);
+      
+      // If we reach this point, authentication was successful
+      // The auth service will handle the redirect
+      this.userLoginState = 'Authentication successful!';
+    } catch (error) {
+      console.error('Passless login failed:', error);
+      this.errorMessage = error instanceof Error ? error.message : 'Authentication failed';
+      this.userLoginState = 'Authentication failed';
+    } finally {
+      this.isLoading = false;
+    }
+  }
 
   render() {
     return html`
-        <h3>Our Company</h3>
-        <p>If you have an account with Our Company, you can sign in to Umbraco by clicking the button below. HELLO VITE</p>
-        <p>The user is currently: ${this.userLoginState}</p>
-        <uui-button type="button" id="button" look="primary" label="${this.displayName}" @click=${() => 
-            // this.onSubmit(this.manifest.forProviderName)
-            alert(`Clicked on ${this.displayName}`)
-          }>
-          <uui-icon name="icon-cloud"></uui-icon>
-          ${this.displayName}
+        <h3>Passless Authentication</h3>
+        <p>Sign in to Umbraco using your passkey or security key.</p>
+        ${this.userLoginState ? html`<p>Status: ${this.userLoginState}</p>` : ''}
+        ${this.errorMessage ? html`<p style="color: red;">Error: ${this.errorMessage}</p>` : ''}
+        <uui-button 
+          type="button" 
+          id="button" 
+          look="primary" 
+          label="${this.displayName}" 
+          ?disabled=${this.isLoading}
+          @click=${this.handlePasslessLogin}>
+          <uui-icon name="icon-fingerprint"></uui-icon>
+          ${this.isLoading ? 'Authenticating...' : this.displayName}
         </uui-button>
     `;
   }
@@ -46,6 +71,10 @@ export default class MyLitView extends LitElement {
     }
     #button {
       width: 100%;
+    }
+    p[style*="color: red"] {
+      margin: 8px 0;
+      font-size: 14px;
     }
   `;
 }

@@ -22,7 +22,6 @@ When you've installed and configured the package, log into the backffice, press 
 
 - Passwordless login for members.
 - Better configuration for consumers
-- Umbraco 9 Support. This might take longer as the .net 5 version of fido2.net lib is quite outdated.
 
 
 ### Known issues

@@ -7,7 +7,7 @@ namespace Our.Umbraco.Passless.Composing;
 
 public class PasslessRemoteAuthenticationHandler : RemoteAuthenticationHandler<PasslessRemoteAuthenticationOptions>
 {
-    public PasslessRemoteAuthenticationHandler(IOptionsMonitor<PasslessRemoteAuthenticationOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
+    public PasslessRemoteAuthenticationHandler(IOptionsMonitor<PasslessRemoteAuthenticationOptions> options, ILoggerFactory logger, UrlEncoder encoder) : base(options, logger, encoder)
     {
     }
 
