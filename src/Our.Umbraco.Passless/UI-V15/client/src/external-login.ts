@@ -2,6 +2,7 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { AuthService } from './auth-service.ts';
+import passkeyIconUrl from './assets/FIDO-Passkey_Icon-White.svg';
 
 /**
  * Passless authentication component for Umbraco 15
@@ -59,7 +60,7 @@ export default class MyLitView extends LitElement {
           label="${this.displayName}" 
           ?disabled=${this.isLoading}
           @click=${this.handlePasslessLogin}>
-          <uui-icon name="icon-fingerprint"></uui-icon>
+          <img src="${passkeyIconUrl}" alt="Passkey" style="width: 16px; height: 16px;">
           ${this.isLoading ? 'Authenticating...' : this.displayName}
         </uui-button>
     `;

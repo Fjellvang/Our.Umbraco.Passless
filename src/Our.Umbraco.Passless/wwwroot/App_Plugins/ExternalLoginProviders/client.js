@@ -303,8 +303,8 @@ P.elementStyles = [], P.shadowRootOptions = { mode: "open" }, P[T("elementProper
  */
 const N = globalThis, J = N.trustedTypes, le = J ? J.createPolicy("lit-html", { createHTML: (r) => r }) : void 0, $e = "$lit$", v = `lit$${Math.random().toFixed(9).slice(2)}$`, me = "?" + v, Ue = `<${me}>`, C = document, H = () => C.createComment(""), j = (r) => r === null || typeof r != "object" && typeof r != "function", se = Array.isArray, Te = (r) => se(r) || typeof (r == null ? void 0 : r[Symbol.iterator]) == "function", Z = `[ 	
 \f\r]`, U = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, ce = /-->/g, de = />/g, w = RegExp(`>|${Z}(?:([^\\s"'>=/]+)(${Z}*=${Z}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g"), he = /'/g, ue = /"/g, ve = /^(?:script|style|textarea|title)$/i, Ae = (r) => (e, ...t) => ({ _$litType$: r, strings: e, values: t }), p = Ae(1), Ne = Ae(2), O = Symbol.for("lit-noChange"), u = Symbol.for("lit-nothing"), pe = /* @__PURE__ */ new WeakMap(), E = C.createTreeWalker(C, 129);
-function _e(r, e) {
+\f\r"'\`<>=]|("|')|))|$)`, "g"), he = /'/g, pe = /"/g, ve = /^(?:script|style|textarea|title)$/i, Ne = (r) => (e, ...t) => ({ _$litType$: r, strings: e, values: t }), u = Ne(1), O = Symbol.for("lit-noChange"), p = Symbol.for("lit-nothing"), ue = /* @__PURE__ */ new WeakMap(), E = C.createTreeWalker(C, 129);
+function Ae(r, e) {
   if (!se(r) || !r.hasOwnProperty("raw"))
     throw Error("invalid template strings array");
   return le !== void 0 ? le.createHTML(e) : e;
@@ -316,11 +316,11 @@ const Re = (r, e) => {
     const a = r[l];
     let d, h, c = -1, g = 0;
     for (; g < a.length && (o.lastIndex = g, h = o.exec(a), h !== null); )
-      g = o.lastIndex, o === U ? h[1] === "!--" ? o = ce : h[1] !== void 0 ? o = de : h[2] !== void 0 ? (ve.test(h[2]) && (i = RegExp("</" + h[2], "g")), o = w) : h[3] !== void 0 && (o = w) : o === w ? h[0] === ">" ? (o = i ?? U, c = -1) : h[1] === void 0 ? c = -2 : (c = o.lastIndex - h[2].length, d = h[1], o = h[3] === void 0 ? w : h[3] === '"' ? ue : he) : o === ue || o === he ? o = w : o === ce || o === de ? o = U : (o = w, i = void 0);
+      g = o.lastIndex, o === U ? h[1] === "!--" ? o = ce : h[1] !== void 0 ? o = de : h[2] !== void 0 ? (ve.test(h[2]) && (i = RegExp("</" + h[2], "g")), o = w) : h[3] !== void 0 && (o = w) : o === w ? h[0] === ">" ? (o = i ?? U, c = -1) : h[1] === void 0 ? c = -2 : (c = o.lastIndex - h[2].length, d = h[1], o = h[3] === void 0 ? w : h[3] === '"' ? pe : he) : o === pe || o === he ? o = w : o === ce || o === de ? o = U : (o = w, i = void 0);
     const m = o === w && r[l + 1].startsWith("/>") ? " " : "";
     n += o === U ? a + Ue : c >= 0 ? (s.push(d), a.slice(0, c) + $e + a.slice(c) + v + m) : a + v + (c === -2 ? l : m);
   }
-  return [_e(r, n + (r[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), s];
+  return [Ae(r, n + (r[t] || "<?>") + (e === 2 ? "</svg>" : e === 3 ? "</math>" : "")), s];
 };
 class D {
   constructor({ strings: e, _$litType$: t }, s) {
@@ -409,7 +409,7 @@ class I {
     return ((e = this._$AM) == null ? void 0 : e._$AU) ?? this._$Cv;
   }
   constructor(e, t, s, i) {
-    this.type = 2, this._$AH = u, this._$AN = void 0, this._$AA = e, this._$AB = t, this._$AM = s, this.options = i, this._$Cv = (i == null ? void 0 : i.isConnected) ?? !0;
+    this.type = 2, this._$AH = p, this._$AN = void 0, this._$AA = e, this._$AB = t, this._$AM = s, this.options = i, this._$Cv = (i == null ? void 0 : i.isConnected) ?? !0;
   }
   get parentNode() {
     let e = this._$AA.parentNode;
@@ -423,7 +423,7 @@ class I {
     return this._$AB;
   }
   _$AI(e, t = this) {
-    e = k(this, e, t), j(e) ? e === u || e == null || e === "" ? (this._$AH !== u && this._$AR(), this._$AH = u) : e !== this._$AH && e !== O && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : Te(e) ? this.k(e) : this._(e);
+    e = k(this, e, t), j(e) ? e === p || e == null || e === "" ? (this._$AH !== p && this._$AR(), this._$AH = p) : e !== this._$AH && e !== O && this._(e) : e._$litType$ !== void 0 ? this.$(e) : e.nodeType !== void 0 ? this.T(e) : Te(e) ? this.k(e) : this._(e);
   }
   O(e) {
     return this._$AA.parentNode.insertBefore(e, this._$AB);
@@ -432,11 +432,11 @@ class I {
     this._$AH !== e && (this._$AR(), this._$AH = this.O(e));
   }
   _(e) {
-    this._$AH !== u && j(this._$AH) ? this._$AA.nextSibling.data = e : this.T(C.createTextNode(e)), this._$AH = e;
+    this._$AH !== p && j(this._$AH) ? this._$AA.nextSibling.data = e : this.T(C.createTextNode(e)), this._$AH = e;
   }
   $(e) {
     var n;
-    const { values: t, _$litType$: s } = e, i = typeof s == "number" ? this._$AC(e) : (s.el === void 0 && (s.el = D.createElement(_e(s.h, s.h[0]), this.options)), s);
+    const { values: t, _$litType$: s } = e, i = typeof s == "number" ? this._$AC(e) : (s.el === void 0 && (s.el = D.createElement(Ae(s.h, s.h[0]), this.options)), s);
     if (((n = this._$AH) == null ? void 0 : n._$AD) === i)
       this._$AH.p(t);
     else {
@@ -445,8 +445,8 @@ class I {
     }
   }
   _$AC(e) {
-    let t = pe.get(e.strings);
-    return t === void 0 && pe.set(e.strings, t = new D(e)), t;
+    let t = ue.get(e.strings);
+    return t === void 0 && ue.set(e.strings, t = new D(e)), t;
   }
   k(e) {
     se(this._$AH) || (this._$AH = [], this._$AR());
@@ -476,7 +476,7 @@ class q {
     return this._$AM._$AU;
   }
   constructor(e, t, s, i, n) {
-    this.type = 1, this._$AH = u, this._$AN = void 0, this.element = e, this.name = t, this._$AM = i, this.options = n, s.length > 2 || s[0] !== "" || s[1] !== "" ? (this._$AH = Array(s.length - 1).fill(new String()), this.strings = s) : this._$AH = u;
+    this.type = 1, this._$AH = p, this._$AN = void 0, this.element = e, this.name = t, this._$AM = i, this.options = n, s.length > 2 || s[0] !== "" || s[1] !== "" ? (this._$AH = Array(s.length - 1).fill(new String()), this.strings = s) : this._$AH = p;
   }
   _$AI(e, t = this, s, i) {
     const n = this.strings;
@@ -487,12 +487,12 @@ class q {
       const l = e;
       let a, d;
       for (e = n[0], a = 0; a < n.length - 1; a++)
-        d = k(this, l[s + a], t, a), d === O && (d = this._$AH[a]), o || (o = !j(d) || d !== this._$AH[a]), d === u ? e = u : e !== u && (e += (d ?? "") + n[a + 1]), this._$AH[a] = d;
+        d = k(this, l[s + a], t, a), d === O && (d = this._$AH[a]), o || (o = !j(d) || d !== this._$AH[a]), d === p ? e = p : e !== p && (e += (d ?? "") + n[a + 1]), this._$AH[a] = d;
     }
     o && !i && this.j(e);
   }
   j(e) {
-    e === u ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
+    e === p ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, e ?? "");
   }
 }
 class je extends q {
@@ -500,7 +500,7 @@ class je extends q {
     super(...arguments), this.type = 3;
   }
   j(e) {
-    this.element[this.name] = e === u ? void 0 : e;
+    this.element[this.name] = e === p ? void 0 : e;
   }
 }
 class De extends q {
@@ -508,7 +508,7 @@ class De extends q {
     super(...arguments), this.type = 4;
   }
   j(e) {
-    this.element.toggleAttribute(this.name, !!e && e !== u);
+    this.element.toggleAttribute(this.name, !!e && e !== p);
   }
 }
 class Ie extends q {
@@ -516,9 +516,9 @@ class Ie extends q {
     super(e, t, s, i, n), this.type = 5;
   }
   _$AI(e, t = this) {
-    if ((e = k(this, e, t, 0) ?? u) === O)
+    if ((e = k(this, e, t, 0) ?? p) === O)
       return;
-    const s = this._$AH, i = e === u && s !== u || e.capture !== s.capture || e.once !== s.once || e.passive !== s.passive, n = e !== u && (s === u || i);
+    const s = this._$AH, i = e === p && s !== p || e.capture !== s.capture || e.once !== s.once || e.passive !== s.passive, n = e !== p && (s === p || i);
     i && this.element.removeEventListener(this.name, this, s), n && this.element.addEventListener(this.name, this, e), this._$AH = e;
   }
   handleEvent(e) {
@@ -746,6 +746,7 @@ class We {
     }
   }
 }
+const _e = "data:image/svg+xml,%3csvg%20id='Passkey'%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3e%3cg%20id='icon-passkey'%3e%3ccircle%20id='icon-passkey-head'%20cx='10.5'%20cy='6'%20r='4.5'%20style='fill:%23fff'/%3e%3cpath%20id='icon-passkey-key'%20d='M22.5,10.5a3.5,3.5,0,1,0-5,3.15V19L19,20.5,21.5,18,20,16.5,21.5,15l-1.24-1.24A3.5,3.5,0,0,0,22.5,10.5Zm-3.5,0a1,1,0,1,1,1-1A1,1,0,0,1,19,10.5Z'%20style='fill:%23fff'/%3e%3cpath%20id='icon-passkey-body'%20d='M14.44,12.52A6,6,0,0,0,12,12H9a6,6,0,0,0-6,6v2H16V14.49A5.16,5.16,0,0,1,14.44,12.52Z'%20style='fill:%23fff'/%3e%3c/g%3e%3c/svg%3e";
 var Je = Object.defineProperty, Ke = Object.getOwnPropertyDescriptor, M = (r, e, t, s) => {
   for (var i = s > 1 ? void 0 : s ? Ke(e, t) : e, n = r.length - 1, o; n >= 0; n--)
     (o = r[n]) && (i = (s ? o(e, t, i) : o(i)) || i);
@@ -769,11 +770,11 @@ let b = class extends x {
     }
   }
   render() {
-    return p`
+    return u`
         <h3>Passless Authentication</h3>
         <p>Sign in to Umbraco using your passkey or security key.</p>
-        ${this.userLoginState ? p`<p>Status: ${this.userLoginState}</p>` : ""}
-        ${this.errorMessage ? p`<p style="color: red;">Error: ${this.errorMessage}</p>` : ""}
+        ${this.userLoginState ? u`<p>Status: ${this.userLoginState}</p>` : ""}
+        ${this.errorMessage ? u`<p style="color: red;">Error: ${this.errorMessage}</p>` : ""}
         <uui-button 
           type="button" 
           id="button" 
@@ -781,7 +782,7 @@ let b = class extends x {
           label="${this.displayName}" 
           ?disabled=${this.isLoading}
           @click=${this.handlePasslessLogin}>
-          <uui-icon name="icon-fingerprint"></uui-icon>
+          <img src="${_e}" alt="Passkey" style="width: 16px; height: 16px;">
           ${this.isLoading ? "Authenticating..." : this.displayName}
         </uui-button>
     `;
@@ -979,7 +980,7 @@ let f = class extends x {
   }
   render() {
     var r, e;
-    return this.open ? p`
+    return this.open ? u`
       <div class="overlay-backdrop" @click=${this.handleClose}>
         <div class="overlay-content" @click=${(t) => t.stopPropagation()}>
           <div class="overlay-header">
@@ -994,26 +995,26 @@ let f = class extends x {
           </div>
 
           <div class="overlay-body">
-            ${this.loading ? p`
+            ${this.loading ? u`
               <div class="loading">
                 <uui-loader></uui-loader>
                 <p>Loading...</p>
               </div>
-            ` : p`
+            ` : u`
               <div class="content">
                 <h3>Registrations</h3>
                 <p>Here you can manage your Passless Authenticators</p>
 
-                ${this.errorMessage ? p`
+                ${this.errorMessage ? u`
                   <div class="message error">${this.errorMessage}</div>
                 ` : ""}
 
-                ${this.successMessage ? p`
+                ${this.successMessage ? u`
                   <div class="message success">${this.successMessage}</div>
                 ` : ""}
 
                 <div class="credentials-list">
-                  ${(e = (r = this.credentials) == null ? void 0 : r.userCredentials) == null ? void 0 : e.map((t) => p`
+                  ${(e = (r = this.credentials) == null ? void 0 : r.userCredentials) == null ? void 0 : e.map((t) => u`
                     <div class="credential-item">
                       <span class="credential-info">
                         <uui-icon name="icon-keychain"></uui-icon>
@@ -1029,7 +1030,7 @@ let f = class extends x {
                     </div>
                   `)}
 
-                  ${this.state === "ready" ? p`
+                  ${this.state === "ready" ? u`
                     <uui-button 
                       type="button" 
                       look="primary" 
@@ -1038,7 +1039,7 @@ let f = class extends x {
                     </uui-button>
                   ` : ""}
 
-                  ${this.state === "adding" ? p`
+                  ${this.state === "adding" ? u`
                     <div class="add-credential">
                       <uui-input 
                         type="text"
@@ -1072,7 +1073,7 @@ let f = class extends x {
           </div>
         </div>
       </div>
-    ` : p``;
+    ` : u``;
   }
 };
 f.styles = ee`
@@ -1249,26 +1250,15 @@ let K = class extends x {
   handleOverlayClose() {
     this.overlayOpen = !1;
   }
-  get passkeyIcon() {
-    return Ne`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
-        <g>
-          <circle cx="10.5" cy="6" r="4.5" style="fill:currentColor"/>
-          <path d="M22.5,10.5a3.5,3.5,0,1,0-5,3.15V19L19,20.5,21.5,18,20,16.5,21.5,15l-1.24-1.24A3.5,3.5,0,0,0,22.5,10.5Zm-3.5,0a1,1,0,1,1,1-1A1,1,0,0,1,19,10.5Z" style="fill:currentColor"/>
-          <path d="M14.44,12.52A6,6,0,0,0,12,12H9a6,6,0,0,0-6,6v2H16V14.49A5.16,5.16,0,0,1,14.44,12.52Z" style="fill:currentColor"/>
-        </g>
-      </svg>
-    `;
-  }
   render() {
-    return p`
+    return u`
       <div class="passkeys-container">
         <uui-button 
           type="button" 
           look="primary" 
           label="Manage Passkeys"
           @click=${this.handlePasskeysClick}>
-          ${this.passkeyIcon}
+          <img src="${_e}" alt="Passkey" style="width: 16px; height: 16px;">
           Manage Passkeys
         </uui-button>
         
