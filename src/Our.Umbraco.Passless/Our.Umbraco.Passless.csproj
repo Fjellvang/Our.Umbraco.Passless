@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
     <ContentTargetFolders>.</ContentTargetFolders>
-    <Version>15.0.0-alpha1</Version>
+    <Version>15.0.0</Version>
     <Authors>Aleksander Fjellvang</Authors>
     <Description>Passworless login for Umbraco 15+ using FIDO and WebauthN</Description>
     <PackageProjectUrl>https://github.com/Fjellvang/Our.Umbraco.Passless</PackageProjectUrl>
