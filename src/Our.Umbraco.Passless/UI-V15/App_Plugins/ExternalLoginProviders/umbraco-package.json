@@ -22,6 +22,18 @@
           "allowManualLinking": true
         }
       }
+    },
+    {
+      "type": "localization",
+      "alias": "Passless.en",
+      "name": "English (Passless)",
+      "js": "/App_Plugins/ExternalLoginProviders/Localization/en.js"
+    },
+    {
+      "type": "localization",
+      "alias": "Passless.da",
+      "name": "Danish (Passless)",
+      "js": "/App_Plugins/ExternalLoginProviders/Localization/da.js"
     }
   ]
 }

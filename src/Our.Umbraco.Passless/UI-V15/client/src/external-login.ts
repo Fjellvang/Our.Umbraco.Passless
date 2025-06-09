@@ -53,7 +53,7 @@ export default class PasslessLoginView extends LitElement {
 
   render() {
     return html`
-        <h3><umb-localize key="Passless.LoginHeader" debug="true"></umb-localize></h3>
+        <h3><umb-localize key="Passless_LoginHeader" debug="true"></umb-localize></h3>
         <p>Sign in to Umbraco using your passkey or security key.</p>
         
         ${this.errorMessage ? html`<p class="error-message">Error: ${this.errorMessage}</p>` : ''}

@@ -33,6 +33,15 @@
         "label": "Manage Passkeys",
         "icon": "icon-fingerprint"
       }
+    },
+    {
+      "type": "localization",
+      "alias": "Our.Umbraco.PasslessLogin.Localize.EnUS",
+      "name": "English",
+      "meta": {
+        "culture": "en"
+      },
+      "js": "/App_Plugins/ExternalLoginProviders/Localization/en.js"
     }
   ]
 }
