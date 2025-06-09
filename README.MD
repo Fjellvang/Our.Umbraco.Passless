@@ -16,12 +16,12 @@ When you've installed and configured the package, log into the backffice, press 
 - Passwordless login to the umbraco backoffice.
 - Register multiple Authenticators to your user
 - Platform (Windows hello etc) And Cross Platform (Android/Iphone via passkeys, YubiKey etc) Authenticators supported.
-- Forgot password registers new authenticator
 
 ## Planned features
 
 - Passwordless login for members.
 - Better configuration for consumers
+- Forgot password registers new authenticator
 
 
 ### Known issues

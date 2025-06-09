@@ -1,8 +1,0 @@
-﻿{
-  "javascript": [
-    "~/App_Plugins/UmbracoPassless/script.bundle.js"
-  ],
-  "css": [
-    "~/App_Plugins/UmbracoPassless/style.css"
-  ]
-}
