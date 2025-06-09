@@ -7,8 +7,8 @@ import passkeyIconUrl from './assets/FIDO-Passkey_Icon-White.svg';
 /**
  * Passless authentication component for Umbraco 15
  */
-@customElement('my-lit-view')
-export default class MyLitView extends LitElement {
+@customElement('passless-login-view')
+export default class PasslessLoginView extends LitElement {
   @property({ type: Object }) manifest: any;
   @property({ type: Function }) onSubmit!: (providerName: string) => void;
   @state() userLoginState: string = '';
@@ -81,4 +81,4 @@ export default class MyLitView extends LitElement {
   `;
 }
 
-// customElements.define('my-lit-view', MyLitView);
+// customElements.define('passless-login-view', PasslessLoginView);

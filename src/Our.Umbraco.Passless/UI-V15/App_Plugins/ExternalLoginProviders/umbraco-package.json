@@ -9,6 +9,7 @@
       "name": "PasslessLogin",
       "forProviderName": "Umbraco.PasslessLogin",
       "element": "/App_Plugins/ExternalLoginProviders/my-external-login.js",
+      "elementName": "passless-login-view",
       "meta": {
         "label": "PasslessLogin",
         "defaultView": {
