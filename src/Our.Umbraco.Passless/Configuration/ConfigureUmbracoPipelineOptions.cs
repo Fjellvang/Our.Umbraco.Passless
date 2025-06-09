@@ -35,18 +35,7 @@ public class ConfigureUmbracoPipelineOptions : IConfigureOptions<UmbracoPipeline
                 {
                     app.UseEndpoints(endpoints =>
                     {
-                        endpoints.MapUmbracoRoute<CredentialsOptionsController>(
-                            $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
-                            UmbracoPasslessConstants.AreaName,
-                            UmbracoPasslessConstants.AreaName);
-                        endpoints.MapUmbracoRoute<MakeCredentialsController>(
-                            $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
-                            UmbracoPasslessConstants.AreaName,
-                            UmbracoPasslessConstants.AreaName);
-                        endpoints.MapUmbracoRoute<GetCredentialsController>(
-                            $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
-                            UmbracoPasslessConstants.AreaName,
-                            UmbracoPasslessConstants.AreaName);
+                        // Credentials controllers now use Management API routing
                         endpoints.MapUmbracoRoute<AssertionOptionsController>(
                             $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
                             UmbracoPasslessConstants.AreaName,
@@ -55,10 +44,7 @@ public class ConfigureUmbracoPipelineOptions : IConfigureOptions<UmbracoPipeline
                             $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
                             UmbracoPasslessConstants.AreaName,
                             UmbracoPasslessConstants.AreaName);
-                        endpoints.MapUmbracoRoute<DeleteCredentialsController>(
-                            $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
-                            UmbracoPasslessConstants.AreaName,
-                            UmbracoPasslessConstants.AreaName);
+                        // DeleteCredentialsController now uses Management API routing
                         endpoints.MapUmbracoRoute<ForgotCredentialsController>(
                             $"{_globalSettings.GetUmbracoMvcArea(_hostingEnvironment)}/{Constants.Web.Mvc.BackOfficePathSegment}",
                             UmbracoPasslessConstants.AreaName,

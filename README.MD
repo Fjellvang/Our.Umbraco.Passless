@@ -16,13 +16,12 @@ When you've installed and configured the package, log into the backffice, press 
 - Passwordless login to the umbraco backoffice.
 - Register multiple Authenticators to your user
 - Platform (Windows hello etc) And Cross Platform (Android/Iphone via passkeys, YubiKey etc) Authenticators supported.
-- Forgot password registers new authenticator
 
 ## Planned features
 
 - Passwordless login for members.
 - Better configuration for consumers
-- Umbraco 9 Support. This might take longer as the .net 5 version of fido2.net lib is quite outdated.
+- Forgot password registers new authenticator
 
 
 ### Known issues
@@ -69,11 +68,10 @@ Set this to false, and register your own implementation if you want to use a dif
 ## Frontend
 
 The frontend is built using node 16
-Navigate to ``src/Our.Umbraco.Passless/UI`` and run the following commands:
+Navigate to ``src/Our.Umbraco.Passless/UI-V15/client`` and run the following commands:
 ```
 npm i
-npm run build:dev
-npm run dev
+npm run build
 ```
 
 Now you're ready to work on the frontend.

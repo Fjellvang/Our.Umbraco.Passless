@@ -7,4 +7,6 @@ public class PasslessRemoteAuthenticationOptions : RemoteAuthenticationOptions
     public PasslessRemoteAuthenticationOptions()
     {
     }
+    
+    
 }

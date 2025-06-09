@@ -1,23 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net;
 using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Hosting;
-using Umbraco.Cms.Core.Models.Membership;
 using Umbraco.Cms.Core.Security;
-using Umbraco.Cms.Web.BackOffice.Controllers;
-using Umbraco.Cms.Web.BackOffice.Filters;
-using Umbraco.Cms.Web.BackOffice.Security;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
+using Umbraco.Cms.Web.Common.Security;
 using Umbraco.Extensions;
 
 namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
-[UmbracoRequireHttps]
 [DisableBrowserCache]
 [Area(UmbracoPasslessConstants.AreaName)]
 public class VerifyResetCredentialsController : UmbracoApiController

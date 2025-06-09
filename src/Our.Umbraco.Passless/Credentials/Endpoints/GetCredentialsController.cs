@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Web.BackOffice.Filters;
-using Umbraco.Cms.Web.Common.Controllers;
-using Umbraco.Cms.Web.Common.Filters;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Api.Management.Controllers;
 using Umbraco.Extensions;
 using Our.Umbraco.Passless.Credentials.Services;
 using Our.Umbraco.Passless.Credentials.Models;
+using Umbraco.Cms.Api.Management.Routing;
 
 namespace Our.Umbraco.Passless.Credentials.Endpoints;
 
-[UmbracoRequireHttps]
-[DisableBrowserCache]
-[Area(UmbracoPasslessConstants.AreaName)]
-public class GetCredentialsController : UmbracoAuthorizedController
+[ApiVersion("1.0")]
+[VersionedApiBackOfficeRoute("passless/credentials")]
+[ApiExplorerSettings(GroupName = "Passless")]
+public class GetCredentialsController : ManagementApiControllerBase
 {
     private readonly ICredentialsService credentialsService;
 
@@ -21,12 +22,14 @@ public class GetCredentialsController : UmbracoAuthorizedController
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index(CancellationToken cancellationToken = default)
+    [MapToApiVersion("1.0")]
+    [ProducesResponseType(typeof(UserCredentialsResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetCredentials(CancellationToken cancellationToken = default)
     {
         var userEmail = User.Identity?.GetEmail();
         if (string.IsNullOrEmpty(userEmail))
         {
-            throw new InvalidOperationException("Unexpected: User email is null");
+            return BadRequest("User email is not available");
         }
 
         var credentials = await credentialsService.GetCredentialsByUserIdAsync(userEmail, cancellationToken);

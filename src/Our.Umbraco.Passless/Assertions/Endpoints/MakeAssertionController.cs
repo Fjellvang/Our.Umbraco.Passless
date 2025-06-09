@@ -5,21 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text;
 using Umbraco.Cms.Core.Security;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Web.BackOffice.Filters;
-using Umbraco.Cms.Web.BackOffice.Security;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
 using Umbraco.Extensions;
-using static Umbraco.Cms.Core.Constants;
 using Our.Umbraco.Passless.Credentials.Services;
 using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Hosting;
+using Umbraco.Cms.Web.Common.Security;
 
 namespace Our.Umbraco.Passless.Assertions.Endpoints
 {
-    [UmbracoRequireHttps]
     [DisableBrowserCache]
     [Area(UmbracoPasslessConstants.AreaName)]
     public class MakeAssertionController : UmbracoController
@@ -41,7 +37,8 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
             this.credentialsService = credentialsService;
             this.signInManager = signInManager;
             this.userService = userService;
-            this.backOfficePath = globalSettings.CurrentValue.GetBackOfficePath(hostingEnvironment);
+            this.backOfficePath =
+                "umbraco/section/content"; //globalSettings.CurrentValue.GetBackOfficePath(hostingEnvironment);
         }
 
         [HttpPost]
@@ -77,7 +74,7 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
                 var userEmail = Encoding.UTF8.GetString(creds.UserHandle);
                 var user = await userService.FindByEmailAsync(userEmail);
                 await signInManager.SignInAsync(user, true);
-
+                
                 return Ok(
                     new
                     {

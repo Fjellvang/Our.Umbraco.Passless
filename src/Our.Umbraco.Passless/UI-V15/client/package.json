@@ -1,0 +1,21 @@
+{
+  "name": "client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "watch": "vite build --watch"
+  },
+  "dependencies": {
+    "@rollup/rollup-win32-x64-msvc": "^4.40.2",
+    "lit": "^3.3.0"
+  },
+  "devDependencies": {
+    "@umbraco-cms/backoffice": "^15.4.1",
+    "typescript": "~5.8.3",
+    "vite": "^5.2.8"
+  }
+}

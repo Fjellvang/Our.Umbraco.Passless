@@ -1,12 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>0.0.5</Version>
+    <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+    <ContentTargetFolders>.</ContentTargetFolders>
+    <Version>15.0.0-alpha1</Version>
     <Authors>Aleksander Fjellvang</Authors>
-    <Description>Passworless login for Umbraco 10+ using FIDO and WebauthN</Description>
+    <Description>Passworless login for Umbraco 15+ using FIDO and WebauthN</Description>
     <PackageProjectUrl>https://github.com/Fjellvang/Our.Umbraco.Passless</PackageProjectUrl>
     <PackageReadmeFile>README.MD</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Fjellvang/Our.Umbraco.Passless</RepositoryUrl>
@@ -17,12 +19,8 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageReleaseNotes>
-      - Enforced Attestation, to detect passkeys signins.
-      - On passkey sign ins don't persist credential IDs due to windows hello bug
-      - Minor TS type fixes
-      - Update NPM packages
-      - Hide the login form during login, can be shown with the "login with username" button
-      - Added some danish translations
+      - Updated to Umbraco 15.4.1
+      - Ported Frontend to Vite
     </PackageReleaseNotes>
   </PropertyGroup>
 
@@ -40,23 +38,31 @@
       <Pack>True</Pack>
       <PackagePath>buildTransitive</PackagePath>
     </None>
-    <Content Include="dist\**\*.*">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-      <PackagePath>dist</PackagePath>
-    </Content>
+
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Fido2" Version="3.0.1" />
     <PackageReference Include="Fido2.AspNet" Version="3.0.1" />
-    <PackageReference Include="Umbraco.Cms.Core" Version="10.8.9" />
-    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.8.9" />
-    <PackageReference Include="Umbraco.Cms.Web.Common" Version="10.8.9" />
+    <PackageReference Include="Umbraco.Cms.Api.Management" Version="15.4.1" />
+    <PackageReference Include="Umbraco.Cms.Core" Version="15.4.1" />
+    <PackageReference Include="Umbraco.Cms.Web.Common" Version="15.4.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UI\App_Plugins\UmbracoPassless\BackOffice\assets\" />
+    <Folder Include="build\" />
+    <Folder Include="wwwroot\App_Plugins\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="dist\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="UI\package-lock.json" />
+    <_ContentIncludedByDefault Remove="UI\package.json" />
+    <_ContentIncludedByDefault Remove="UI\tsconfig.json" />
   </ItemGroup>
 
 </Project>

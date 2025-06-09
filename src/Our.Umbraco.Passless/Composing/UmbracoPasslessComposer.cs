@@ -7,6 +7,7 @@ using Umbraco.Cms.Core.Notifications;
 using Our.Umbraco.Passless.Credentials.Persistence;
 using Our.Umbraco.Passless.Credentials.Services;
 using Our.Umbraco.Passless.Configuration;
+using Umbraco.Cms.Api.Management.Security;
 using Umbraco.Extensions;
 
 namespace Our.Umbraco.Passless.Composing;
@@ -63,8 +64,8 @@ public class UmbracoPasslessComposer : IComposer
                 {
                     backOfficeAuthenticationBuilder.AddRemoteScheme<PasslessRemoteAuthenticationOptions, PasslessRemoteAuthenticationHandler>(
                         // The scheme must be set with this method to work for the backoffice
-                        backOfficeAuthenticationBuilder.SchemeForBackOffice("PasslessLogin")!,
-                        "Fido Login",
+                        BackOfficeAuthenticationBuilder.SchemeForBackOffice("PasslessLogin")!,
+                        "Umbraco.PasslessLogin",
                         options =>
                         {
                             options.CallbackPath = new PathString("/umbraco-passless-login"); // Not really used for now.
