@@ -8,19 +8,19 @@ export default defineConfig({
             entry: "src/index.ts", // main entry point for all web components
             formats: ["es"],
         },
-        outDir: "../../wwwroot/App_Plugins/ExternalLoginProviders", // all compiled files will be placed here
+        outDir: "../../wwwroot/App_Plugins/Our.Umbraco.Passless", // all compiled files will be placed here
         emptyOutDir: true,
         sourcemap: true,
         rollupOptions: {
             external: [/^@umbraco/], // ignore the Umbraco Backoffice package in the build
         },
     },
-    base: "/App_Plugins/ExternalLoginProviders/", // the base path of the app in the browser (used for assets)
+    base: "/App_Plugins/Our.Umbraco.Passless/", // the base path of the app in the browser (used for assets)
     plugins: [
         {
             name: "copy-localization",
             writeBundle() {
-                const outDir = "../../wwwroot/App_Plugins/ExternalLoginProviders";
+                const outDir = "../../wwwroot/App_Plugins/Our.Umbraco.Passless";
                 const localizationDir = join(outDir, "Localization");
                 
                 // Create Localization directory if it doesn't exist

@@ -56,6 +56,7 @@
   <ItemGroup>
     <Folder Include="build\" />
     <Folder Include="UI\App_Plugins\UmbracoPassless\BackOffice\assets\" />
+    <Folder Include="wwwroot\App_Plugins\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,10 +64,4 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\App_Plugins\ExternalLoginProviders\client.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\App_Plugins\ExternalLoginProviders\client.js.map" />
-    <_ContentIncludedByDefault Remove="wwwroot\App_Plugins\ExternalLoginProviders\umbraco-package.json" />
-    <_ContentIncludedByDefault Remove="wwwroot\App_Plugins\ExternalLoginProviders\vite.svg" />
-  </ItemGroup>
 </Project>

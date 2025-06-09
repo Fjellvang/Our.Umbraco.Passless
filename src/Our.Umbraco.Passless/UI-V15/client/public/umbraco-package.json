@@ -8,7 +8,7 @@
       "alias": "Our.Umbraco.PasslessLogin",
       "name": "PasslessLogin",
       "forProviderName": "Umbraco.PasslessLogin",
-      "element": "/App_Plugins/ExternalLoginProviders/client.js",
+      "element": "/App_Plugins/Our.Umbraco.Passless/client.js",
       "elementName": "passless-login-view",
       "meta": {
         "label": "PasslessLogin",
@@ -27,7 +27,7 @@
       "type": "userProfileApp",
       "alias": "Our.Umbraco.PasskeysManager",
       "name": "PasskeysManager",
-      "element": "/App_Plugins/ExternalLoginProviders/client.js",
+      "element": "/App_Plugins/Our.Umbraco.Passless/client.js",
       "elementName": "passkeys-manager",
       "meta": {
         "label": "Manage Passkeys",
@@ -41,7 +41,7 @@
       "meta": {
         "culture": "en"
       },
-      "js": "/App_Plugins/ExternalLoginProviders/Localization/en.js"
+      "js": "/App_Plugins/Our.Umbraco.Passless/Localization/en.js"
     },
     {
       "type": "localization",
@@ -50,7 +50,7 @@
       "meta": {
         "culture": "dk"
       },
-      "js": "/App_Plugins/ExternalLoginProviders/Localization/dk.js"
+      "js": "/App_Plugins/Our.Umbraco.Passless/Localization/dk.js"
     }
   ]
 }
