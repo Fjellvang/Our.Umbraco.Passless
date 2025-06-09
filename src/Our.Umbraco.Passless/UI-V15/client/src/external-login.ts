@@ -11,15 +11,17 @@ import passkeyIconUrl from './assets/FIDO-Passkey_Icon-White.svg';
 export default class PasslessLoginView extends LitElement {
   @property({ type: Object }) manifest: any;
   @property({ type: Function }) onSubmit!: (providerName: string) => void;
-  @state() userLoginState: string = '';
   @state() isLoading: boolean = false;
   @state() errorMessage: string = '';
+  @state() usePreviousAuthenticator: boolean = true;
+  @state() hasLocalCredentials: boolean = false;
 
   private authService: AuthService;
 
   constructor() {
     super();
     this.authService = new AuthService();
+    this.hasLocalCredentials = this.authService.hasLocalCredentials;
   }
 
   get displayName() {
@@ -30,29 +32,42 @@ export default class PasslessLoginView extends LitElement {
     try {
       this.isLoading = true;
       this.errorMessage = '';
-      this.userLoginState = 'Authenticating...';
       
-      await this.authService.handleSignInSubmit(true);
+      await this.authService.handleSignInSubmit(this.usePreviousAuthenticator);
       // HacK: We call the default onSubmit method, since the backoffice controller signed us in.
       this.onSubmit('Umbraco');
       // If we reach this point, authentication was successful
       // The auth service will handle the redirect
-      this.userLoginState = 'Authentication successful!';
     } catch (error) {
       console.error('Passless login failed:', error);
       this.errorMessage = error instanceof Error ? error.message : 'Authentication failed';
-      this.userLoginState = 'Authentication failed';
     } finally {
       this.isLoading = false;
     }
+  }
+
+  private handleCheckboxChange(e: Event) {
+    const target = e.target as HTMLInputElement;
+    this.usePreviousAuthenticator = target.checked;
   }
 
   render() {
     return html`
         <h3>Passless Authentication</h3>
         <p>Sign in to Umbraco using your passkey or security key.</p>
-        ${this.userLoginState ? html`<p>Status: ${this.userLoginState}</p>` : ''}
-        ${this.errorMessage ? html`<p style="color: red;">Error: ${this.errorMessage}</p>` : ''}
+        
+        ${this.errorMessage ? html`<p class="error-message">Error: ${this.errorMessage}</p>` : ''}
+        
+        ${this.hasLocalCredentials ? html`
+          <div class="checkbox-container">
+            <uui-checkbox
+              .checked=${this.usePreviousAuthenticator}
+              @change=${this.handleCheckboxChange}>
+              Use previously used authenticator
+            </uui-checkbox>
+          </div>
+        ` : ''}
+        
         <uui-button 
           type="button" 
           id="button" 
@@ -74,9 +89,13 @@ export default class PasslessLoginView extends LitElement {
     #button {
       width: 100%;
     }
-    p[style*="color: red"] {
+    .error-message {
       margin: 8px 0;
       font-size: 14px;
+      color: red;
+    }
+    .checkbox-container {
+      margin: 16px 0;
     }
   `;
 }

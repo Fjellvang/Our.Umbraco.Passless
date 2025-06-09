@@ -13,6 +13,11 @@ export class AuthService {
         this.forgotCredentialsEndpoint = '/umbraco/backoffice/passless/forgotcredentials';
     }
 
+    public get hasLocalCredentials(): boolean {
+        const lastCredentials = localStorage.getItem(Constants.lastCredentialsIdentifier);
+        return !!lastCredentials;
+    }
+
     public async handleSignInSubmit(useLastCredentials: boolean = true): Promise<void> {
         try {
             const lastCredentials = localStorage.getItem(Constants.lastCredentialsIdentifier);
@@ -125,10 +130,9 @@ export class AuthService {
 
             const assertionResponse: AssertionResponse = await serverResponse.json();
             
-            // Store credential ID for future use if it's not a passkey
-            if (assertionResponse.isPasskey === false) {
-                localStorage.setItem(Constants.lastCredentialsIdentifier, assertionResponse.credentialId);
-            }
+            // Store credential ID for future use 
+            // NB: at one point we checked if assertionResponse.IsPasskey, but it caused some providers to not be saved. Removed for now.
+            localStorage.setItem(Constants.lastCredentialsIdentifier, assertionResponse.credentialId);
 
             // Redirect to the success URL
             // window.location.href = assertionResponse.redirectUrl;
