@@ -1264,7 +1264,7 @@ let K = class extends x {
         
         <passkeys-overlay 
           .open=${this.overlayOpen}
-          .onClose=${this.handleOverlayClose}>
+          .onClose=${() => this.handleOverlayClose()}>
         </passkeys-overlay>
       </div>
     `;

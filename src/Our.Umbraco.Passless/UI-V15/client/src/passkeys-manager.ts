@@ -33,7 +33,7 @@ export default class PasskeysManager extends LitElement {
         
         <passkeys-overlay 
           .open=${this.overlayOpen}
-          .onClose=${this.handleOverlayClose}>
+          .onClose=${() => this.handleOverlayClose()}>
         </passkeys-overlay>
       </div>
     `;
