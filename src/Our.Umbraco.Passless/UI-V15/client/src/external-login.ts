@@ -53,17 +53,17 @@ export default class PasslessLoginView extends LitElement {
 
   render() {
     return html`
-        <h3><umb-localize key="Passless_LoginHeader" debug="true"></umb-localize></h3>
-        <p>Sign in to Umbraco using your passkey or security key.</p>
+        <h3><umb-localize key="Passless_LoginHeader"></umb-localize></h3>
+        <p><umb-localize key="Passless_LoginDescription"></umb-localize></p>
         
-        ${this.errorMessage ? html`<p class="error-message">Error: ${this.errorMessage}</p>` : ''}
+        ${this.errorMessage ? html`<p class="error-message"><umb-localize key="Passless_ErrorPrefix"></umb-localize> ${this.errorMessage}</p>` : ''}
         
         ${this.hasLocalCredentials ? html`
           <div class="checkbox-container">
             <uui-checkbox
               .checked=${this.usePreviousAuthenticator}
               @change=${this.handleCheckboxChange}>
-              Use previously used authenticator
+              <umb-localize key="Passless_UsePreviousAuthenticator"></umb-localize>
             </uui-checkbox>
           </div>
         ` : ''}
@@ -76,7 +76,7 @@ export default class PasslessLoginView extends LitElement {
           ?disabled=${this.isLoading}
           @click=${this.handlePasslessLogin}>
           <img src="${passkeyIconUrl}" alt="Passkey" style="width: 16px; height: 16px;">
-          ${this.isLoading ? 'Authenticating...' : this.displayName}
+          ${this.isLoading ? html`<umb-localize key="Passless_Authenticating"></umb-localize>` : this.displayName}
         </uui-button>
     `;
   }

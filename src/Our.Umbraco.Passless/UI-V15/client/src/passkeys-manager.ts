@@ -28,7 +28,7 @@ export default class PasskeysManager extends LitElement {
           label="Manage Passkeys"
           @click=${this.handlePasskeysClick}>
           <img src="${passkeyIconUrl}" alt="Passkey" style="width: 16px; height: 16px;">
-          Manage Passkeys
+          <umb-localize key="Passless_ManagePasskeys"></umb-localize>
         </uui-button>
         
         <passkeys-overlay 

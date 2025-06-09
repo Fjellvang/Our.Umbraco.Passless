@@ -42,6 +42,15 @@
         "culture": "en"
       },
       "js": "/App_Plugins/ExternalLoginProviders/Localization/en.js"
+    },
+    {
+      "type": "localization",
+      "alias": "Our.Umbraco.PasslessLogin.Localize.DaDK",
+      "name": "Danish",
+      "meta": {
+        "culture": "dk"
+      },
+      "js": "/App_Plugins/ExternalLoginProviders/Localization/dk.js"
     }
   ]
 }

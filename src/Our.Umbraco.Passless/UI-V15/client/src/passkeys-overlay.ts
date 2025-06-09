@@ -141,7 +141,7 @@ export default class PasskeysOverlay extends LitElement {
       <div class="overlay-backdrop" @click=${this.handleClose}>
         <div class="overlay-content" @click=${(e: Event) => e.stopPropagation()}>
           <div class="overlay-header">
-            <h2>Manage Passkeys</h2>
+            <h2><umb-localize key="Passless_OverlayTitle"></umb-localize></h2>
             <uui-button 
               type="button" 
               look="primary" 
@@ -155,12 +155,12 @@ export default class PasskeysOverlay extends LitElement {
             ${this.loading ? html`
               <div class="loading">
                 <uui-loader></uui-loader>
-                <p>Loading...</p>
+                <p><umb-localize key="Passless_Loading"></umb-localize></p>
               </div>
             ` : html`
               <div class="content">
-                <h3>Registrations</h3>
-                <p>Here you can manage your Passless Authenticators</p>
+                <h3><umb-localize key="Passless_RegistrationsTitle"></umb-localize></h3>
+                <p><umb-localize key="Passless_RegistrationsDescription"></umb-localize></p>
 
                 ${this.errorMessage ? html`
                   <div class="message error">${this.errorMessage}</div>
@@ -182,7 +182,7 @@ export default class PasskeysOverlay extends LitElement {
                         look="primary" 
                         color="danger"
                         @click=${() => this.deleteCredential(credential)}>
-                        Delete
+                        <umb-localize key="Passless_Delete"></umb-localize>
                       </uui-button>
                     </div>
                   `)}
@@ -192,7 +192,7 @@ export default class PasskeysOverlay extends LitElement {
                       type="button" 
                       look="primary" 
                       @click=${this.addNewCredentials}>
-                      Add Device
+                      <umb-localize key="Passless_AddDevice"></umb-localize>
                     </uui-button>
                   ` : ''}
 
@@ -211,7 +211,7 @@ export default class PasskeysOverlay extends LitElement {
                         look="primary" 
                         ?disabled=${this.loading}
                         @click=${this.submitRegisterPasslessForm}>
-                        ${this.loading ? 'Adding...' : 'Add'}
+                        ${this.loading ? html`<umb-localize key="Passless_Adding"></umb-localize>` : html`<umb-localize key="Passless_Add"></umb-localize>`}
                       </uui-button>
                     </div>
                   ` : ''}
@@ -225,7 +225,7 @@ export default class PasskeysOverlay extends LitElement {
               type="button" 
               look="secondary" 
               @click=${this.handleClose}>
-              Close
+              <umb-localize key="Passless_Close"></umb-localize>
             </uui-button>
           </div>
         </div>
