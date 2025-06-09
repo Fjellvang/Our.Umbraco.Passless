@@ -14,4 +14,5 @@ src/Our.Umbraco.Passless/UI/node_modules/
 src/Our.Umbraco.Passless/UI-V15/node_modules/
 
 /src/Our.Umbraco.Passless/dist
+/src/Our.Umbraco.Passless/wwroot/App_Plugins/
 *.user
