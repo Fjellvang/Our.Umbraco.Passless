@@ -3,6 +3,8 @@ using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Asp.Versioning;
 using Umbraco.Cms.Api.Management.Controllers;
 using Umbraco.Extensions;
@@ -74,6 +76,12 @@ public class CredentialsOptionsController : ManagementApiControllerBase
         // 4. Temporarily store options, session/in-memory cache/redis/db
         HttpContext.Session.SetString("fido2.attestationOptions", options.ToJson());
 
-        return new JsonResult(options);
+        // Use local JsonOptions, since the umbraco solution might have passed custom options
+        // which could cause our code to fail.
+        var jsonOptions = new JsonSerializerOptions {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        };
+        
+        return new JsonResult(options, jsonOptions);
     }
 }
