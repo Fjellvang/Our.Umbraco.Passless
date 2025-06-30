@@ -47,22 +47,8 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
         {
             try
             {
-                // Manually deserialize the request body to handle both System.Text.Json and Newtonsoft.Json
-                AuthenticatorAssertionRawResponse? clientResponse;
-                using (var reader = new StreamReader(Request.Body))
-                {
-                    var json = await reader.ReadToEndAsync(cancellationToken);
-                    
-                    try
-                    {
-                        clientResponse = JsonSerializer.Deserialize<AuthenticatorAssertionRawResponse>(json);
-                    }
-                    catch
-                    {
-                        return BadRequest("Invalid JSON format");
-                    }
-                }
-                
+                var clientResponse = await ParseBody(cancellationToken);
+
                 if (clientResponse == null)
                 {
                     return BadRequest("Client response is null");
@@ -79,9 +65,9 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
                 var publicKey = creds.PublicKey;
                 uint storedCounter = creds.SignatureCounter;
 
-                IsUserHandleOwnerOfCredentialIdAsync callback = async (args, cancellationToken) =>
+                IsUserHandleOwnerOfCredentialIdAsync callback = async (args, ct) =>
                 {
-                    var storedCreds = await credentialsService.GetCredentialsByUserIdAsync(args.UserHandle);
+                    var storedCreds = await credentialsService.GetCredentialsByUserIdAsync(args.UserHandle, ct);
                     return storedCreds.Select(x => x.Descriptor.Id).Any(c => c.SequenceEqual(args.CredentialId));
                 };
 
@@ -109,6 +95,29 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
             {
                 return Problem(ex.StackTrace, statusCode: (int)HttpStatusCode.InternalServerError, title: ex.Message);
             }
+        }
+
+        private async Task<AuthenticatorAssertionRawResponse?> ParseBody(CancellationToken cancellationToken)
+        {
+            string json;
+            // Manually deserialize the request body to handle both System.Text.Json and Newtonsoft.Json
+            AuthenticatorAssertionRawResponse? clientResponse;
+            using (var reader = new StreamReader(Request.Body))
+            {
+                json = await reader.ReadToEndAsync(cancellationToken);
+
+                try
+                {
+                    clientResponse = JsonSerializer.Deserialize<AuthenticatorAssertionRawResponse>(json);
+                }
+                catch
+                {
+                    // return BadRequest("Invalid JSON format");
+                    clientResponse = null;  
+                }
+            }
+
+            return clientResponse;
         }
     }
 }
