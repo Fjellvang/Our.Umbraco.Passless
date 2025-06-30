@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using Umbraco.Cms.Core.Security;
 using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Cms.Web.Common.Filters;
@@ -42,13 +43,33 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index([FromBody] AuthenticatorAssertionRawResponse clientResponse, CancellationToken cancellationToken)
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
             try
             {
+                // Manually deserialize the request body to handle both System.Text.Json and Newtonsoft.Json
+                AuthenticatorAssertionRawResponse? clientResponse;
+                using (var reader = new StreamReader(Request.Body))
+                {
+                    var json = await reader.ReadToEndAsync(cancellationToken);
+                    
+                    try
+                    {
+                        clientResponse = JsonSerializer.Deserialize<AuthenticatorAssertionRawResponse>(json);
+                    }
+                    catch
+                    {
+                        return BadRequest("Invalid JSON format");
+                    }
+                }
+                
+                if (clientResponse == null)
+                {
+                    return BadRequest("Client response is null");
+                }
                 // 1. Get the assertion options we sent the client TODO: Consider session alternatives? maybe make it configurable with default to session
-                var jsonOptions = HttpContext.Session.GetString("fido2.assertionOptions");
-                var options = AssertionOptions.FromJson(jsonOptions);
+                var assertionOptionsString = HttpContext.Session.GetString("fido2.assertionOptions");
+                var options = AssertionOptions.FromJson(assertionOptionsString);
 
                 var creds = await credentialsService.GetByDescriptorAsync(new PublicKeyCredentialDescriptor(clientResponse.Id), cancellationToken);
                 if (creds is null)

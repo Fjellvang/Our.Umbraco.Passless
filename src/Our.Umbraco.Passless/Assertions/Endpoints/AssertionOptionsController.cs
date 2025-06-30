@@ -1,4 +1,5 @@
-﻿using Fido2NetLib;
+﻿using System.Text.Json;
+using Fido2NetLib;
 using Fido2NetLib.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -47,8 +48,13 @@ namespace Our.Umbraco.Passless.Assertions.Endpoints
             // Temporarily store options, session/in-memory cache/redis/db
             HttpContext.Session.SetString("fido2.assertionOptions", options.ToJson());
 
+            // Use local JsonOptions, since the umbraco solution might have passed custom options
+            // which could cause our code to fail.
+            var jsonOptions = new JsonSerializerOptions {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            };
             //  Return options to client
-            return Json(options);
+            return Json(options, jsonOptions);
         }
     }
 }
