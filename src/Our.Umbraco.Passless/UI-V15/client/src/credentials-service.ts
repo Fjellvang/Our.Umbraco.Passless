@@ -92,11 +92,13 @@ export class CredentialsService {
             return c;
         });
 
+
         if (makeCredentialOptions.authenticatorSelection?.authenticatorAttachment === null) {
             makeCredentialOptions.authenticatorSelection.authenticatorAttachment = undefined;
         }
 
         try {
+            
             const newCredential = await navigator.credentials.create({
                 publicKey: makeCredentialOptions
             });
