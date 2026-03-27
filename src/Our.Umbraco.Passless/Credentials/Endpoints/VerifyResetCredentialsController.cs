@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Net;
-using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Hosting;
 using Umbraco.Cms.Core.Security;
 using Umbraco.Cms.Web.Common.Controllers;
@@ -25,14 +23,13 @@ public class VerifyResetCredentialsController : UmbracoApiController
     public VerifyResetCredentialsController(IBackOfficeSignInManager signInManager,
         IBackOfficeUserManager userManager,
         ILogger<VerifyResetCredentialsController> logger,
-        IOptionsMonitor<GlobalSettings> globalSettings,
         IHostingEnvironment hostingEnvironment
         )
     {
         this.signInManager = signInManager;
         this.userManager = userManager;
         this.logger = logger;
-        this.backofficeLandingPageUrl = globalSettings.CurrentValue.GetBackOfficePath(hostingEnvironment);
+        this.backofficeLandingPageUrl = hostingEnvironment.GetBackOfficePath();
     }
 
     // Logic copied from CMS Source - needs to be adapted

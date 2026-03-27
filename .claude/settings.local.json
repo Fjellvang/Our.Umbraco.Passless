@@ -4,7 +4,10 @@
       "Bash(find:*)",
       "WebFetch(domain:docs.umbraco.com)",
       "Bash(mkdir:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(dotnet build:*)",
+      "Bash(xargs grep:*)",
+      "Bash(dotnet tool:*)"
     ],
     "deny": []
   }
